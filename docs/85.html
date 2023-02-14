@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>你也许不知道的 JavaScript 高级函数 | 日常收集</title>
+    <meta name="generator" content="VuePress 1.9.8">
+    
+    <meta name="description" content="Just playing around">
+    
+    <link rel="preload" href="/book/assets/css/0.styles.37081601.css" as="style"><link rel="preload" href="/book/assets/js/app.804da1e4.js" as="script"><link rel="preload" href="/book/assets/js/3.1fbb3b52.js" as="script"><link rel="preload" href="/book/assets/js/175.884d96e8.js" as="script"><link rel="preload" href="/book/assets/js/7.d1a7bcae.js" as="script"><link rel="prefetch" href="/book/assets/js/10.e27bb285.js"><link rel="prefetch" href="/book/assets/js/100.7c4cbf68.js"><link rel="prefetch" href="/book/assets/js/101.1612ecbb.js"><link rel="prefetch" href="/book/assets/js/102.ba880d57.js"><link rel="prefetch" href="/book/assets/js/103.cac0fbae.js"><link rel="prefetch" href="/book/assets/js/104.9d188c90.js"><link rel="prefetch" href="/book/assets/js/105.e109705f.js"><link rel="prefetch" href="/book/assets/js/106.aceb0934.js"><link rel="prefetch" href="/book/assets/js/107.9fbc8b91.js"><link rel="prefetch" href="/book/assets/js/108.a5b73155.js"><link rel="prefetch" href="/book/assets/js/109.48c07495.js"><link rel="prefetch" href="/book/assets/js/11.94b2e1bf.js"><link rel="prefetch" href="/book/assets/js/110.7428c790.js"><link rel="prefetch" href="/book/assets/js/111.46516f4b.js"><link rel="prefetch" href="/book/assets/js/112.ddb4abf0.js"><link rel="prefetch" href="/book/assets/js/113.81123f81.js"><link rel="prefetch" href="/book/assets/js/114.a56ccd01.js"><link rel="prefetch" href="/book/assets/js/115.053d4072.js"><link rel="prefetch" href="/book/assets/js/116.4506c3f7.js"><link rel="prefetch" href="/book/assets/js/117.507ca32a.js"><link rel="prefetch" href="/book/assets/js/118.bd181d86.js"><link rel="prefetch" href="/book/assets/js/119.974e80ce.js"><link rel="prefetch" href="/book/assets/js/12.5eab4ac2.js"><link rel="prefetch" href="/book/assets/js/120.54f7d9be.js"><link rel="prefetch" href="/book/assets/js/121.35cc97de.js"><link rel="prefetch" href="/book/assets/js/122.13d2dc7d.js"><link rel="prefetch" href="/book/assets/js/123.51dce1f7.js"><link rel="prefetch" href="/book/assets/js/124.751c5172.js"><link rel="prefetch" href="/book/assets/js/125.c4d91e9a.js"><link rel="prefetch" href="/book/assets/js/126.7eff814b.js"><link rel="prefetch" href="/book/assets/js/127.9debe37d.js"><link rel="prefetch" href="/book/assets/js/128.2794a994.js"><link rel="prefetch" href="/book/assets/js/129.d327f457.js"><link rel="prefetch" href="/book/assets/js/13.de4c73d5.js"><link rel="prefetch" href="/book/assets/js/130.7d4ead49.js"><link rel="prefetch" href="/book/assets/js/131.6c9d0d43.js"><link rel="prefetch" href="/book/assets/js/132.21c9cb07.js"><link rel="prefetch" href="/book/assets/js/133.d7764fd9.js"><link rel="prefetch" href="/book/assets/js/134.d04e49c1.js"><link rel="prefetch" href="/book/assets/js/135.91eaaee3.js"><link rel="prefetch" href="/book/assets/js/136.03ccfb44.js"><link rel="prefetch" href="/book/assets/js/137.9e340131.js"><link rel="prefetch" href="/book/assets/js/138.1c6752b3.js"><link rel="prefetch" href="/book/assets/js/139.37376c38.js"><link rel="prefetch" href="/book/assets/js/14.9b3845bf.js"><link rel="prefetch" href="/book/assets/js/140.25c29da1.js"><link rel="prefetch" href="/book/assets/js/141.8a35f5a7.js"><link rel="prefetch" href="/book/assets/js/142.48131e30.js"><link rel="prefetch" href="/book/assets/js/143.14f574a1.js"><link rel="prefetch" href="/book/assets/js/144.0102e4ec.js"><link rel="prefetch" href="/book/assets/js/145.d6412996.js"><link rel="prefetch" href="/book/assets/js/146.90cde601.js"><link rel="prefetch" href="/book/assets/js/147.fdaaa5bd.js"><link rel="prefetch" href="/book/assets/js/148.aa955df3.js"><link rel="prefetch" href="/book/assets/js/149.b0d8a883.js"><link rel="prefetch" href="/book/assets/js/15.d825d745.js"><link rel="prefetch" href="/book/assets/js/150.0177f1cc.js"><link rel="prefetch" href="/book/assets/js/151.9d6235e8.js"><link rel="prefetch" href="/book/assets/js/152.92a5ab00.js"><link rel="prefetch" href="/book/assets/js/153.e42af2d8.js"><link rel="prefetch" href="/book/assets/js/154.3f4d7c28.js"><link rel="prefetch" href="/book/assets/js/155.77cab610.js"><link rel="prefetch" href="/book/assets/js/156.5c2480d9.js"><link rel="prefetch" href="/book/assets/js/157.d51553c1.js"><link rel="prefetch" href="/book/assets/js/158.0d47d544.js"><link rel="prefetch" href="/book/assets/js/159.4a1246ac.js"><link rel="prefetch" href="/book/assets/js/16.5cdf2da0.js"><link rel="prefetch" href="/book/assets/js/160.1745ff9c.js"><link rel="prefetch" href="/book/assets/js/161.97b0c488.js"><link rel="prefetch" href="/book/assets/js/162.baf0ebc8.js"><link rel="prefetch" href="/book/assets/js/163.40579f9a.js"><link rel="prefetch" href="/book/assets/js/164.d6fb26ee.js"><link rel="prefetch" href="/book/assets/js/165.1380be9d.js"><link rel="prefetch" href="/book/assets/js/166.c423b024.js"><link rel="prefetch" href="/book/assets/js/167.eefbbbeb.js"><link rel="prefetch" href="/book/assets/js/168.55b5fb25.js"><link rel="prefetch" href="/book/assets/js/169.8decd6b3.js"><link rel="prefetch" href="/book/assets/js/17.dd67b656.js"><link rel="prefetch" href="/book/assets/js/170.27cef392.js"><link rel="prefetch" href="/book/assets/js/171.bf7ff78c.js"><link rel="prefetch" href="/book/assets/js/172.7f084227.js"><link rel="prefetch" href="/book/assets/js/173.67ce65de.js"><link rel="prefetch" href="/book/assets/js/174.c2f3ff63.js"><link rel="prefetch" href="/book/assets/js/176.a06e25bd.js"><link rel="prefetch" href="/book/assets/js/177.bc1364e1.js"><link rel="prefetch" href="/book/assets/js/178.3ef9c452.js"><link rel="prefetch" href="/book/assets/js/179.65785d35.js"><link rel="prefetch" href="/book/assets/js/18.a14b8cf1.js"><link rel="prefetch" href="/book/assets/js/180.25153283.js"><link rel="prefetch" href="/book/assets/js/181.265fb2df.js"><link rel="prefetch" href="/book/assets/js/19.3220443d.js"><link rel="prefetch" href="/book/assets/js/20.7f857d8f.js"><link rel="prefetch" href="/book/assets/js/21.9ba5653b.js"><link rel="prefetch" href="/book/assets/js/22.405d8bae.js"><link rel="prefetch" href="/book/assets/js/23.1fd51f28.js"><link rel="prefetch" href="/book/assets/js/24.68001b79.js"><link rel="prefetch" href="/book/assets/js/25.2bfdab0a.js"><link rel="prefetch" href="/book/assets/js/26.41c53fff.js"><link rel="prefetch" href="/book/assets/js/27.084d452c.js"><link rel="prefetch" href="/book/assets/js/28.f099ec1a.js"><link rel="prefetch" href="/book/assets/js/29.4a665d0e.js"><link rel="prefetch" href="/book/assets/js/30.38269247.js"><link rel="prefetch" href="/book/assets/js/31.3d1abd16.js"><link rel="prefetch" href="/book/assets/js/32.dba76885.js"><link rel="prefetch" href="/book/assets/js/33.6f14593a.js"><link rel="prefetch" href="/book/assets/js/34.1fe76271.js"><link rel="prefetch" href="/book/assets/js/35.eace5b32.js"><link rel="prefetch" href="/book/assets/js/36.e6aabe95.js"><link rel="prefetch" href="/book/assets/js/37.5808e643.js"><link rel="prefetch" href="/book/assets/js/38.f97ffa95.js"><link rel="prefetch" href="/book/assets/js/39.5348a4f8.js"><link rel="prefetch" href="/book/assets/js/4.8b638307.js"><link rel="prefetch" href="/book/assets/js/40.e83470d2.js"><link rel="prefetch" href="/book/assets/js/41.e38a531e.js"><link rel="prefetch" href="/book/assets/js/42.d454a629.js"><link rel="prefetch" href="/book/assets/js/43.e71bbc53.js"><link rel="prefetch" href="/book/assets/js/44.e697f1c9.js"><link rel="prefetch" href="/book/assets/js/45.3c178858.js"><link rel="prefetch" href="/book/assets/js/46.8b84c4d4.js"><link rel="prefetch" href="/book/assets/js/47.00ed42af.js"><link rel="prefetch" href="/book/assets/js/48.c547d36b.js"><link rel="prefetch" href="/book/assets/js/49.a94e51ed.js"><link rel="prefetch" href="/book/assets/js/5.fe8df24d.js"><link rel="prefetch" href="/book/assets/js/50.45bf85ae.js"><link rel="prefetch" href="/book/assets/js/51.521febf2.js"><link rel="prefetch" href="/book/assets/js/52.4019ba2d.js"><link rel="prefetch" href="/book/assets/js/53.dd909c02.js"><link rel="prefetch" href="/book/assets/js/54.1b49b742.js"><link rel="prefetch" href="/book/assets/js/55.781976de.js"><link rel="prefetch" href="/book/assets/js/56.8be125a9.js"><link rel="prefetch" href="/book/assets/js/57.973113d5.js"><link rel="prefetch" href="/book/assets/js/58.772e8a37.js"><link rel="prefetch" href="/book/assets/js/59.62e17687.js"><link rel="prefetch" href="/book/assets/js/6.b8457bdc.js"><link rel="prefetch" href="/book/assets/js/60.fc8a1294.js"><link rel="prefetch" href="/book/assets/js/61.3bf23727.js"><link rel="prefetch" href="/book/assets/js/62.9f83a452.js"><link rel="prefetch" href="/book/assets/js/63.f0cf5d00.js"><link rel="prefetch" href="/book/assets/js/64.188253fd.js"><link rel="prefetch" href="/book/assets/js/65.11ff922f.js"><link rel="prefetch" href="/book/assets/js/66.f68b57b1.js"><link rel="prefetch" href="/book/assets/js/67.67f61cd7.js"><link rel="prefetch" href="/book/assets/js/68.b32f5e8c.js"><link rel="prefetch" href="/book/assets/js/69.c37ffa0c.js"><link rel="prefetch" href="/book/assets/js/70.2ab77931.js"><link rel="prefetch" href="/book/assets/js/71.46e0b7dd.js"><link rel="prefetch" href="/book/assets/js/72.dbdac20b.js"><link rel="prefetch" href="/book/assets/js/73.9fc0cabd.js"><link rel="prefetch" href="/book/assets/js/74.490b6889.js"><link rel="prefetch" href="/book/assets/js/75.df981cea.js"><link rel="prefetch" href="/book/assets/js/76.7957243e.js"><link rel="prefetch" href="/book/assets/js/77.f6664887.js"><link rel="prefetch" href="/book/assets/js/78.f8cd2041.js"><link rel="prefetch" href="/book/assets/js/79.51c7ff17.js"><link rel="prefetch" href="/book/assets/js/8.fcfda84a.js"><link rel="prefetch" href="/book/assets/js/80.8f79e5db.js"><link rel="prefetch" href="/book/assets/js/81.be9d7406.js"><link rel="prefetch" href="/book/assets/js/82.5c65fe44.js"><link rel="prefetch" href="/book/assets/js/83.753dadb6.js"><link rel="prefetch" href="/book/assets/js/84.e8ba21d0.js"><link rel="prefetch" href="/book/assets/js/85.ce4a60f2.js"><link rel="prefetch" href="/book/assets/js/86.a44019ac.js"><link rel="prefetch" href="/book/assets/js/87.272f4380.js"><link rel="prefetch" href="/book/assets/js/88.aeaf3f6f.js"><link rel="prefetch" href="/book/assets/js/89.da73e578.js"><link rel="prefetch" href="/book/assets/js/9.539bb88c.js"><link rel="prefetch" href="/book/assets/js/90.b492b3ef.js"><link rel="prefetch" href="/book/assets/js/91.15f180d5.js"><link rel="prefetch" href="/book/assets/js/92.2f7fb5cd.js"><link rel="prefetch" href="/book/assets/js/93.256eda08.js"><link rel="prefetch" href="/book/assets/js/94.20cf62c4.js"><link rel="prefetch" href="/book/assets/js/95.ff052794.js"><link rel="prefetch" href="/book/assets/js/96.e8501225.js"><link rel="prefetch" href="/book/assets/js/97.93da6d3a.js"><link rel="prefetch" href="/book/assets/js/98.71c2d6f6.js"><link rel="prefetch" href="/book/assets/js/99.25f4671a.js"><link rel="prefetch" href="/book/assets/js/vendors~docsearch.3644c41e.js">
+    <link rel="stylesheet" href="/book/assets/css/0.styles.37081601.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/book/" class="home-link router-link-active"><!----> <span class="site-name">日常收集</span></a> <div class="links"><form id="search-form" role="search" class="algolia-search-wrapper search-box"><input id="algolia-search-input" class="search-query"></form> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>dom的事件</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>Javascript</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/book/338.html" class="sidebar-link"> JS异步编程——WebWorker多线程机制</a></li><li><a href="/book/337.html" class="sidebar-link">js</a></li><li><a href="/book/336.html" class="sidebar-link"> [核心概念] 一文说透JS中的原型和继承(上)</a></li><li><a href="/book/335.html" class="sidebar-link"> [关联概念] 一文说透 JS 中的变量提升</a></li><li><a href="/book/334.html" class="sidebar-link"> [核心概念] 一文说透浏览器环境下的JS运行机制</a></li><li><a href="/book/333.html" class="sidebar-link"> [核心概念] 一文说透JS中的函数柯里化(Currying)</a></li><li><a href="/book/332.html" class="sidebar-link"> [核心概念] 一文说透 JS 中 this 的基本概念</a></li><li><a href="/book/331.html" class="sidebar-link"> [核心概念] 一文说透 JS 的作用域（scope）</a></li><li><a href="/book/330.html" class="sidebar-link"> [核心概念] 一文说透 JS 中的闭包（closure）</a></li><li><a href="/book/329.html" class="sidebar-link"> [核心概念] 一文说透 JS 中的执行上下文</a></li><li><a href="/book/268.html" class="sidebar-link"> 「硬核JS」你真的了解垃圾回收机制吗</a></li><li><a href="/book/262.html" class="sidebar-link"> 「硬核JS」你的程序中可能存在内存泄漏</a></li><li><a href="/book/229.html" class="sidebar-link"> 聊聊JS的二进制家族：Blob、ArrayBuffer和Buffer</a></li><li><a href="/book/226.html" class="sidebar-link"> `Object.defineProperty()详解`</a></li><li><a href="/book/180.html" class="sidebar-link">yield是什么</a></li><li><a href="/book/175.html" class="sidebar-link">HTTP请求中，几种常见的Content-Type类型</a></li><li><a href="/book/172.html" class="sidebar-link"> js 给元素添加、删除父标签</a></li><li><a href="/book/171.html" class="sidebar-link"> 多个promise实现</a></li><li><a href="/book/131.html" class="sidebar-link"> Object.defineProperty和Object.defineProperties()</a></li><li><a href="/book/126.html" class="sidebar-link"> scrollHeight,scrollLeft,offsetHeight,offsetLeft</a></li><li><a href="/book/118.html" class="sidebar-link"> 怎样让 forEach 停下来呢；**try catch**</a></li><li><a href="/book/105.html" class="sidebar-link">div拖动的实现</a></li><li><a href="/book/93.html" class="sidebar-link">JavaScript对象之深拷贝和浅拷贝</a></li><li><a href="/book/92.html" class="sidebar-link">base64。js</a></li><li><a href="/book/85.html" aria-current="page" class="active sidebar-link">你也许不知道的JavaScript高级函数</a></li><li><a href="/book/78.html" class="sidebar-link">ESmodules:Acartoondeep-dive</a></li><li><a href="/book/73.html" class="sidebar-link">setTimeout和setImmediate到底谁先执行，本文让你彻底理解EventLoop</a></li><li><a href="/book/71.html" class="sidebar-link">一种对开发更友好的前端骨架屏自动生成方案</a></li><li><a href="/book/68.html" class="sidebar-link">深入理解ESModules(手绘示例)</a></li><li><a href="/book/48.html" class="sidebar-link">系统学习前端之FormData详解</a></li><li><a href="/book/47.html" class="sidebar-link">使用FormData上传文件</a></li><li><a href="/book/46.html" class="sidebar-link">数组排序方法</a></li><li><a href="/book/43.html" class="sidebar-link">利于FileReader实现二进制数据流转JSON</a></li><li><a href="/book/28.html" class="sidebar-link">reduce过滤数组中重复对象</a></li><li><a href="/book/27.html" class="sidebar-link">常用文件类型对应</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>element-ui</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/31.html" class="sidebar-link"> 知识库管理系统开发 log记录</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Qcanvas</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>vue</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>大屏</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/328.html" class="sidebar-link"> 从哲学层面浅谈计算机学习方法论</a></li><li><a href="/book/324.html" class="sidebar-link"> 微信游览器，解决安卓和ios自动播放音乐</a></li><li><a href="/book/323.html" class="sidebar-link"> CSS3 animation属性中的steps功能符深入介绍</a></li><li><a href="/book/322.html" class="sidebar-link"> 前端搞工程化：从零打造性能检测库「源码 + 视频」</a></li><li><a href="/book/321.html" class="sidebar-link"> 还在看那些老掉牙的性能优化文章么？这些最新性能指标了解下</a></li><li><a href="/book/320.html" class="sidebar-link"> Nginx根据User Agent动态配置root目录适配移动端</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>可视化大屏</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/307.html" class="sidebar-link"> cat文档内容中搜索字符串输出到文件</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>node</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/301.html" class="sidebar-link">从App store下载App的不同版本ipa文件----很多东西也不是越新越好，比如APP——在 iPhone 上尤其如此</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>工作总结</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/294.html" class="sidebar-link">迟子建老师的《一坛猪油》</a></li><li><a href="/book/289.html" class="sidebar-link">ata-rawheight=&amp;quot;143&amp;quot;class=&amp;quot;content_image&amp;quot;width=&amp;quot;322&amp;quot;/&amp;gt;![](/Public/upload/20211027/16353179551.jpg)温馨提示：内容较长，需耐心观看</a></li><li><a href="/book/288.html" class="sidebar-link">文本文档的协同编辑实现</a></li><li><a href="/book/287.html" class="sidebar-link">再见，整洁代码</a></li><li><a href="/book/286.html" class="sidebar-link"> 可以在 Nginx 中运行 JavaScript，厉害了！</a></li><li><a href="/book/284.html" class="sidebar-link"> word中批量调整图片大小</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>成考学习</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>electron打包的一些问题</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/274.html" class="sidebar-link"> 文件分片代码</a></li><li><a href="/book/273.html" class="sidebar-link"> 重学 JS：为啥 await 不能用在 forEach 中详解</a></li><li><a href="/book/269.html" class="sidebar-link"> Excel函数之王，Vlookup到底怎么用？</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>mysql</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/263.html" class="sidebar-link"> 文档标题</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>批处理</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/248.html" class="sidebar-link"> 《提问的智慧》精读注解版</a></li><li><a href="/book/247.html" class="sidebar-link"> 1368个单词</a></li><li><a href="/book/199.html" class="sidebar-link"> js监听div的resize事件</a></li><li><a href="/book/198.html" class="sidebar-link"> 引入第三方字体体积太大的问题</a></li><li><a href="/book/195.html" class="sidebar-link"> 多行溢出省略号显示（css/js）实现！</a></li><li><a href="/book/190.html" class="sidebar-link">今天带大家一起来看看下，如何实现“划词高亮”功能。</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>极简中国史趣味笔记</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>拓扑图</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Css</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>算法</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Canvas</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>工作中解决的疑难问题</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Git</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>nginx</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>小程序</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/146.html" class="sidebar-link"> 文档标题</a></li><li><a href="/book/140.html" class="sidebar-link">gdfdgf</a></li><li><a href="/book/137.html" class="sidebar-link">测试</a></li><li><a href="/book/135.html" class="sidebar-link"> 深夜，我偷听到程序员要对session下手</a></li><li><a href="/book/132.html" class="sidebar-link"> 读 《深入浅出webpack》</a></li><li><a href="/book/117.html" class="sidebar-link">双兔傍地走，安能辨我forEach还是for</a></li><li><a href="/book/115.html" class="sidebar-link"> 文档标题</a></li><li><a href="/book/103.html" class="sidebar-link"> 一道被人轻视的前端面试题</a></li><li><a href="/book/101.html" class="sidebar-link">部分前端面试题参考答案</a></li><li><a href="/book/80.html" class="sidebar-link">SVGDeveloper制作矢量地图教程详解</a></li><li><a href="/book/76.html" class="sidebar-link">VisualStudio2010创建的WCF（.dll）服务第一个应用</a></li><li><a href="/book/70.html" class="sidebar-link"> 测试</a></li><li><a href="/book/41.html" class="sidebar-link">为了开发做测试用</a></li><li><a href="/book/40.html" class="sidebar-link"> 文档标题</a></li><li><a href="/book/38.html" class="sidebar-link">文档标题</a></li><li><a href="/book/33.html" class="sidebar-link">文档标题</a></li><li><a href="/book/32.html" class="sidebar-link">测试锚点问题</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="你也许不知道的-javascript-高级函数"><a href="#你也许不知道的-javascript-高级函数" class="header-anchor">#</a> 你也许不知道的 JavaScript 高级函数</h1> <h2 id="前言"><a href="#前言" class="header-anchor">#</a> 前言</h2> <p>高阶函数是对其他函数进行操作的函数，可以将它们作为参数或通过返回它们。简单来说，高阶函数是一个函数，它接收函数作为参数或将函数作为输出返回。</p> <p>例如 <code>Array.prototype.map</code>，<code>Array.prototype.filter</code>，<code>Array.prototype.reduce</code> 都是一些高阶函数。</p> <h2 id="尾调用和尾递归"><a href="#尾调用和尾递归" class="header-anchor">#</a> 尾调用和尾递归</h2> <p>尾调用（Tail Call）是函数式编程的一个重要概念，本身非常简单，一句话就能说清楚。就是指某个函数的最后一步是调用另一个函数。</p> <div class="language- extra-class"><pre class="language-text"><code>function g(x) {
+  console.log(x)
+}
+function f(x) {
+  return g(x)
+}
+console.log(f(1))
+//上面代码中，函数f的最后一步是调用函数g，这就是尾调用。
+复制代码
+</code></pre></div><p>上面代码中，函数 f 的最后一步是调用函数 g，这就是尾调用。尾调用不一定出现在函数尾部，只要是最后一步操作即可。</p> <p>函数调用自身，称为递归。如果尾调用自身，就称为尾递归。递归非常耗费内存，因为需要同时保存成千上百个调用帧，很容易发生栈溢出错误。但是队伍尾递归来说，由于只存在一个调用帧，所以永远不会发生栈溢出错误。</p> <div class="language- extra-class"><pre class="language-text"><code>function factorial(n) {
+  if (n === 1) {
+    return 1
+  }
+  return n * factorial(n - 1)
+}
+复制代码
+</code></pre></div><p>上面代码是一个阶乘函数，计算 n 的阶乘，最多需要保存 n 个调用数据，复杂度为 O（n），如果改写成尾调用，只保留一个调用记录，复杂度为 O（1）。</p> <div class="language- extra-class"><pre class="language-text"><code>function factor(n, total) {
+  if (n === 1) {
+    return total
+  }
+  return factor(n - 1, n * total)
+}
+复制代码
+</code></pre></div><p>斐波拉切数列也是可以用于尾调用。</p> <div class="language- extra-class"><pre class="language-text"><code>function Fibonacci(n) {
+  if (n &lt;= 1) {
+    return 1
+  }
+  return Fibonacci(n - 1) + Fibonacci(n - 2)
+}
+//尾递归
+function Fibona(n, ac1 = 1, ac2 = 1) {
+  if (n &lt;= 1) {
+    return ac2
+  }
+  return Fibona(n - 1, ac2, ac1 + ac2)
+}
+复制代码
+</code></pre></div><h2 id="柯理化函数"><a href="#柯理化函数" class="header-anchor">#</a> 柯理化函数</h2> <p>在数学和计算机科学中，柯里化是一种将使用多个参数的一个函数转换成一系列使用一个参数的函数的技术。<strong>所谓柯里化就是把具有较多参数的函数转换成具有较少参数的函数的过程。</strong>
+举个例子</p> <div class="language- extra-class"><pre class="language-text"><code>//普通函数
+function fn(a, b, c, d, e) {
+  console.log(a, b, c, d, e)
+}
+//生成的柯里化函数
+let _fn = curry(fn)
+
+_fn(1, 2, 3, 4, 5) // print: 1,2,3,4,5
+_fn(1)(2)(3, 4, 5) // print: 1,2,3,4,5
+_fn(1, 2)(3, 4)(5) // print: 1,2,3,4,5
+_fn(1)(2)(3)(4)(5) // print: 1,2,3,4,5
+复制代码
+</code></pre></div><p>柯理化函数的实现</p> <div class="language- extra-class"><pre class="language-text"><code>// 对求和函数做curry化
+let f1 = curry(add, 1, 2, 3)
+console.log('复杂版', f1()) // 6
+
+// 对求和函数做curry化
+let f2 = curry(add, 1, 2)
+console.log('复杂版', f2(3)) // 6
+
+// 对求和函数做curry化
+let f3 = curry(add)
+console.log('复杂版', f3(1, 2, 3)) // 6
+
+// 复杂版curry函数可以多次调用，如下：
+console.log('复杂版', f3(1)(2)(3)) // 6
+console.log('复杂版', f3(1, 2)(3)) // 6
+console.log('复杂版', f3(1)(2, 3)) // 6
+
+// 复杂版(每次可传入不定数量的参数，当所传参数总数不少于函数的形参总数时，才会执行)
+function curry(fn) {
+  // 闭包
+  // 缓存除函数fn之外的所有参数
+  let args = Array.prototype.slice.call(arguments, 1)
+  return function() {
+    // 连接已缓存的老的参数和新传入的参数(即把每次传入的参数全部先保存下来，但是并不执行)
+    let newArgs = args.concat(Array.from(arguments))
+    if (newArgs.length &lt; fn.length) {
+      // 累积的参数总数少于fn形参总数
+      // 递归传入fn和已累积的参数
+      return curry.call(this, fn, ...newArgs)
+    } else {
+      // 调用
+      return fn.apply(this, newArgs)
+    }
+  }
+}
+复制代码
+</code></pre></div><h3 id="柯里化的用途"><a href="#柯里化的用途" class="header-anchor">#</a> 柯里化的用途</h3> <p>柯里化实际是把简答的问题复杂化了，但是复杂化的同时，我们在使用函数时拥有了更加多的自由度。 而这里对于函数参数的自由处理，正是柯里化的核心所在。 柯里化本质上是降低通用性，提高适用性。来看一个例子：</p> <p>我们工作中会遇到各种需要通过正则检验的需求，比如校验电话号码、校验邮箱、校验身份证号、校验密码等， 这时我们会封装一个通用函数 checkByRegExp ,接收两个参数，校验的正则对象和待校验的字符串</p> <div class="language- extra-class"><pre class="language-text"><code>function checkByRegExp(regExp, string) {
+  return regExp.text(string)
+}
+
+checkByRegExp(/^1d{10}$/, '18642838455') // 校验电话号码
+checkByRegExp(/^(w)+(.w+)*@(w)+((.w+)+)$/, 'test@163.com') // 校验邮箱
+复制代码
+</code></pre></div><p>我们每次进行校验的时候都需要输入一串正则，再校验同一类型的数据时，相同的正则我们需要写多次， 这就导致我们在使用的时候效率低下，并且由于 checkByRegExp 函数本身是一个工具函数并没有任何意义。此时，我们可以借助柯里化对 checkByRegExp 函数进行封装，以简化代码书写，提高代码可读性。</p> <div class="language- extra-class"><pre class="language-text"><code>//进行柯里化
+let _check = curry(checkByRegExp)
+//生成工具函数，验证电话号码
+let checkCellPhone = _check(/^1d{10}$/)
+//生成工具函数，验证邮箱
+let checkEmail = _check(/^(w)+(.w+)*@(w)+((.w+)+)$/)
+
+checkCellPhone('18642838455') // 校验电话号码
+checkCellPhone('13109840560') // 校验电话号码
+checkCellPhone('13204061212') // 校验电话号码
+
+checkEmail('test@163.com') // 校验邮箱
+checkEmail('test@qq.com') // 校验邮箱
+checkEmail('test@gmail.com') // 校验邮箱
+复制代码
+</code></pre></div><h3 id="柯里化函数参数-length"><a href="#柯里化函数参数-length" class="header-anchor">#</a> 柯里化函数参数 length</h3> <p>函数 currying 的实现中，使用了 fn.length 来表示函数参数的个数，那 fn.length 表示函数的所有参数个数吗？并不是。</p> <p>函数的 length 属性获取的是形参的个数，但是形参的数量不包括剩余参数个数，而且仅包括第一个具有默认值之前的参数个数，看下面的例子。</p> <div class="language- extra-class"><pre class="language-text"><code>((a, b, c) =&gt; {}).length
+// 3
+
+((a, b, c = 3) =&gt; {}).length
+// 2
+
+((a, b = 2, c) =&gt; {}).length
+// 1
+
+((a = 1, b, c) =&gt; {}).length
+// 0
+
+((...args) =&gt; {}).length
+// 0
+
+const fn = (...args) =&gt; {
+  console.log(args.length)
+}
+fn(1, 2, 3)
+// 3
+复制代码
+</code></pre></div><h2 id="compose-函数"><a href="#compose-函数" class="header-anchor">#</a> compose 函数</h2> <p>compose 就是组合函数，将子函数串联起来执行，一个函数的输出结果是另一个函数的输入参数，一旦第一个函数开始执行，会像多米诺骨牌一样推导执行后续函数。</p> <div class="language- extra-class"><pre class="language-text"><code>const greeting = name =&gt; `Hello ${name}`
+const toUpper = str =&gt; str.toUpperCase()
+
+toUpper(greeting('Onion')) // HELLO ONION
+复制代码
+</code></pre></div><p>compose 函数的特点</p> <ul><li>compose 接受函数作为参数，从右向左执行，返回类型函数</li> <li>fn()全部参数传给最右边的函数，得到结果后传给倒数第二个，依次传递</li></ul> <p>compose 的实现</p> <div class="language- extra-class"><pre class="language-text"><code>var compose = function(...args) {
+  var len = args.length // args函数的个数
+  var count = len - 1
+  var result
+  return function func(...args1) {
+    // func函数的args1参数枚举
+    result = args[count].call(this, args1)
+    if (count &gt; 0) {
+      count--
+      return func.call(null, result) // result 上一个函数的返回结果
+    } else {
+      //回复count初始状态
+      count = len - 1
+      return result
+    }
+  }
+}
+复制代码
+</code></pre></div><p>举个例子</p> <div class="language- extra-class"><pre class="language-text"><code>var greeting = (name) =&gt;  `Hello ${name}`
+var toUpper = str =&gt; str.toUpperCase()
+var fn = compose(toUpper, greeting)
+console.log(fn('jack'))
+复制代码
+</code></pre></div><p>大家熟悉的 webpack 里面的 loader 执行顺序是从右到左，是因为 webpack 选择的是 compose 方式，从右到左依次执行 loader，每个 loader 是一个函数。</p> <div class="language- extra-class"><pre class="language-text"><code>rules: [
+  { test: /.css$/, use: ['style-loader', 'css-loader'] }
+]
+复制代码
+</code></pre></div><p>如上，webpack 使用了 style-loader 和 css-loader，它是先用 css-loader 加载.css 文件，然后 style-loader 将内部样式注入到我们的 HTML 页面。</p> <p>webpack 里面的 compose 代码如下：</p> <div class="language- extra-class"><pre class="language-text"><code>const compose = (...fns) =&gt; {
+  return fns.reduce(
+    (prevFn, nextFn) =&gt; {
+      return value =&gt;prevFn(nextFn(value)) 
+    },
+    value =&gt; value
+  )
+}
+复制代码
+</code></pre></div><p>文章来源：https://juejin.im/post/5e96c3eee51d4546f5790df1</p> <!----></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/book/92.html" class="prev">
+        base64。js
+      </a></span> <span class="next"><a href="/book/78.html">
+        ESmodules:Acartoondeep-dive
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><section class="side-anchor"><ul style="display:none;"></ul></section></div></div>
+    <script src="/book/assets/js/app.804da1e4.js" defer></script><script src="/book/assets/js/3.1fbb3b52.js" defer></script><script src="/book/assets/js/175.884d96e8.js" defer></script><script src="/book/assets/js/7.d1a7bcae.js" defer></script>
+  </body>
+</html>

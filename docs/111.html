@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>页面滚动后导致 html2canvas截图不全、图片模糊的问题 | 日常收集</title>
+    <meta name="generator" content="VuePress 1.9.8">
+    
+    <meta name="description" content="Just playing around">
+    
+    <link rel="preload" href="/book/assets/css/0.styles.37081601.css" as="style"><link rel="preload" href="/book/assets/js/app.804da1e4.js" as="script"><link rel="preload" href="/book/assets/js/3.1fbb3b52.js" as="script"><link rel="preload" href="/book/assets/js/18.a14b8cf1.js" as="script"><link rel="preload" href="/book/assets/js/7.d1a7bcae.js" as="script"><link rel="prefetch" href="/book/assets/js/10.e27bb285.js"><link rel="prefetch" href="/book/assets/js/100.7c4cbf68.js"><link rel="prefetch" href="/book/assets/js/101.1612ecbb.js"><link rel="prefetch" href="/book/assets/js/102.ba880d57.js"><link rel="prefetch" href="/book/assets/js/103.cac0fbae.js"><link rel="prefetch" href="/book/assets/js/104.9d188c90.js"><link rel="prefetch" href="/book/assets/js/105.e109705f.js"><link rel="prefetch" href="/book/assets/js/106.aceb0934.js"><link rel="prefetch" href="/book/assets/js/107.9fbc8b91.js"><link rel="prefetch" href="/book/assets/js/108.a5b73155.js"><link rel="prefetch" href="/book/assets/js/109.48c07495.js"><link rel="prefetch" href="/book/assets/js/11.94b2e1bf.js"><link rel="prefetch" href="/book/assets/js/110.7428c790.js"><link rel="prefetch" href="/book/assets/js/111.46516f4b.js"><link rel="prefetch" href="/book/assets/js/112.ddb4abf0.js"><link rel="prefetch" href="/book/assets/js/113.81123f81.js"><link rel="prefetch" href="/book/assets/js/114.a56ccd01.js"><link rel="prefetch" href="/book/assets/js/115.053d4072.js"><link rel="prefetch" href="/book/assets/js/116.4506c3f7.js"><link rel="prefetch" href="/book/assets/js/117.507ca32a.js"><link rel="prefetch" href="/book/assets/js/118.bd181d86.js"><link rel="prefetch" href="/book/assets/js/119.974e80ce.js"><link rel="prefetch" href="/book/assets/js/12.5eab4ac2.js"><link rel="prefetch" href="/book/assets/js/120.54f7d9be.js"><link rel="prefetch" href="/book/assets/js/121.35cc97de.js"><link rel="prefetch" href="/book/assets/js/122.13d2dc7d.js"><link rel="prefetch" href="/book/assets/js/123.51dce1f7.js"><link rel="prefetch" href="/book/assets/js/124.751c5172.js"><link rel="prefetch" href="/book/assets/js/125.c4d91e9a.js"><link rel="prefetch" href="/book/assets/js/126.7eff814b.js"><link rel="prefetch" href="/book/assets/js/127.9debe37d.js"><link rel="prefetch" href="/book/assets/js/128.2794a994.js"><link rel="prefetch" href="/book/assets/js/129.d327f457.js"><link rel="prefetch" href="/book/assets/js/13.de4c73d5.js"><link rel="prefetch" href="/book/assets/js/130.7d4ead49.js"><link rel="prefetch" href="/book/assets/js/131.6c9d0d43.js"><link rel="prefetch" href="/book/assets/js/132.21c9cb07.js"><link rel="prefetch" href="/book/assets/js/133.d7764fd9.js"><link rel="prefetch" href="/book/assets/js/134.d04e49c1.js"><link rel="prefetch" href="/book/assets/js/135.91eaaee3.js"><link rel="prefetch" href="/book/assets/js/136.03ccfb44.js"><link rel="prefetch" href="/book/assets/js/137.9e340131.js"><link rel="prefetch" href="/book/assets/js/138.1c6752b3.js"><link rel="prefetch" href="/book/assets/js/139.37376c38.js"><link rel="prefetch" href="/book/assets/js/14.9b3845bf.js"><link rel="prefetch" href="/book/assets/js/140.25c29da1.js"><link rel="prefetch" href="/book/assets/js/141.8a35f5a7.js"><link rel="prefetch" href="/book/assets/js/142.48131e30.js"><link rel="prefetch" href="/book/assets/js/143.14f574a1.js"><link rel="prefetch" href="/book/assets/js/144.0102e4ec.js"><link rel="prefetch" href="/book/assets/js/145.d6412996.js"><link rel="prefetch" href="/book/assets/js/146.90cde601.js"><link rel="prefetch" href="/book/assets/js/147.fdaaa5bd.js"><link rel="prefetch" href="/book/assets/js/148.aa955df3.js"><link rel="prefetch" href="/book/assets/js/149.b0d8a883.js"><link rel="prefetch" href="/book/assets/js/15.d825d745.js"><link rel="prefetch" href="/book/assets/js/150.0177f1cc.js"><link rel="prefetch" href="/book/assets/js/151.9d6235e8.js"><link rel="prefetch" href="/book/assets/js/152.92a5ab00.js"><link rel="prefetch" href="/book/assets/js/153.e42af2d8.js"><link rel="prefetch" href="/book/assets/js/154.3f4d7c28.js"><link rel="prefetch" href="/book/assets/js/155.77cab610.js"><link rel="prefetch" href="/book/assets/js/156.5c2480d9.js"><link rel="prefetch" href="/book/assets/js/157.d51553c1.js"><link rel="prefetch" href="/book/assets/js/158.0d47d544.js"><link rel="prefetch" href="/book/assets/js/159.4a1246ac.js"><link rel="prefetch" href="/book/assets/js/16.5cdf2da0.js"><link rel="prefetch" href="/book/assets/js/160.1745ff9c.js"><link rel="prefetch" href="/book/assets/js/161.97b0c488.js"><link rel="prefetch" href="/book/assets/js/162.baf0ebc8.js"><link rel="prefetch" href="/book/assets/js/163.40579f9a.js"><link rel="prefetch" href="/book/assets/js/164.d6fb26ee.js"><link rel="prefetch" href="/book/assets/js/165.1380be9d.js"><link rel="prefetch" href="/book/assets/js/166.c423b024.js"><link rel="prefetch" href="/book/assets/js/167.eefbbbeb.js"><link rel="prefetch" href="/book/assets/js/168.55b5fb25.js"><link rel="prefetch" href="/book/assets/js/169.8decd6b3.js"><link rel="prefetch" href="/book/assets/js/17.dd67b656.js"><link rel="prefetch" href="/book/assets/js/170.27cef392.js"><link rel="prefetch" href="/book/assets/js/171.bf7ff78c.js"><link rel="prefetch" href="/book/assets/js/172.7f084227.js"><link rel="prefetch" href="/book/assets/js/173.67ce65de.js"><link rel="prefetch" href="/book/assets/js/174.c2f3ff63.js"><link rel="prefetch" href="/book/assets/js/175.884d96e8.js"><link rel="prefetch" href="/book/assets/js/176.a06e25bd.js"><link rel="prefetch" href="/book/assets/js/177.bc1364e1.js"><link rel="prefetch" href="/book/assets/js/178.3ef9c452.js"><link rel="prefetch" href="/book/assets/js/179.65785d35.js"><link rel="prefetch" href="/book/assets/js/180.25153283.js"><link rel="prefetch" href="/book/assets/js/181.265fb2df.js"><link rel="prefetch" href="/book/assets/js/19.3220443d.js"><link rel="prefetch" href="/book/assets/js/20.7f857d8f.js"><link rel="prefetch" href="/book/assets/js/21.9ba5653b.js"><link rel="prefetch" href="/book/assets/js/22.405d8bae.js"><link rel="prefetch" href="/book/assets/js/23.1fd51f28.js"><link rel="prefetch" href="/book/assets/js/24.68001b79.js"><link rel="prefetch" href="/book/assets/js/25.2bfdab0a.js"><link rel="prefetch" href="/book/assets/js/26.41c53fff.js"><link rel="prefetch" href="/book/assets/js/27.084d452c.js"><link rel="prefetch" href="/book/assets/js/28.f099ec1a.js"><link rel="prefetch" href="/book/assets/js/29.4a665d0e.js"><link rel="prefetch" href="/book/assets/js/30.38269247.js"><link rel="prefetch" href="/book/assets/js/31.3d1abd16.js"><link rel="prefetch" href="/book/assets/js/32.dba76885.js"><link rel="prefetch" href="/book/assets/js/33.6f14593a.js"><link rel="prefetch" href="/book/assets/js/34.1fe76271.js"><link rel="prefetch" href="/book/assets/js/35.eace5b32.js"><link rel="prefetch" href="/book/assets/js/36.e6aabe95.js"><link rel="prefetch" href="/book/assets/js/37.5808e643.js"><link rel="prefetch" href="/book/assets/js/38.f97ffa95.js"><link rel="prefetch" href="/book/assets/js/39.5348a4f8.js"><link rel="prefetch" href="/book/assets/js/4.8b638307.js"><link rel="prefetch" href="/book/assets/js/40.e83470d2.js"><link rel="prefetch" href="/book/assets/js/41.e38a531e.js"><link rel="prefetch" href="/book/assets/js/42.d454a629.js"><link rel="prefetch" href="/book/assets/js/43.e71bbc53.js"><link rel="prefetch" href="/book/assets/js/44.e697f1c9.js"><link rel="prefetch" href="/book/assets/js/45.3c178858.js"><link rel="prefetch" href="/book/assets/js/46.8b84c4d4.js"><link rel="prefetch" href="/book/assets/js/47.00ed42af.js"><link rel="prefetch" href="/book/assets/js/48.c547d36b.js"><link rel="prefetch" href="/book/assets/js/49.a94e51ed.js"><link rel="prefetch" href="/book/assets/js/5.fe8df24d.js"><link rel="prefetch" href="/book/assets/js/50.45bf85ae.js"><link rel="prefetch" href="/book/assets/js/51.521febf2.js"><link rel="prefetch" href="/book/assets/js/52.4019ba2d.js"><link rel="prefetch" href="/book/assets/js/53.dd909c02.js"><link rel="prefetch" href="/book/assets/js/54.1b49b742.js"><link rel="prefetch" href="/book/assets/js/55.781976de.js"><link rel="prefetch" href="/book/assets/js/56.8be125a9.js"><link rel="prefetch" href="/book/assets/js/57.973113d5.js"><link rel="prefetch" href="/book/assets/js/58.772e8a37.js"><link rel="prefetch" href="/book/assets/js/59.62e17687.js"><link rel="prefetch" href="/book/assets/js/6.b8457bdc.js"><link rel="prefetch" href="/book/assets/js/60.fc8a1294.js"><link rel="prefetch" href="/book/assets/js/61.3bf23727.js"><link rel="prefetch" href="/book/assets/js/62.9f83a452.js"><link rel="prefetch" href="/book/assets/js/63.f0cf5d00.js"><link rel="prefetch" href="/book/assets/js/64.188253fd.js"><link rel="prefetch" href="/book/assets/js/65.11ff922f.js"><link rel="prefetch" href="/book/assets/js/66.f68b57b1.js"><link rel="prefetch" href="/book/assets/js/67.67f61cd7.js"><link rel="prefetch" href="/book/assets/js/68.b32f5e8c.js"><link rel="prefetch" href="/book/assets/js/69.c37ffa0c.js"><link rel="prefetch" href="/book/assets/js/70.2ab77931.js"><link rel="prefetch" href="/book/assets/js/71.46e0b7dd.js"><link rel="prefetch" href="/book/assets/js/72.dbdac20b.js"><link rel="prefetch" href="/book/assets/js/73.9fc0cabd.js"><link rel="prefetch" href="/book/assets/js/74.490b6889.js"><link rel="prefetch" href="/book/assets/js/75.df981cea.js"><link rel="prefetch" href="/book/assets/js/76.7957243e.js"><link rel="prefetch" href="/book/assets/js/77.f6664887.js"><link rel="prefetch" href="/book/assets/js/78.f8cd2041.js"><link rel="prefetch" href="/book/assets/js/79.51c7ff17.js"><link rel="prefetch" href="/book/assets/js/8.fcfda84a.js"><link rel="prefetch" href="/book/assets/js/80.8f79e5db.js"><link rel="prefetch" href="/book/assets/js/81.be9d7406.js"><link rel="prefetch" href="/book/assets/js/82.5c65fe44.js"><link rel="prefetch" href="/book/assets/js/83.753dadb6.js"><link rel="prefetch" href="/book/assets/js/84.e8ba21d0.js"><link rel="prefetch" href="/book/assets/js/85.ce4a60f2.js"><link rel="prefetch" href="/book/assets/js/86.a44019ac.js"><link rel="prefetch" href="/book/assets/js/87.272f4380.js"><link rel="prefetch" href="/book/assets/js/88.aeaf3f6f.js"><link rel="prefetch" href="/book/assets/js/89.da73e578.js"><link rel="prefetch" href="/book/assets/js/9.539bb88c.js"><link rel="prefetch" href="/book/assets/js/90.b492b3ef.js"><link rel="prefetch" href="/book/assets/js/91.15f180d5.js"><link rel="prefetch" href="/book/assets/js/92.2f7fb5cd.js"><link rel="prefetch" href="/book/assets/js/93.256eda08.js"><link rel="prefetch" href="/book/assets/js/94.20cf62c4.js"><link rel="prefetch" href="/book/assets/js/95.ff052794.js"><link rel="prefetch" href="/book/assets/js/96.e8501225.js"><link rel="prefetch" href="/book/assets/js/97.93da6d3a.js"><link rel="prefetch" href="/book/assets/js/98.71c2d6f6.js"><link rel="prefetch" href="/book/assets/js/99.25f4671a.js"><link rel="prefetch" href="/book/assets/js/vendors~docsearch.3644c41e.js">
+    <link rel="stylesheet" href="/book/assets/css/0.styles.37081601.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/book/" class="home-link router-link-active"><!----> <span class="site-name">日常收集</span></a> <div class="links"><form id="search-form" role="search" class="algolia-search-wrapper search-box"><input id="algolia-search-input" class="search-query"></form> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>dom的事件</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Javascript</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>element-ui</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/31.html" class="sidebar-link"> 知识库管理系统开发 log记录</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Qcanvas</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>vue</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>大屏</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/328.html" class="sidebar-link"> 从哲学层面浅谈计算机学习方法论</a></li><li><a href="/book/324.html" class="sidebar-link"> 微信游览器，解决安卓和ios自动播放音乐</a></li><li><a href="/book/323.html" class="sidebar-link"> CSS3 animation属性中的steps功能符深入介绍</a></li><li><a href="/book/322.html" class="sidebar-link"> 前端搞工程化：从零打造性能检测库「源码 + 视频」</a></li><li><a href="/book/321.html" class="sidebar-link"> 还在看那些老掉牙的性能优化文章么？这些最新性能指标了解下</a></li><li><a href="/book/320.html" class="sidebar-link"> Nginx根据User Agent动态配置root目录适配移动端</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>可视化大屏</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/307.html" class="sidebar-link"> cat文档内容中搜索字符串输出到文件</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>node</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/301.html" class="sidebar-link">从App store下载App的不同版本ipa文件----很多东西也不是越新越好，比如APP——在 iPhone 上尤其如此</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>工作总结</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/294.html" class="sidebar-link">迟子建老师的《一坛猪油》</a></li><li><a href="/book/289.html" class="sidebar-link">ata-rawheight=&amp;quot;143&amp;quot;class=&amp;quot;content_image&amp;quot;width=&amp;quot;322&amp;quot;/&amp;gt;![](/Public/upload/20211027/16353179551.jpg)温馨提示：内容较长，需耐心观看</a></li><li><a href="/book/288.html" class="sidebar-link">文本文档的协同编辑实现</a></li><li><a href="/book/287.html" class="sidebar-link">再见，整洁代码</a></li><li><a href="/book/286.html" class="sidebar-link"> 可以在 Nginx 中运行 JavaScript，厉害了！</a></li><li><a href="/book/284.html" class="sidebar-link"> word中批量调整图片大小</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>成考学习</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>electron打包的一些问题</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/274.html" class="sidebar-link"> 文件分片代码</a></li><li><a href="/book/273.html" class="sidebar-link"> 重学 JS：为啥 await 不能用在 forEach 中详解</a></li><li><a href="/book/269.html" class="sidebar-link"> Excel函数之王，Vlookup到底怎么用？</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>mysql</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/263.html" class="sidebar-link"> 文档标题</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>批处理</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/248.html" class="sidebar-link"> 《提问的智慧》精读注解版</a></li><li><a href="/book/247.html" class="sidebar-link"> 1368个单词</a></li><li><a href="/book/199.html" class="sidebar-link"> js监听div的resize事件</a></li><li><a href="/book/198.html" class="sidebar-link"> 引入第三方字体体积太大的问题</a></li><li><a href="/book/195.html" class="sidebar-link"> 多行溢出省略号显示（css/js）实现！</a></li><li><a href="/book/190.html" class="sidebar-link">今天带大家一起来看看下，如何实现“划词高亮”功能。</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>极简中国史趣味笔记</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>拓扑图</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Css</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>算法</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Canvas</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>工作中解决的疑难问题</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/book/191.html" class="sidebar-link"> 那些IOS系统中使用Input遇到的坑</a></li><li><a href="/book/141.html" class="sidebar-link"> video标签 自动播放问题</a></li><li><a href="/book/133.html" class="sidebar-link"> canvas图片、文字在移动端显示模糊问题 解决方案</a></li><li><a href="/book/129.html" class="sidebar-link"> webpack 4.x 解决 webpack-dev-server工具在webpack构建的项目中使用问题</a></li><li><a href="/book/111.html" aria-current="page" class="active sidebar-link"> 页面滚动后导致 html2canvas截图不全、图片模糊的问题</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Git</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>nginx</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>小程序</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/146.html" class="sidebar-link"> 文档标题</a></li><li><a href="/book/140.html" class="sidebar-link">gdfdgf</a></li><li><a href="/book/137.html" class="sidebar-link">测试</a></li><li><a href="/book/135.html" class="sidebar-link"> 深夜，我偷听到程序员要对session下手</a></li><li><a href="/book/132.html" class="sidebar-link"> 读 《深入浅出webpack》</a></li><li><a href="/book/117.html" class="sidebar-link">双兔傍地走，安能辨我forEach还是for</a></li><li><a href="/book/115.html" class="sidebar-link"> 文档标题</a></li><li><a href="/book/103.html" class="sidebar-link"> 一道被人轻视的前端面试题</a></li><li><a href="/book/101.html" class="sidebar-link">部分前端面试题参考答案</a></li><li><a href="/book/80.html" class="sidebar-link">SVGDeveloper制作矢量地图教程详解</a></li><li><a href="/book/76.html" class="sidebar-link">VisualStudio2010创建的WCF（.dll）服务第一个应用</a></li><li><a href="/book/70.html" class="sidebar-link"> 测试</a></li><li><a href="/book/41.html" class="sidebar-link">为了开发做测试用</a></li><li><a href="/book/40.html" class="sidebar-link"> 文档标题</a></li><li><a href="/book/38.html" class="sidebar-link">文档标题</a></li><li><a href="/book/33.html" class="sidebar-link">文档标题</a></li><li><a href="/book/32.html" class="sidebar-link">测试锚点问题</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="页面滚动后导致-html2canvas截图不全、图片模糊的问题"><a href="#页面滚动后导致-html2canvas截图不全、图片模糊的问题" class="header-anchor">#</a> 页面滚动后导致 html2canvas截图不全、图片模糊的问题</h1> <p>增加scrollY参数即可 如果是fixed定位的置为0即可</p> <p>生成的图片模糊一般都是css使用背景图片导致的  修改为用img引入图片，不要用background</p> <p>还有个要注意 FileSaver.saveAs会导致苹果手机safari直接打开 不会直接保存 所以如果是移动端 最好先生成base64的图片 放到页面上  然后长按图片 触发浏览器下保存事件进而保存图片</p> <p>要截图部分的html结构要尽量简洁，css样式尽量不要使用:before :after  因为可能会解析有误 生成的图片有空白</p> <p>mobile代码：</p> <div class="language- extra-class"><pre class="language-text"><code>&lt;template&gt;
+	&lt;div v-if=&quot;show&quot; class=&quot;pp box box-align-center&quot; ref=&quot;pp&quot;&gt;
+		&lt;!-- &lt;div class=&quot;pp_con&quot; v-if=&quot;!isIOS&quot;&gt;
+			&lt;div class=&quot;share_pic&quot; ref=&quot;share_pic&quot; @touchstart=&quot;gotouchstart&quot; @touchmove=&quot;gotouchmove&quot; @touchend=&quot;gotouchend&quot;&gt;
+
+	
+
+
+				&lt;img class=&quot;bg&quot; src=&quot;../../static/img/m_share.png&quot; alt=&quot;&quot;&gt;
+				&lt;div class=&quot;cover&quot; &gt;
+					&lt;img :src=&quot;detailObj.cover&quot; width=&quot;100%&quot; height=&quot;100%&quot; alt=&quot;&quot;&gt;
+				&lt;/div&gt;
+				&lt;div class=&quot;title&quot;&gt;{{detailObj.title.replace(/(“|”)/g,'&quot;')}}&lt;/div&gt;
+			&lt;/div&gt;
+
+			&lt;div class=&quot;save&quot;&gt;长按保存&lt;/div&gt;
+			&lt;van-icon class=&quot;close&quot; name=&quot;cross&quot; @click=&quot;close&quot;/&gt;
+
+		&lt;/div&gt; --&gt; 
+
+		&lt;div class=&quot;pp_con&quot;&gt;
+			&lt;div class=&quot;share_pic&quot; ref=&quot;share_pic&quot;&gt;
+			&lt;!-- &lt;div class=&quot;share_pic&quot; ref=&quot;share_pic&quot; @click=&quot;godown&quot;&gt; --&gt;
+
+	
+
+
+				&lt;img class=&quot;bg&quot; src=&quot;../../static/img/m_share.png&quot; alt=&quot;&quot;&gt;
+				&lt;!-- //ios13.4以上html2canvas对cover元素截图有兼容问题 一直是空白 
+					可能是对:after样式解析不了 所以得直接写绝对定位的图片
+				--&gt;
+				&lt;!-- &lt;div class=&quot;cover&quot; &gt;    --&gt;
+					&lt;img class=&quot;cover_img&quot; :src=&quot;detailObj.cover&quot;  alt=&quot;&quot;&gt;
+				&lt;!-- &lt;/div&gt; --&gt;
+				&lt;div class=&quot;title&quot;&gt;{{formater(detailObj.title)}}&lt;/div&gt;
+
+				&lt;img class=&quot;shareImg&quot; v-if=&quot;shareImg!=''&quot; :src=&quot;shareImg&quot; alt=&quot;&quot;&gt;
+
+			&lt;/div&gt;
+
+			&lt;div class=&quot;save&quot;&gt;长按保存&lt;/div&gt;
+			&lt;van-icon class=&quot;close&quot; name=&quot;cross&quot; @click=&quot;close&quot;/&gt;
+
+		&lt;/div&gt; 
+
+
+
+
+
+	&lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+	import html2canvas from 'html2canvas';
+	import FileSaver from 'file-saver';
+
+import { Toast,ActionSheet } from 'vant';
+
+Vue.use(Toast)
+.use(ActionSheet);
+
+	let timeOutEvent = {};
+	export default{
+		components:{},
+		props:['isShow','detailObj'],
+		data(){
+			return {
+				show:false,
+				showAction:false, 
+				isIOS:!!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
+				shareImg:'' 
+			}
+		},
+		methods:{
+			formater:function(title){
+
+				return title.replace(/(“|”)/g,'&quot;')
+				.replace(/’|‘/g,&quot;'&quot;)
+				.replace(/\（/g,'(')
+				.replace(/\）/g,')')
+				.replace(/；/g,';')
+				.replace(/。/g,'.')
+				.replace(/：/g,':');
+			},
+			close:function(){
+				this.$emit('update:isShow',false);
+			},
+			dataURLtoBlob:function(baseurl) {
+				    let arr = baseurl.split(','),
+				        mime = arr[0].match(/:(.*?);/)[1],
+				        bstr = atob(arr[1]),
+				        n = bstr.length,
+				        u8arr = new Uint8Array(n);
+				    while (n--) {
+				        u8arr[n] = bstr.charCodeAt(n);
+				    }
+				    return new Blob([u8arr], {
+				        type: mime
+				    });
+			},
+			createImg:function(){
+				var d = this.$refs['share_pic'];
+
+				let w = d.offsetWidth;
+				let h = d.offsetHeight;
+ 
+	
+
+				setTimeout(()=&gt;{
+ 
+					var top = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop; 
+					html2canvas(d, {
+						// backgroundColor: '#000',
+						backgroundColor: &quot;transparent&quot;,
+					    allowTaint: true,
+					    useCORS: true,
+					    height: h,
+					    width: w,
+					    scrollY:0,
+					    scale:window.devicePixelRatio
+					}).then(canvas =&gt; {  
+
+						 let fileName = new Date().getFullYear()+''+(new Date().getMonth()+1)+''+new Date().getDate()+''+parseInt(Math.random()*10000);
+
+						 
+						// if(this.isIOS){  
+						   //FileSaver.saveAs会导致苹果手机safari直接打开 不会直接保存
+						   //所以先生成图片 把生成的图片覆盖上去 然后长按图片再去保存
+
+							// let img = document.createElement('img');
+							// img.onload = ()=&gt;{
+							// 	console.log('生成图片完成');
+
+							// 	// d.appendChild(img);
+
+							// }
+							// img.style.position = 'absolute';
+							// img.style.left=0;
+							// img.style.top=0;
+							// img.style.width='100%';
+							// img.style.zIndex=1; 
+							// img.src=canvas.toDataURL(&quot;image/png&quot;);
+
+								this.shareImg = canvas.toDataURL(&quot;image/png&quot;);
+								console.log('图片生成完毕');
+								// console.log(this.shareImg);
+								Toast.clear();
+
+
+
+
+
+							// img.className=&quot;bg&quot;;
+
+
+						// }else{
+
+						// FileSaver.saveAs(this.dataURLtoBlob(canvas.toDataURL(&quot;image/png&quot;)), fileName+&quot;.png&quot;);
+						// }
+
+
+					});
+
+				},200)
+			},
+			godown:function(){
+				this.showAction = true;
+			},
+			onSelect:function(item){
+				console.log(item);
+
+				if(item.name == '保存分享图片'){
+
+					 Toast.loading({
+					  message: '正在生成分享图片...',
+					  forbidClick: true,
+					  loadingType: 'spinner',
+					  duration:0
+					});
+
+					setTimeout(this.createImg,200)
+
+				}
+			},
+			gotouchstart(){
+			   let that = this;
+			   clearTimeout(timeOutEvent);//清除定时器
+			   timeOutEvent = 0;
+			   timeOutEvent = setTimeout(()=&gt;{
+			        //执行长按要执行的内容，
+			  
+			        console.log('长按保存图片');
+
+			        Toast.loading({
+					  message: '正在生成分享图片...',
+					  forbidClick: true,
+					  loadingType: 'spinner',
+					  duration:0
+					});
+
+					this.createImg();
+
+					setTimeout(()=&gt;{
+						// Toast.clear();
+					},3000)
+			  
+			     },600);//这里设置定时
+			 },
+			      //手释放，如果在500毫秒内就释放，则取消长按事件，此时可以执行onclick应该执行的事件
+			gotouchend(){
+			    clearTimeout(timeOutEvent);
+			      if(timeOutEvent!=0){
+			        //这里写要执行的内容（尤如onclick事件）
+			     }
+			},
+			//如果手指有移动，则取消所有事件，此时说明用户只是要移动而不是长按 
+			gotouchmove(){
+			     clearTimeout(timeOutEvent);//清除定时器
+			     timeOutEvent = 0;
+			},
+
+		},
+		mounted(){
+
+		},
+		created(){
+
+		},
+		computed:{
+
+		},
+		watch:{ 
+			'isShow':{
+				handler:function(v){
+					this.shareImg = '';
+
+					this.show  = v;
+
+					if(v){
+
+						// if(this.isIOS){ //如果是苹果手机 先生成
+							// alert(this.isIOS);
+
+							Toast.loading({
+							  message: '正在生成分享图片...',
+							  forbidClick: true,
+							  loadingType: 'spinner',
+							  duration:0
+							});
+
+							let img = new Image();
+							img.onload = this.createImg;
+							img.src = this.detailObj.cover;
+
+
+						// }
+
+					}
+
+				},
+				immediate:true
+			}
+
+		},
+		destroyed(){
+			this.shareImg = '';
+		}
+	}
+
+
+
+&lt;/script&gt;
+&lt;style scoped&gt;
+.pp{
+	position: fixed;
+	z-index: 1;
+	top:0;
+	left:0;
+	width: 100%;
+	bottom:0;
+	/*background: rgba(0,0,0,0.7);*/
+}
+.pp_con{ 
+	padding: 15px;
+	width: 100%;
+	position: relative;
+	border-radius: 10px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+} 
+.share_pic .bg{
+	width: 100%;
+	position: relative;
+	z-index: 0;
+}
+.share_pic{
+	position: relative;
+}
+.cover{
+	position: absolute;
+    z-index: 1;
+    top: 15%;
+    width: 69%;
+    left: 16%;
+    overflow: hidden;
+    border-radius: 5px;
+}
+.cover img{
+	position: absolute;
+	z-index: 1;
+	left:0;
+	top:0;
+}
+.cover:after{
+	content: &quot;&quot;;
+	display: block;
+	padding-top: 100%;
+}
+
+.cover_img{
+	position: absolute;
+    z-index: 1;
+    top: 15%;
+    width: 69%;
+    left: 16%;
+    /*overflow: hidden;*/
+    border-radius: 5px;
+}
+
+.title{
+	width: 57%;
+    position: absolute;
+    z-index: 1;
+    left: 21%;
+    top: 63%;
+    height: 44px;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 22px;
+    text-align: justify;
+
+    overflow: hidden;
+     /*display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;*/
+
+}
+
+.save{
+	position: absolute;
+	z-index: 1;
+    bottom: 12%;
+    right: 18%;
+    background: #fff;
+    width: 100px;
+    height: 20px;
+    line-height: 22px;
+    font-size: 14px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+    pointer-events: none;
+}
+.close{
+	position: absolute;
+	z-index: 1;
+    top: 15px;
+    right: 15px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 20px;
+}
+.qr{
+	position: absolute;
+    z-index: 1;
+    left: 18%;
+    top: 77%;
+    width: 22%;
+}
+.shareImg{
+	position: absolute;
+	left:0;
+	top:0;
+	width: 100%;
+	z-index: 1; 
+}
+&lt;/style&gt;
+</code></pre></div><p>pc代码：</p> <div class="language- extra-class"><pre class="language-text"><code>&lt;template&gt;
+	&lt;div class=&quot;share_inner notrigger&quot; :ref=&quot;'share_inner_'+dataIndex&quot; style=&quot;color:#000&quot;&gt; 
+				&lt;img class=&quot;bg notrigger&quot; src=&quot;../../static/img/share_bg.png&quot; alt=&quot;&quot;&gt;
+				&lt;img class=&quot;cover notrigger&quot; :src=&quot;dataObj.cover&quot; alt=&quot;&quot; &gt; 
+
+				&lt;!-- &lt;img class=&quot;cover&quot; src=&quot;../../static/img/404.png&quot; alt=&quot;&quot; &gt;  --&gt;
+		
+				&lt;div class=&quot;case_title notrigger&quot;&gt;{{formater(dataObj.title)}}&lt;/div&gt;
+
+				&lt;!-- &lt;el-button class=&quot;download&quot; type=&quot;text&quot; @click=&quot;share&quot;&gt;下载&lt;/el-button&gt;  --&gt;
+	&lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+	import html2canvas from 'html2canvas';
+	import FileSaver from 'file-saver';
+	export default{
+		components:{},
+		props:['dataIndex','dataObj','setTip'],
+		data(){
+			return {
+
+			}
+		},
+		methods:{
+			formater:function(title){
+
+				return title.replace(/(“|”)/g,'&quot;')
+				.replace(/’|‘/g,&quot;'&quot;)
+				.replace(/\（/g,'(')
+				.replace(/\）/g,')')
+				.replace(/；/g,';')
+				.replace(/。/g,'.')
+				.replace(/：/g,':');
+			},
+			dataURLtoBlob:function(baseurl) {
+				    let arr = baseurl.split(','),
+				        mime = arr[0].match(/:(.*?);/)[1],
+				        bstr = atob(arr[1]),
+				        n = bstr.length,
+				        u8arr = new Uint8Array(n);
+				    while (n--) {
+				        u8arr[n] = bstr.charCodeAt(n);
+				    }
+				    return new Blob([u8arr], {
+				        type: mime
+				    });
+			},
+			share:function(index){ 
+
+				this.setTip('正在生成分享图片...'); 
+
+
+				// let d = document.getElementById('share_'+index);
+				// let d = document.getElementById('more');
+				var d = this.$refs['share_inner_'+this.dataIndex];
+
+
+		
+				let w = d.offsetWidth;
+				let h = d.offsetHeight;
+
+				// window.scrollTo(0, 0); 
+		
+		
+		
+				setTimeout(()=&gt;{
+ 
+					var top = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop; 
+
+
+					html2canvas(d, {
+						// backgroundColor: '#000',
+						backgroundColor: &quot;transparent&quot;,
+					    allowTaint: true,
+					    useCORS: true,
+					    height: h,
+					    width: w,
+					    scrollY:-top-10, //增加鼠标划过向上移的10个象素
+					    scale:window.devicePixelRatio,
+					}).then(canvas =&gt; {  
+
+						 let fileName = new Date().getFullYear()+''+(new Date().getMonth()+1)+''+new Date().getDate()+''+parseInt(Math.random()*10000);
+						FileSaver.saveAs(this.dataURLtoBlob(canvas.toDataURL(&quot;image/png&quot;)), fileName+&quot;.png&quot;);
+				
+						this.setTip(''); 
+
+
+					});
+
+				},200)
+ 
+
+		
+
+
+
+
+
+			}
+		},
+		mounted(){
+
+		},
+		created(){
+	
+		},
+		computed:{
+
+		},
+		watch:{
+
+		}
+	}
+
+&lt;/script&gt;
+&lt;style scoped&gt;
+
+.share_inner{
+	width: 278px;
+	height: 398px;
+    position: relative;
+  /*  top: 0;
+    left: 50%; 
+    margin-left: -186px;*/
+	/*display: none;*/
+	/*background: url(../../static/img/share_bg.png) center center no-repeat;
+    background-size: auto 100%;*/
+}
+ 
+.bg{
+	height: 100%;
+    position: relative;
+    z-index: 0;
+    margin: 0 auto;
+    display: block;
+}
+.cover{
+	position: absolute;
+	z-index: 1;
+    width: 193px;
+    height: 193px;
+    top: 66px;
+    left: 50%;
+    margin-left: -97px;
+    border-radius: 7px;
+}
+.case_title{
+	position: absolute;
+	z-index: 1;
+    width: 148px;
+    height: 32px;
+    left: 63px;
+    top: 265px;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 16px;
+    text-align: justify;
+
+    overflow: hidden;
+   /* display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;*/
+}
+
+.download{
+	position: absolute;
+    left: 50%;
+    bottom: 6px;
+    color: #fff;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    margin-left: -25px;
+}
+
+&lt;/style&gt;
+</code></pre></div><!----></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/book/129.html" class="prev">
+         webpack 4.x 解决 webpack-dev-server工具在webpack构建的项目中使用问题
+      </a></span> <span class="next"><a href="/book/297.html">
+         git密码修改问题解决方案(Window &amp;amp;Mac)
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><section class="side-anchor"><ul style="display:none;"></ul></section></div></div>
+    <script src="/book/assets/js/app.804da1e4.js" defer></script><script src="/book/assets/js/3.1fbb3b52.js" defer></script><script src="/book/assets/js/18.a14b8cf1.js" defer></script><script src="/book/assets/js/7.d1a7bcae.js" defer></script>
+  </body>
+</html>

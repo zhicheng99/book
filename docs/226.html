@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Object.defineProperty()详解 | 日常收集</title>
+    <meta name="generator" content="VuePress 1.9.8">
+    
+    <meta name="description" content="Just playing around">
+    
+    <link rel="preload" href="/book/assets/css/0.styles.37081601.css" as="style"><link rel="preload" href="/book/assets/js/app.804da1e4.js" as="script"><link rel="preload" href="/book/assets/js/3.1fbb3b52.js" as="script"><link rel="preload" href="/book/assets/js/67.67f61cd7.js" as="script"><link rel="preload" href="/book/assets/js/7.d1a7bcae.js" as="script"><link rel="prefetch" href="/book/assets/js/10.e27bb285.js"><link rel="prefetch" href="/book/assets/js/100.7c4cbf68.js"><link rel="prefetch" href="/book/assets/js/101.1612ecbb.js"><link rel="prefetch" href="/book/assets/js/102.ba880d57.js"><link rel="prefetch" href="/book/assets/js/103.cac0fbae.js"><link rel="prefetch" href="/book/assets/js/104.9d188c90.js"><link rel="prefetch" href="/book/assets/js/105.e109705f.js"><link rel="prefetch" href="/book/assets/js/106.aceb0934.js"><link rel="prefetch" href="/book/assets/js/107.9fbc8b91.js"><link rel="prefetch" href="/book/assets/js/108.a5b73155.js"><link rel="prefetch" href="/book/assets/js/109.48c07495.js"><link rel="prefetch" href="/book/assets/js/11.94b2e1bf.js"><link rel="prefetch" href="/book/assets/js/110.7428c790.js"><link rel="prefetch" href="/book/assets/js/111.46516f4b.js"><link rel="prefetch" href="/book/assets/js/112.ddb4abf0.js"><link rel="prefetch" href="/book/assets/js/113.81123f81.js"><link rel="prefetch" href="/book/assets/js/114.a56ccd01.js"><link rel="prefetch" href="/book/assets/js/115.053d4072.js"><link rel="prefetch" href="/book/assets/js/116.4506c3f7.js"><link rel="prefetch" href="/book/assets/js/117.507ca32a.js"><link rel="prefetch" href="/book/assets/js/118.bd181d86.js"><link rel="prefetch" href="/book/assets/js/119.974e80ce.js"><link rel="prefetch" href="/book/assets/js/12.5eab4ac2.js"><link rel="prefetch" href="/book/assets/js/120.54f7d9be.js"><link rel="prefetch" href="/book/assets/js/121.35cc97de.js"><link rel="prefetch" href="/book/assets/js/122.13d2dc7d.js"><link rel="prefetch" href="/book/assets/js/123.51dce1f7.js"><link rel="prefetch" href="/book/assets/js/124.751c5172.js"><link rel="prefetch" href="/book/assets/js/125.c4d91e9a.js"><link rel="prefetch" href="/book/assets/js/126.7eff814b.js"><link rel="prefetch" href="/book/assets/js/127.9debe37d.js"><link rel="prefetch" href="/book/assets/js/128.2794a994.js"><link rel="prefetch" href="/book/assets/js/129.d327f457.js"><link rel="prefetch" href="/book/assets/js/13.de4c73d5.js"><link rel="prefetch" href="/book/assets/js/130.7d4ead49.js"><link rel="prefetch" href="/book/assets/js/131.6c9d0d43.js"><link rel="prefetch" href="/book/assets/js/132.21c9cb07.js"><link rel="prefetch" href="/book/assets/js/133.d7764fd9.js"><link rel="prefetch" href="/book/assets/js/134.d04e49c1.js"><link rel="prefetch" href="/book/assets/js/135.91eaaee3.js"><link rel="prefetch" href="/book/assets/js/136.03ccfb44.js"><link rel="prefetch" href="/book/assets/js/137.9e340131.js"><link rel="prefetch" href="/book/assets/js/138.1c6752b3.js"><link rel="prefetch" href="/book/assets/js/139.37376c38.js"><link rel="prefetch" href="/book/assets/js/14.9b3845bf.js"><link rel="prefetch" href="/book/assets/js/140.25c29da1.js"><link rel="prefetch" href="/book/assets/js/141.8a35f5a7.js"><link rel="prefetch" href="/book/assets/js/142.48131e30.js"><link rel="prefetch" href="/book/assets/js/143.14f574a1.js"><link rel="prefetch" href="/book/assets/js/144.0102e4ec.js"><link rel="prefetch" href="/book/assets/js/145.d6412996.js"><link rel="prefetch" href="/book/assets/js/146.90cde601.js"><link rel="prefetch" href="/book/assets/js/147.fdaaa5bd.js"><link rel="prefetch" href="/book/assets/js/148.aa955df3.js"><link rel="prefetch" href="/book/assets/js/149.b0d8a883.js"><link rel="prefetch" href="/book/assets/js/15.d825d745.js"><link rel="prefetch" href="/book/assets/js/150.0177f1cc.js"><link rel="prefetch" href="/book/assets/js/151.9d6235e8.js"><link rel="prefetch" href="/book/assets/js/152.92a5ab00.js"><link rel="prefetch" href="/book/assets/js/153.e42af2d8.js"><link rel="prefetch" href="/book/assets/js/154.3f4d7c28.js"><link rel="prefetch" href="/book/assets/js/155.77cab610.js"><link rel="prefetch" href="/book/assets/js/156.5c2480d9.js"><link rel="prefetch" href="/book/assets/js/157.d51553c1.js"><link rel="prefetch" href="/book/assets/js/158.0d47d544.js"><link rel="prefetch" href="/book/assets/js/159.4a1246ac.js"><link rel="prefetch" href="/book/assets/js/16.5cdf2da0.js"><link rel="prefetch" href="/book/assets/js/160.1745ff9c.js"><link rel="prefetch" href="/book/assets/js/161.97b0c488.js"><link rel="prefetch" href="/book/assets/js/162.baf0ebc8.js"><link rel="prefetch" href="/book/assets/js/163.40579f9a.js"><link rel="prefetch" href="/book/assets/js/164.d6fb26ee.js"><link rel="prefetch" href="/book/assets/js/165.1380be9d.js"><link rel="prefetch" href="/book/assets/js/166.c423b024.js"><link rel="prefetch" href="/book/assets/js/167.eefbbbeb.js"><link rel="prefetch" href="/book/assets/js/168.55b5fb25.js"><link rel="prefetch" href="/book/assets/js/169.8decd6b3.js"><link rel="prefetch" href="/book/assets/js/17.dd67b656.js"><link rel="prefetch" href="/book/assets/js/170.27cef392.js"><link rel="prefetch" href="/book/assets/js/171.bf7ff78c.js"><link rel="prefetch" href="/book/assets/js/172.7f084227.js"><link rel="prefetch" href="/book/assets/js/173.67ce65de.js"><link rel="prefetch" href="/book/assets/js/174.c2f3ff63.js"><link rel="prefetch" href="/book/assets/js/175.884d96e8.js"><link rel="prefetch" href="/book/assets/js/176.a06e25bd.js"><link rel="prefetch" href="/book/assets/js/177.bc1364e1.js"><link rel="prefetch" href="/book/assets/js/178.3ef9c452.js"><link rel="prefetch" href="/book/assets/js/179.65785d35.js"><link rel="prefetch" href="/book/assets/js/18.a14b8cf1.js"><link rel="prefetch" href="/book/assets/js/180.25153283.js"><link rel="prefetch" href="/book/assets/js/181.265fb2df.js"><link rel="prefetch" href="/book/assets/js/19.3220443d.js"><link rel="prefetch" href="/book/assets/js/20.7f857d8f.js"><link rel="prefetch" href="/book/assets/js/21.9ba5653b.js"><link rel="prefetch" href="/book/assets/js/22.405d8bae.js"><link rel="prefetch" href="/book/assets/js/23.1fd51f28.js"><link rel="prefetch" href="/book/assets/js/24.68001b79.js"><link rel="prefetch" href="/book/assets/js/25.2bfdab0a.js"><link rel="prefetch" href="/book/assets/js/26.41c53fff.js"><link rel="prefetch" href="/book/assets/js/27.084d452c.js"><link rel="prefetch" href="/book/assets/js/28.f099ec1a.js"><link rel="prefetch" href="/book/assets/js/29.4a665d0e.js"><link rel="prefetch" href="/book/assets/js/30.38269247.js"><link rel="prefetch" href="/book/assets/js/31.3d1abd16.js"><link rel="prefetch" href="/book/assets/js/32.dba76885.js"><link rel="prefetch" href="/book/assets/js/33.6f14593a.js"><link rel="prefetch" href="/book/assets/js/34.1fe76271.js"><link rel="prefetch" href="/book/assets/js/35.eace5b32.js"><link rel="prefetch" href="/book/assets/js/36.e6aabe95.js"><link rel="prefetch" href="/book/assets/js/37.5808e643.js"><link rel="prefetch" href="/book/assets/js/38.f97ffa95.js"><link rel="prefetch" href="/book/assets/js/39.5348a4f8.js"><link rel="prefetch" href="/book/assets/js/4.8b638307.js"><link rel="prefetch" href="/book/assets/js/40.e83470d2.js"><link rel="prefetch" href="/book/assets/js/41.e38a531e.js"><link rel="prefetch" href="/book/assets/js/42.d454a629.js"><link rel="prefetch" href="/book/assets/js/43.e71bbc53.js"><link rel="prefetch" href="/book/assets/js/44.e697f1c9.js"><link rel="prefetch" href="/book/assets/js/45.3c178858.js"><link rel="prefetch" href="/book/assets/js/46.8b84c4d4.js"><link rel="prefetch" href="/book/assets/js/47.00ed42af.js"><link rel="prefetch" href="/book/assets/js/48.c547d36b.js"><link rel="prefetch" href="/book/assets/js/49.a94e51ed.js"><link rel="prefetch" href="/book/assets/js/5.fe8df24d.js"><link rel="prefetch" href="/book/assets/js/50.45bf85ae.js"><link rel="prefetch" href="/book/assets/js/51.521febf2.js"><link rel="prefetch" href="/book/assets/js/52.4019ba2d.js"><link rel="prefetch" href="/book/assets/js/53.dd909c02.js"><link rel="prefetch" href="/book/assets/js/54.1b49b742.js"><link rel="prefetch" href="/book/assets/js/55.781976de.js"><link rel="prefetch" href="/book/assets/js/56.8be125a9.js"><link rel="prefetch" href="/book/assets/js/57.973113d5.js"><link rel="prefetch" href="/book/assets/js/58.772e8a37.js"><link rel="prefetch" href="/book/assets/js/59.62e17687.js"><link rel="prefetch" href="/book/assets/js/6.b8457bdc.js"><link rel="prefetch" href="/book/assets/js/60.fc8a1294.js"><link rel="prefetch" href="/book/assets/js/61.3bf23727.js"><link rel="prefetch" href="/book/assets/js/62.9f83a452.js"><link rel="prefetch" href="/book/assets/js/63.f0cf5d00.js"><link rel="prefetch" href="/book/assets/js/64.188253fd.js"><link rel="prefetch" href="/book/assets/js/65.11ff922f.js"><link rel="prefetch" href="/book/assets/js/66.f68b57b1.js"><link rel="prefetch" href="/book/assets/js/68.b32f5e8c.js"><link rel="prefetch" href="/book/assets/js/69.c37ffa0c.js"><link rel="prefetch" href="/book/assets/js/70.2ab77931.js"><link rel="prefetch" href="/book/assets/js/71.46e0b7dd.js"><link rel="prefetch" href="/book/assets/js/72.dbdac20b.js"><link rel="prefetch" href="/book/assets/js/73.9fc0cabd.js"><link rel="prefetch" href="/book/assets/js/74.490b6889.js"><link rel="prefetch" href="/book/assets/js/75.df981cea.js"><link rel="prefetch" href="/book/assets/js/76.7957243e.js"><link rel="prefetch" href="/book/assets/js/77.f6664887.js"><link rel="prefetch" href="/book/assets/js/78.f8cd2041.js"><link rel="prefetch" href="/book/assets/js/79.51c7ff17.js"><link rel="prefetch" href="/book/assets/js/8.fcfda84a.js"><link rel="prefetch" href="/book/assets/js/80.8f79e5db.js"><link rel="prefetch" href="/book/assets/js/81.be9d7406.js"><link rel="prefetch" href="/book/assets/js/82.5c65fe44.js"><link rel="prefetch" href="/book/assets/js/83.753dadb6.js"><link rel="prefetch" href="/book/assets/js/84.e8ba21d0.js"><link rel="prefetch" href="/book/assets/js/85.ce4a60f2.js"><link rel="prefetch" href="/book/assets/js/86.a44019ac.js"><link rel="prefetch" href="/book/assets/js/87.272f4380.js"><link rel="prefetch" href="/book/assets/js/88.aeaf3f6f.js"><link rel="prefetch" href="/book/assets/js/89.da73e578.js"><link rel="prefetch" href="/book/assets/js/9.539bb88c.js"><link rel="prefetch" href="/book/assets/js/90.b492b3ef.js"><link rel="prefetch" href="/book/assets/js/91.15f180d5.js"><link rel="prefetch" href="/book/assets/js/92.2f7fb5cd.js"><link rel="prefetch" href="/book/assets/js/93.256eda08.js"><link rel="prefetch" href="/book/assets/js/94.20cf62c4.js"><link rel="prefetch" href="/book/assets/js/95.ff052794.js"><link rel="prefetch" href="/book/assets/js/96.e8501225.js"><link rel="prefetch" href="/book/assets/js/97.93da6d3a.js"><link rel="prefetch" href="/book/assets/js/98.71c2d6f6.js"><link rel="prefetch" href="/book/assets/js/99.25f4671a.js"><link rel="prefetch" href="/book/assets/js/vendors~docsearch.3644c41e.js">
+    <link rel="stylesheet" href="/book/assets/css/0.styles.37081601.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/book/" class="home-link router-link-active"><!----> <span class="site-name">日常收集</span></a> <div class="links"><form id="search-form" role="search" class="algolia-search-wrapper search-box"><input id="algolia-search-input" class="search-query"></form> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>dom的事件</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>Javascript</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/book/338.html" class="sidebar-link"> JS异步编程——WebWorker多线程机制</a></li><li><a href="/book/337.html" class="sidebar-link">js</a></li><li><a href="/book/336.html" class="sidebar-link"> [核心概念] 一文说透JS中的原型和继承(上)</a></li><li><a href="/book/335.html" class="sidebar-link"> [关联概念] 一文说透 JS 中的变量提升</a></li><li><a href="/book/334.html" class="sidebar-link"> [核心概念] 一文说透浏览器环境下的JS运行机制</a></li><li><a href="/book/333.html" class="sidebar-link"> [核心概念] 一文说透JS中的函数柯里化(Currying)</a></li><li><a href="/book/332.html" class="sidebar-link"> [核心概念] 一文说透 JS 中 this 的基本概念</a></li><li><a href="/book/331.html" class="sidebar-link"> [核心概念] 一文说透 JS 的作用域（scope）</a></li><li><a href="/book/330.html" class="sidebar-link"> [核心概念] 一文说透 JS 中的闭包（closure）</a></li><li><a href="/book/329.html" class="sidebar-link"> [核心概念] 一文说透 JS 中的执行上下文</a></li><li><a href="/book/268.html" class="sidebar-link"> 「硬核JS」你真的了解垃圾回收机制吗</a></li><li><a href="/book/262.html" class="sidebar-link"> 「硬核JS」你的程序中可能存在内存泄漏</a></li><li><a href="/book/229.html" class="sidebar-link"> 聊聊JS的二进制家族：Blob、ArrayBuffer和Buffer</a></li><li><a href="/book/226.html" aria-current="page" class="active sidebar-link"> `Object.defineProperty()详解`</a></li><li><a href="/book/180.html" class="sidebar-link">yield是什么</a></li><li><a href="/book/175.html" class="sidebar-link">HTTP请求中，几种常见的Content-Type类型</a></li><li><a href="/book/172.html" class="sidebar-link"> js 给元素添加、删除父标签</a></li><li><a href="/book/171.html" class="sidebar-link"> 多个promise实现</a></li><li><a href="/book/131.html" class="sidebar-link"> Object.defineProperty和Object.defineProperties()</a></li><li><a href="/book/126.html" class="sidebar-link"> scrollHeight,scrollLeft,offsetHeight,offsetLeft</a></li><li><a href="/book/118.html" class="sidebar-link"> 怎样让 forEach 停下来呢；**try catch**</a></li><li><a href="/book/105.html" class="sidebar-link">div拖动的实现</a></li><li><a href="/book/93.html" class="sidebar-link">JavaScript对象之深拷贝和浅拷贝</a></li><li><a href="/book/92.html" class="sidebar-link">base64。js</a></li><li><a href="/book/85.html" class="sidebar-link">你也许不知道的JavaScript高级函数</a></li><li><a href="/book/78.html" class="sidebar-link">ESmodules:Acartoondeep-dive</a></li><li><a href="/book/73.html" class="sidebar-link">setTimeout和setImmediate到底谁先执行，本文让你彻底理解EventLoop</a></li><li><a href="/book/71.html" class="sidebar-link">一种对开发更友好的前端骨架屏自动生成方案</a></li><li><a href="/book/68.html" class="sidebar-link">深入理解ESModules(手绘示例)</a></li><li><a href="/book/48.html" class="sidebar-link">系统学习前端之FormData详解</a></li><li><a href="/book/47.html" class="sidebar-link">使用FormData上传文件</a></li><li><a href="/book/46.html" class="sidebar-link">数组排序方法</a></li><li><a href="/book/43.html" class="sidebar-link">利于FileReader实现二进制数据流转JSON</a></li><li><a href="/book/28.html" class="sidebar-link">reduce过滤数组中重复对象</a></li><li><a href="/book/27.html" class="sidebar-link">常用文件类型对应</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>element-ui</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/31.html" class="sidebar-link"> 知识库管理系统开发 log记录</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Qcanvas</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>vue</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>大屏</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/328.html" class="sidebar-link"> 从哲学层面浅谈计算机学习方法论</a></li><li><a href="/book/324.html" class="sidebar-link"> 微信游览器，解决安卓和ios自动播放音乐</a></li><li><a href="/book/323.html" class="sidebar-link"> CSS3 animation属性中的steps功能符深入介绍</a></li><li><a href="/book/322.html" class="sidebar-link"> 前端搞工程化：从零打造性能检测库「源码 + 视频」</a></li><li><a href="/book/321.html" class="sidebar-link"> 还在看那些老掉牙的性能优化文章么？这些最新性能指标了解下</a></li><li><a href="/book/320.html" class="sidebar-link"> Nginx根据User Agent动态配置root目录适配移动端</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>可视化大屏</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/307.html" class="sidebar-link"> cat文档内容中搜索字符串输出到文件</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>node</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/301.html" class="sidebar-link">从App store下载App的不同版本ipa文件----很多东西也不是越新越好，比如APP——在 iPhone 上尤其如此</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>工作总结</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/294.html" class="sidebar-link">迟子建老师的《一坛猪油》</a></li><li><a href="/book/289.html" class="sidebar-link">ata-rawheight=&amp;quot;143&amp;quot;class=&amp;quot;content_image&amp;quot;width=&amp;quot;322&amp;quot;/&amp;gt;![](/Public/upload/20211027/16353179551.jpg)温馨提示：内容较长，需耐心观看</a></li><li><a href="/book/288.html" class="sidebar-link">文本文档的协同编辑实现</a></li><li><a href="/book/287.html" class="sidebar-link">再见，整洁代码</a></li><li><a href="/book/286.html" class="sidebar-link"> 可以在 Nginx 中运行 JavaScript，厉害了！</a></li><li><a href="/book/284.html" class="sidebar-link"> word中批量调整图片大小</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>成考学习</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>electron打包的一些问题</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/274.html" class="sidebar-link"> 文件分片代码</a></li><li><a href="/book/273.html" class="sidebar-link"> 重学 JS：为啥 await 不能用在 forEach 中详解</a></li><li><a href="/book/269.html" class="sidebar-link"> Excel函数之王，Vlookup到底怎么用？</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>mysql</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/263.html" class="sidebar-link"> 文档标题</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>批处理</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/248.html" class="sidebar-link"> 《提问的智慧》精读注解版</a></li><li><a href="/book/247.html" class="sidebar-link"> 1368个单词</a></li><li><a href="/book/199.html" class="sidebar-link"> js监听div的resize事件</a></li><li><a href="/book/198.html" class="sidebar-link"> 引入第三方字体体积太大的问题</a></li><li><a href="/book/195.html" class="sidebar-link"> 多行溢出省略号显示（css/js）实现！</a></li><li><a href="/book/190.html" class="sidebar-link">今天带大家一起来看看下，如何实现“划词高亮”功能。</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>极简中国史趣味笔记</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>拓扑图</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Css</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>算法</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Canvas</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>工作中解决的疑难问题</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Git</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>nginx</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>小程序</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/146.html" class="sidebar-link"> 文档标题</a></li><li><a href="/book/140.html" class="sidebar-link">gdfdgf</a></li><li><a href="/book/137.html" class="sidebar-link">测试</a></li><li><a href="/book/135.html" class="sidebar-link"> 深夜，我偷听到程序员要对session下手</a></li><li><a href="/book/132.html" class="sidebar-link"> 读 《深入浅出webpack》</a></li><li><a href="/book/117.html" class="sidebar-link">双兔傍地走，安能辨我forEach还是for</a></li><li><a href="/book/115.html" class="sidebar-link"> 文档标题</a></li><li><a href="/book/103.html" class="sidebar-link"> 一道被人轻视的前端面试题</a></li><li><a href="/book/101.html" class="sidebar-link">部分前端面试题参考答案</a></li><li><a href="/book/80.html" class="sidebar-link">SVGDeveloper制作矢量地图教程详解</a></li><li><a href="/book/76.html" class="sidebar-link">VisualStudio2010创建的WCF（.dll）服务第一个应用</a></li><li><a href="/book/70.html" class="sidebar-link"> 测试</a></li><li><a href="/book/41.html" class="sidebar-link">为了开发做测试用</a></li><li><a href="/book/40.html" class="sidebar-link"> 文档标题</a></li><li><a href="/book/38.html" class="sidebar-link">文档标题</a></li><li><a href="/book/33.html" class="sidebar-link">文档标题</a></li><li><a href="/book/32.html" class="sidebar-link">测试锚点问题</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="object-defineproperty-详解"><a href="#object-defineproperty-详解" class="header-anchor">#</a> <code>Object.defineProperty()详解</code></h1> <p>在园子里看到一篇讲解Object.defineProperty()的非常好的博文，我把他转载过来，给自己留个笔记。原文出处https://www.cnblogs.com/junjun-001/p/11761252.html#commentform</p> <p>菜菜： “老大，那个， Object.defineProperty 是什么鬼？”</p> <p>假设我们有个对象 user ; 我们要给它增加一个属性 name , 我们会这么做</p> <div class="language- extra-class"><pre class="language-text"><code>1 var user = {};
+2 user.name=&quot;狂奔的蜗牛&quot;;
+3 console.log(user);//{name: &quot;狂奔的蜗牛&quot;}
+</code></pre></div><p>如果想要增加一个sayHi方法叻？</p> <div class="language- extra-class"><pre class="language-text"><code>1 user.sayHi=function () { console.log(&quot;Hi !&quot;) };
+2 console.log(user);//{name: &quot;狂奔的蜗牛&quot;, sayHi: ƒn}
+</code></pre></div><p><code>Object.defineProperty</code>就是做这个的</p> <p>**　　那么Object.defineProperty 怎么用？**</p> <p>Object.defineProperty 需要三个参数（object , propName , descriptor）</p> <p>1 object 对象 =&gt; 给谁加
+　　2 propName 属性名 =&gt; 要加的属性的名字 【类型：String】
+　　3 descriptor 属性描述 =&gt; 加的这个属性有什么样的特性【类型：Object】</p> <p>那么 <code>descriptor</code>这个是个对象 ，他有那些属性呢 ? 别着急我们一个一个说；</p> <p>既然可以给一个对象增加属性，那么我们用它来做一下给 user添加 name属性，代码是这样的</p> <div class="language- extra-class"><pre class="language-text"><code>1 var user = {};
+2 Object.defineProperty(user,&quot;name&quot;,{
+3  value:&quot;狂奔的蜗牛&quot;
+4 })
+5 console.log(user);//{name: &quot;狂奔的蜗牛&quot;}
+</code></pre></div><p><strong>说明</strong> 是的还是那个经典的 <code>value</code>属性，他就是设置属性值的。</p> <p>等等，属性值只能为字符串吗？我们的 number function Object boolean 等呢？</p> <p><img src="Public/upload/20210425/16193450271.gif" alt="复制代码"></p> <div class="language- extra-class"><pre class="language-text"><code> 1 var user = {};
+ 2 Object.defineProperty(user,&quot;name&quot;,{
+ 3  value:&quot;狂奔的蜗牛&quot;
+ 4 })
+ 5 Object.defineProperty(user,&quot;isSlow&quot;,{
+ 6  value:true
+ 7 })
+ 8 Object.defineProperty(user,&quot;sayHi&quot;,{
+ 9  value:function () { console.log(&quot;Hi !&quot;) }
+10 })
+11 Object.defineProperty(user,&quot;age&quot;,{
+12  value:12
+13 })
+14 Object.defineProperty(user,&quot;birth&quot;,{
+15  value:{
+16   date:&quot;2018-06-29&quot;,
+17   hour:&quot;15:30&quot;
+18  }
+19 })
+20 console.log(user);
+</code></pre></div><p><img src="Public/upload/20210425/16193450271.gif" alt="复制代码"></p> <p><img src="Public/upload/20210425/161934502610.png" alt=""></p> <p><strong>说明</strong> 事实证明任何类型的数据都是可以的哦~</p> <p>问题又来了，如果 user对象已经有了name属性，我们可以通过Object.defineProperty改变这个值吗？</p> <p>我们来试试</p> <p><img src="Public/upload/20210425/16193450271.gif" alt="复制代码"></p> <div class="language- extra-class"><pre class="language-text"><code>1 var user = {};
+2 Object.defineProperty(user,&quot;name&quot;,{
+3  value:&quot;狂奔的蜗牛&quot;
+4 })
+5 console.log(user);
+6 user.name=&quot;新=&gt;狂奔的蜗牛&quot;
+7 console.log(user);
+</code></pre></div><p><img src="Public/upload/20210425/16193450271.gif" alt="复制代码"></p> <p>咦？？为什么我改了没作用勒？？</p> <p>原因：上边说了descriptor有很多属性，除了value属性还有个 writable【顾名思义属性是否可以被重新赋值】接受数据类型为 boolean（默认为false） true =&gt; 支持被重新赋值 false=&gt;只读</p> <p>哦哦，原来如果我没设置writable值的时候就默认只读啊，所以才改不掉</p> <p>那我们看看，设置为true，是不是就可以改掉了。</p> <p><img src="Public/upload/20210425/16193450271.gif" alt="复制代码"></p> <div class="language- extra-class"><pre class="language-text"><code>1 var user = {};
+2 Object.defineProperty(user,&quot;name&quot;,{
+3  value:&quot;狂奔的蜗牛&quot;,
+4  writable:true
+5 })
+6 console.log(user);
+7 user.name=&quot;新=&gt;狂奔的蜗牛&quot;
+8 console.log(user);
+</code></pre></div><p><img src="Public/upload/20210425/16193450271.gif" alt="复制代码"></p> <p><img src="Public/upload/20210425/16193450269.png" alt=""></p> <p>这个descriptor还有其他的属性吗？enumerable【顾名思义属性是否可以被枚举】接受数据类型为 boolean（默认为false） true =&gt; 支持被枚举 false=&gt;不支持</p> <p>额。。。枚举？？什....什么意思？</p> <p>假设我们想知道这个 user对象有哪些属性我们一般会这么做</p> <p><img src="Public/upload/20210425/16193450271.gif" alt="复制代码"></p> <div class="language- extra-class"><pre class="language-text"><code> 1 var user ={
+ 2  name:&quot;狂奔的蜗牛&quot;,
+ 3  age:25
+ 4 } ;
+ 5  
+ 6 //es6
+ 7 var keys=Object.keys(user)
+ 8 console.log(keys);// ['name','age']
+ 9 //es5
+10 var keys=[];
+11 for(key in user){
+12  keys.push(key);
+13 } 
+14 console.log(keys);// ['name','age'] 
+</code></pre></div><p><img src="Public/upload/20210425/16193450271.gif" alt="复制代码"></p> <p>如果我们使用 Object.的方式定义属性会发生什么呢？我们来看下输出</p> <p><img src="Public/upload/20210425/16193450271.gif" alt="复制代码"></p> <div class="language- extra-class"><pre class="language-text"><code> 1 var user ={
+ 2  name:&quot;狂奔的蜗牛&quot;,
+ 3  age:25
+ 4 } ;
+ 5 //定义一个性别 可以被枚举
+ 6 Object.defineProperty(user,&quot;gender&quot;,{
+ 7  value:&quot;男&quot;,
+ 8  enumerable:true
+ 9 })
+10  
+11 //定义一个出生日期 不可以被枚举
+12 Object.defineProperty(user,&quot;birth&quot;,{
+13  value:&quot;1956-05-03&quot;,
+14  enumerable:false
+15 })
+16  
+17 //es6
+18 var keys=Object.keys(user)
+19 console.log(keys);
+20 // [&quot;name&quot;, &quot;age&quot;, &quot;gender&quot;]
+21  
+22 console.log(user);
+23 // {name: &quot;狂奔的蜗牛&quot;, age: 25, gender: &quot;男&quot;, birth: &quot;1956-05-03&quot;}
+24 console.log(user.birth);
+25 // 1956-05-03 
+</code></pre></div><p><img src="Public/upload/20210425/16193450271.gif" alt="复制代码"></p> <p><strong>说明</strong>　很明显，我们定义为　<code>enumerable=false</code>的 <code>birth</code>属性并没有被遍历出来，遍历 =&gt; 其实就是枚举（个人理解啦，不喜勿喷哦~）</p> <p>**　　总结　**<code>enumerable</code>属性取值为 <code>布尔类型 true | false</code>默认值为 <code>false</code>，为真属性可以被枚举；反之则不能。此设置不影响属性的调用和 查看对象的值。</p> <p><code>configurable</code>是接下来我们要讲的一个属性，这个属性有两个作用：</p> <p>1 属性是否可以被删除
+　　2 属性的特性在第一次设置之后可否被重新定义特性</p> <p><img src="Public/upload/20210425/16193450271.gif" alt="复制代码"></p> <div class="language- extra-class"><pre class="language-text"><code> 1 var user ={
+ 2  name:&quot;狂奔的蜗牛&quot;,
+ 3  age:25
+ 4 } ;
+ 5 //定义一个性别 不可以被删除和重新定义特性
+ 6 Object.defineProperty(user,&quot;gender&quot;,{
+ 7  value:&quot;男&quot;,
+ 8  enumerable:true,
+ 9  configurable:false
+10 })
+11  
+12 //删除一下
+13 delete user.gender;
+14 console.log(user);//{name: &quot;狂奔的蜗牛&quot;, age: 25, gender: &quot;男&quot;}
+15  
+16 //重新定义特性
+17 Object.defineProperty(user,&quot;gender&quot;,{
+18  value:&quot;男&quot;,
+19  enumerable:true,
+20  configurable:true
+21 })
+22 // Uncaught TypeError: Cannot redefine property: gender
+23 //会报错，如下图
+</code></pre></div><p><img src="Public/upload/20210425/16193450271.gif" alt="复制代码"></p> <p><img src="Public/upload/20210425/16193450272.png" alt=""></p> <p>设置为 true</p> <p><img src="Public/upload/20210425/16193450271.gif" alt="复制代码"></p> <div class="language- extra-class"><pre class="language-text"><code> 1 var user ={
+ 2  name:&quot;狂奔的蜗牛&quot;,
+ 3  age:25
+ 4 } ;
+ 5 //定义一个性别 可以被删除和重新定义特性
+ 6 Object.defineProperty(user,&quot;gender&quot;,{
+ 7  value:&quot;男&quot;,
+ 8  enumerable:true,
+ 9  configurable:true
+10 })
+11  
+12 //删除前
+13 console.log(user);
+14 // {name: &quot;狂奔的蜗牛&quot;, age: 25, gender: &quot;男&quot;}
+15  
+16 //删除一下
+17 delete user.gender;
+18 console.log(user);
+19 // {name: &quot;狂奔的蜗牛&quot;, age: 25}
+20  
+21 //重新定义特性
+22 Object.defineProperty(user,&quot;gender&quot;,{
+23  value:&quot;男&quot;,
+24  enumerable:true,
+25  configurable:false
+26 })
+27  
+28 //删除前
+29 console.log(user);
+30 // {name: &quot;狂奔的蜗牛&quot;, age: 25, gender: &quot;男&quot;}
+31 //删除一下 删除失败
+32 delete user.gender;
+33 console.log(user);
+34 // {name: &quot;狂奔的蜗牛&quot;, age: 25, gender: &quot;男&quot;}
+</code></pre></div><p><img src="Public/upload/20210425/16193450271.gif" alt="复制代码"></p> <p><strong>总结</strong> <code>configurable</code>设置为 true 则该属性可以被删除和重新定义特性；反之属性是不可以被删除和重新定义特性的，默认值为false（Ps.<code>除了可以给新定义的属性设置特性，也可以给已有的属性设置特性哈</code>）</p> <p>最后我们来说说，最重要的两个属性 <code>set</code>和 <code>get</code>（即存取器描述：定义属性如何被存取），这两个属性是做什么用的呢？我们通过代码来看看</p> <p><img src="Public/upload/20210425/16193450271.gif" alt="复制代码"></p> <div class="language- extra-class"><pre class="language-text"><code> 1 var user ={
+ 2  name:&quot;狂奔的蜗牛&quot;
+ 3 } ;
+ 4 var count = 12;
+ 5 //定义一个age 获取值时返回定义好的变量count
+ 6 Object.defineProperty(user,&quot;age&quot;,{
+ 7  get:function(){
+ 8   return count;
+ 9  }
+10 })
+11 console.log(user.age);//12
+12  
+13 //如果我每次获取的时候返回count+1呢
+14 var user ={
+15  name:&quot;狂奔的蜗牛&quot;
+16 } ;
+17 var count = 12;
+18 //定义一个age 获取值时返回定义好的变量count
+19 Object.defineProperty(user,&quot;age&quot;,{
+20  get:function(){
+21   return count+1;
+22  }
+23 })
+24 console.log(user.age);//13
+</code></pre></div><p><img src="Public/upload/20210425/16193450271.gif" alt="复制代码"></p> <p>接下来我不用解释了吧，你想在获取该属性的时候对值做什么随你咯~</p> <p>来来来，我们看看 set，不多说上代码</p> <p><img src="Public/upload/20210425/16193450271.gif" alt="复制代码"></p> <div class="language- extra-class"><pre class="language-text"><code> 1 var user ={
+ 2  name:&quot;狂奔的蜗牛&quot;
+ 3 } ;
+ 4 var count = 12;
+ 5 //定义一个age 获取值时返回定义好的变量count
+ 6 Object.defineProperty(user,&quot;age&quot;,{
+ 7  get:function(){
+ 8   return count;
+ 9  },
+10  set:function(newVal){
+11   count=newVal;
+12  }
+13 })
+14 console.log(user.age);//12
+15 user.age=145;
+16 console.log(user.age);//145
+17 console.log(count);//145
+18  
+19 //等等，如果我想设置的时候是 自动加1呢？我设置145 实际上设置是146
+20  
+21 var user ={
+22  name:&quot;狂奔的蜗牛&quot;
+23 } ;
+24 var count = 12;
+25 //定义一个age 获取值时返回定义好的变量count
+26 Object.defineProperty(user,&quot;age&quot;,{
+27  get:function(){
+28   return count;
+29  },
+30  set:function(newVal){
+31   count=newVal+1;
+32  }
+33 })
+34 console.log(user.age);//12
+35 user.age=145;
+36 console.log(user.age);//146
+37 console.log(count);//146
+</code></pre></div><p><img src="Public/upload/20210425/16193450271.gif" alt="复制代码"></p> <p>**说明 **注意：当使用了getter或setter方法，不允许使用writable和value这两个属性(如果使用，会直接报错滴)</p> <p><code>get</code>是获取值的时候的方法，类型为 <code>function</code>，获取值的时候会被调用，不设置时为 <code>undefined</code></p> <p><code>set</code>是设置值的时候的方法，类型为 <code>function</code>，设置值的时候会被调用，<code>undefined</code></p> <p>get或set不是必须成对出现，任写其一就可以</p> <p><img src="Public/upload/20210425/16193450271.gif" alt="复制代码"></p> <div class="language- extra-class"><pre class="language-text"><code> 1 var user ={
+ 2  name:&quot;狂奔的蜗牛&quot;
+ 3 } ;
+ 4 var count = 12;
+ 5 //定义一个age 获取值时返回定义好的变量count
+ 6 Object.defineProperty(user,&quot;age&quot;,{
+ 7  get:function(){
+ 8   console.log(&quot;这个人来获取值了！！&quot;);
+ 9   return count;
+10  },
+11  set:function(newVal){
+12   console.log(&quot;这个人来设置值了！！&quot;);
+13   count=newVal+1;
+14  }
+15 })
+16 console.log(user.age);//12
+17 user.age=145;
+18 console.log(user.age);//146
+</code></pre></div><p><img src="Public/upload/20210425/16193450271.gif" alt="复制代码"></p> <p><img src="Public/upload/20210425/16193450270.png" alt=""></p> <p><strong>【完结】</strong></p> <p><code>Object.defineProperty</code>方法直接在一个对象上定义一个新属性，或者修改一个已经存在的属性， 并返回这个对象</p> <ul><li>value: 设置属性的值</li> <li>writable: 值是否可以重写。true | false</li> <li>enumerable: 目标属性是否可以被枚举。true | false</li> <li>configurable: 目标属性是否可以被删除或是否可以再次修改特性 true | false</li> <li>set: 目标属性设置值的方法</li> <li>get：目标属性获取值的方法</li></ul> <p>文章来源：https://www.cnblogs.com/ldq678/p/13854113.html</p> <!----></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/book/229.html" class="prev">
+         聊聊JS的二进制家族：Blob、ArrayBuffer和Buffer
+      </a></span> <span class="next"><a href="/book/180.html">
+        yield是什么
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><section class="side-anchor"><ul style="display:none;"></ul></section></div></div>
+    <script src="/book/assets/js/app.804da1e4.js" defer></script><script src="/book/assets/js/3.1fbb3b52.js" defer></script><script src="/book/assets/js/67.67f61cd7.js" defer></script><script src="/book/assets/js/7.d1a7bcae.js" defer></script>
+  </body>
+</html>
