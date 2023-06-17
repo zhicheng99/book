@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>万字扫盲ByteBuffer | 日常收集</title>
+    <meta name="generator" content="VuePress 1.9.9">
+    
+    <meta name="description" content="Just playing around">
+    
+    <link rel="preload" href="/book/assets/css/0.styles.0575b83d.css" as="style"><link rel="preload" href="/book/assets/js/app.c8cf2c2d.js" as="script"><link rel="preload" href="/book/assets/js/3.0d5fb1e8.js" as="script"><link rel="preload" href="/book/assets/js/137.2c19d3fa.js" as="script"><link rel="preload" href="/book/assets/js/4.4c5f7830.js" as="script"><link rel="prefetch" href="/book/assets/js/10.b7e4165a.js"><link rel="prefetch" href="/book/assets/js/100.ff8b475f.js"><link rel="prefetch" href="/book/assets/js/101.19bef30c.js"><link rel="prefetch" href="/book/assets/js/102.9f2e224b.js"><link rel="prefetch" href="/book/assets/js/103.6dd6e411.js"><link rel="prefetch" href="/book/assets/js/104.29cb43a7.js"><link rel="prefetch" href="/book/assets/js/105.bea4dd2d.js"><link rel="prefetch" href="/book/assets/js/106.5a045c6a.js"><link rel="prefetch" href="/book/assets/js/107.24dfb0a1.js"><link rel="prefetch" href="/book/assets/js/108.faf80b69.js"><link rel="prefetch" href="/book/assets/js/109.c40b51b2.js"><link rel="prefetch" href="/book/assets/js/11.44217601.js"><link rel="prefetch" href="/book/assets/js/110.0ad5bafa.js"><link rel="prefetch" href="/book/assets/js/111.c85d723e.js"><link rel="prefetch" href="/book/assets/js/112.b8d99964.js"><link rel="prefetch" href="/book/assets/js/113.7b01d741.js"><link rel="prefetch" href="/book/assets/js/114.40924aed.js"><link rel="prefetch" href="/book/assets/js/115.73705314.js"><link rel="prefetch" href="/book/assets/js/116.2722c552.js"><link rel="prefetch" href="/book/assets/js/117.d5ea400e.js"><link rel="prefetch" href="/book/assets/js/118.8f552084.js"><link rel="prefetch" href="/book/assets/js/119.05f11ec8.js"><link rel="prefetch" href="/book/assets/js/12.571f12ac.js"><link rel="prefetch" href="/book/assets/js/120.7ac63c38.js"><link rel="prefetch" href="/book/assets/js/121.addba4bc.js"><link rel="prefetch" href="/book/assets/js/122.e36ab092.js"><link rel="prefetch" href="/book/assets/js/123.f768b115.js"><link rel="prefetch" href="/book/assets/js/124.88cc6bb2.js"><link rel="prefetch" href="/book/assets/js/125.3086a6c7.js"><link rel="prefetch" href="/book/assets/js/126.8685f3d1.js"><link rel="prefetch" href="/book/assets/js/127.a2e54fa3.js"><link rel="prefetch" href="/book/assets/js/128.05dd1ef5.js"><link rel="prefetch" href="/book/assets/js/129.8d61cdc3.js"><link rel="prefetch" href="/book/assets/js/13.94f0d951.js"><link rel="prefetch" href="/book/assets/js/130.6894001e.js"><link rel="prefetch" href="/book/assets/js/131.3b56b34d.js"><link rel="prefetch" href="/book/assets/js/132.de4f4a7c.js"><link rel="prefetch" href="/book/assets/js/133.f22a0818.js"><link rel="prefetch" href="/book/assets/js/134.39fc556b.js"><link rel="prefetch" href="/book/assets/js/135.674da456.js"><link rel="prefetch" href="/book/assets/js/136.33860124.js"><link rel="prefetch" href="/book/assets/js/138.c402dab0.js"><link rel="prefetch" href="/book/assets/js/139.5e82f303.js"><link rel="prefetch" href="/book/assets/js/14.3d533f57.js"><link rel="prefetch" href="/book/assets/js/140.62e0cb58.js"><link rel="prefetch" href="/book/assets/js/141.fa154467.js"><link rel="prefetch" href="/book/assets/js/142.778347a5.js"><link rel="prefetch" href="/book/assets/js/143.9c54f61b.js"><link rel="prefetch" href="/book/assets/js/144.662af319.js"><link rel="prefetch" href="/book/assets/js/145.5944e1fc.js"><link rel="prefetch" href="/book/assets/js/146.fd43269d.js"><link rel="prefetch" href="/book/assets/js/147.c84266c4.js"><link rel="prefetch" href="/book/assets/js/148.dbc94a8a.js"><link rel="prefetch" href="/book/assets/js/149.b9372d26.js"><link rel="prefetch" href="/book/assets/js/15.281fe50b.js"><link rel="prefetch" href="/book/assets/js/150.37570d27.js"><link rel="prefetch" href="/book/assets/js/151.d1827480.js"><link rel="prefetch" href="/book/assets/js/152.fbcaf5cb.js"><link rel="prefetch" href="/book/assets/js/153.3776cdba.js"><link rel="prefetch" href="/book/assets/js/154.e1f55cec.js"><link rel="prefetch" href="/book/assets/js/155.4669a8c6.js"><link rel="prefetch" href="/book/assets/js/156.458405bf.js"><link rel="prefetch" href="/book/assets/js/157.d95c27d1.js"><link rel="prefetch" href="/book/assets/js/158.e0bc050f.js"><link rel="prefetch" href="/book/assets/js/159.143f4e35.js"><link rel="prefetch" href="/book/assets/js/16.c05e6974.js"><link rel="prefetch" href="/book/assets/js/160.5ab2a46a.js"><link rel="prefetch" href="/book/assets/js/161.24b0ff2e.js"><link rel="prefetch" href="/book/assets/js/162.ae6079c0.js"><link rel="prefetch" href="/book/assets/js/163.137cde9d.js"><link rel="prefetch" href="/book/assets/js/164.b805d4a1.js"><link rel="prefetch" href="/book/assets/js/165.31686672.js"><link rel="prefetch" href="/book/assets/js/166.fb140ab0.js"><link rel="prefetch" href="/book/assets/js/167.f41765a0.js"><link rel="prefetch" href="/book/assets/js/168.0573b984.js"><link rel="prefetch" href="/book/assets/js/169.6877c1df.js"><link rel="prefetch" href="/book/assets/js/17.98e34aaf.js"><link rel="prefetch" href="/book/assets/js/170.948c455c.js"><link rel="prefetch" href="/book/assets/js/18.51ea57a3.js"><link rel="prefetch" href="/book/assets/js/19.8ba7ecb7.js"><link rel="prefetch" href="/book/assets/js/20.428d3741.js"><link rel="prefetch" href="/book/assets/js/21.6229732b.js"><link rel="prefetch" href="/book/assets/js/22.aaf4eec1.js"><link rel="prefetch" href="/book/assets/js/23.3c002936.js"><link rel="prefetch" href="/book/assets/js/24.bd9616e3.js"><link rel="prefetch" href="/book/assets/js/25.13ac73ab.js"><link rel="prefetch" href="/book/assets/js/26.87ee90df.js"><link rel="prefetch" href="/book/assets/js/27.2e41022a.js"><link rel="prefetch" href="/book/assets/js/28.47dbd3dd.js"><link rel="prefetch" href="/book/assets/js/29.f9a72fbb.js"><link rel="prefetch" href="/book/assets/js/30.f25cdd9c.js"><link rel="prefetch" href="/book/assets/js/31.efc3f08d.js"><link rel="prefetch" href="/book/assets/js/32.5dcd7f59.js"><link rel="prefetch" href="/book/assets/js/33.8760ca3a.js"><link rel="prefetch" href="/book/assets/js/34.fa9fc2e4.js"><link rel="prefetch" href="/book/assets/js/35.b1a81b64.js"><link rel="prefetch" href="/book/assets/js/36.dcb0e8e4.js"><link rel="prefetch" href="/book/assets/js/37.f208f46d.js"><link rel="prefetch" href="/book/assets/js/38.749c6353.js"><link rel="prefetch" href="/book/assets/js/39.c79b7b8d.js"><link rel="prefetch" href="/book/assets/js/40.e57f0567.js"><link rel="prefetch" href="/book/assets/js/41.b7de65dc.js"><link rel="prefetch" href="/book/assets/js/42.a4199118.js"><link rel="prefetch" href="/book/assets/js/43.29627dcd.js"><link rel="prefetch" href="/book/assets/js/44.4fd40982.js"><link rel="prefetch" href="/book/assets/js/45.f9ca9392.js"><link rel="prefetch" href="/book/assets/js/46.224d749a.js"><link rel="prefetch" href="/book/assets/js/47.46212b48.js"><link rel="prefetch" href="/book/assets/js/48.b4530c84.js"><link rel="prefetch" href="/book/assets/js/49.c5ce825f.js"><link rel="prefetch" href="/book/assets/js/5.eefbb6d1.js"><link rel="prefetch" href="/book/assets/js/50.abb4615c.js"><link rel="prefetch" href="/book/assets/js/51.2bad13e4.js"><link rel="prefetch" href="/book/assets/js/52.a281d464.js"><link rel="prefetch" href="/book/assets/js/53.d932d947.js"><link rel="prefetch" href="/book/assets/js/54.14345852.js"><link rel="prefetch" href="/book/assets/js/55.3188a009.js"><link rel="prefetch" href="/book/assets/js/56.e16829eb.js"><link rel="prefetch" href="/book/assets/js/57.53dea087.js"><link rel="prefetch" href="/book/assets/js/58.538898c1.js"><link rel="prefetch" href="/book/assets/js/59.b7d7c110.js"><link rel="prefetch" href="/book/assets/js/6.18aff54a.js"><link rel="prefetch" href="/book/assets/js/60.1e7dcd20.js"><link rel="prefetch" href="/book/assets/js/61.f13068fe.js"><link rel="prefetch" href="/book/assets/js/62.0a4e1149.js"><link rel="prefetch" href="/book/assets/js/63.431914ad.js"><link rel="prefetch" href="/book/assets/js/64.df81dce3.js"><link rel="prefetch" href="/book/assets/js/65.6143b870.js"><link rel="prefetch" href="/book/assets/js/66.f9abed3f.js"><link rel="prefetch" href="/book/assets/js/67.3397cfbe.js"><link rel="prefetch" href="/book/assets/js/68.bf72bbf4.js"><link rel="prefetch" href="/book/assets/js/69.e3a5531b.js"><link rel="prefetch" href="/book/assets/js/7.637d308b.js"><link rel="prefetch" href="/book/assets/js/70.e3c80238.js"><link rel="prefetch" href="/book/assets/js/71.e0711aa7.js"><link rel="prefetch" href="/book/assets/js/72.13845c1b.js"><link rel="prefetch" href="/book/assets/js/73.a982a8ed.js"><link rel="prefetch" href="/book/assets/js/74.22bbccf1.js"><link rel="prefetch" href="/book/assets/js/75.d22833f1.js"><link rel="prefetch" href="/book/assets/js/76.6cdfacdd.js"><link rel="prefetch" href="/book/assets/js/77.c715bf8d.js"><link rel="prefetch" href="/book/assets/js/78.c77b50af.js"><link rel="prefetch" href="/book/assets/js/79.2f968e4e.js"><link rel="prefetch" href="/book/assets/js/8.3201113b.js"><link rel="prefetch" href="/book/assets/js/80.5e7ab955.js"><link rel="prefetch" href="/book/assets/js/81.2e117c7b.js"><link rel="prefetch" href="/book/assets/js/82.1f9856a9.js"><link rel="prefetch" href="/book/assets/js/83.22728db6.js"><link rel="prefetch" href="/book/assets/js/84.c28a521e.js"><link rel="prefetch" href="/book/assets/js/85.473f6b95.js"><link rel="prefetch" href="/book/assets/js/86.e4b6adfa.js"><link rel="prefetch" href="/book/assets/js/87.d46fb7cf.js"><link rel="prefetch" href="/book/assets/js/88.18a2b0e0.js"><link rel="prefetch" href="/book/assets/js/89.9ee67c4a.js"><link rel="prefetch" href="/book/assets/js/9.5cf4899a.js"><link rel="prefetch" href="/book/assets/js/90.3b188a59.js"><link rel="prefetch" href="/book/assets/js/91.e8768301.js"><link rel="prefetch" href="/book/assets/js/92.19241f7a.js"><link rel="prefetch" href="/book/assets/js/93.bc96ef51.js"><link rel="prefetch" href="/book/assets/js/94.dd590ff1.js"><link rel="prefetch" href="/book/assets/js/95.884ed018.js"><link rel="prefetch" href="/book/assets/js/96.a5548eaf.js"><link rel="prefetch" href="/book/assets/js/97.f5d876cb.js"><link rel="prefetch" href="/book/assets/js/98.5f912987.js"><link rel="prefetch" href="/book/assets/js/99.a74b7e4e.js"><link rel="prefetch" href="/book/assets/js/vendors~docsearch.c8693219.js">
+    <link rel="stylesheet" href="/book/assets/css/0.styles.0575b83d.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/book/" class="home-link router-link-active"><!----> <span class="site-name">日常收集</span></a> <div class="links"><form id="search-form" role="search" class="algolia-search-wrapper search-box"><input id="algolia-search-input" class="search-query"></form> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>dom的事件</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>Javascript</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/book/363.html" class="sidebar-link"> 让 JavaScript 在 WebAssembly 上加速运行！</a></li><li><a href="/book/361.html" class="sidebar-link"> 《程序员数学：位运算》——如何使用二进制计算乘法？</a></li><li><a href="/book/360.html" class="sidebar-link"> 速记：一个http请求的全过程是怎样的？</a></li><li><a href="/book/359.html" aria-current="page" class="active sidebar-link"> 万字扫盲ByteBuffer</a></li><li><a href="/book/338.html" class="sidebar-link"> JS异步编程——WebWorker多线程机制</a></li><li><a href="/book/337.html" class="sidebar-link">js</a></li><li><a href="/book/336.html" class="sidebar-link"> [核心概念] 一文说透JS中的原型和继承(上)</a></li><li><a href="/book/335.html" class="sidebar-link"> [关联概念] 一文说透 JS 中的变量提升</a></li><li><a href="/book/334.html" class="sidebar-link"> [核心概念] 一文说透浏览器环境下的JS运行机制</a></li><li><a href="/book/333.html" class="sidebar-link"> [核心概念] 一文说透JS中的函数柯里化(Currying)</a></li><li><a href="/book/332.html" class="sidebar-link"> [核心概念] 一文说透 JS 中 this 的基本概念</a></li><li><a href="/book/331.html" class="sidebar-link"> [核心概念] 一文说透 JS 的作用域（scope）</a></li><li><a href="/book/330.html" class="sidebar-link"> [核心概念] 一文说透 JS 中的闭包（closure）</a></li><li><a href="/book/329.html" class="sidebar-link"> [核心概念] 一文说透 JS 中的执行上下文</a></li><li><a href="/book/268.html" class="sidebar-link"> 「硬核JS」你真的了解垃圾回收机制吗</a></li><li><a href="/book/262.html" class="sidebar-link"> 「硬核JS」你的程序中可能存在内存泄漏</a></li><li><a href="/book/229.html" class="sidebar-link"> 聊聊JS的二进制家族：Blob、ArrayBuffer和Buffer</a></li><li><a href="/book/226.html" class="sidebar-link"> `Object.defineProperty()详解`</a></li><li><a href="/book/180.html" class="sidebar-link">yield是什么</a></li><li><a href="/book/175.html" class="sidebar-link">HTTP请求中，几种常见的Content-Type类型</a></li><li><a href="/book/172.html" class="sidebar-link"> js 给元素添加、删除父标签</a></li><li><a href="/book/171.html" class="sidebar-link"> 多个promise实现</a></li><li><a href="/book/131.html" class="sidebar-link"> Object.defineProperty和Object.defineProperties()</a></li><li><a href="/book/126.html" class="sidebar-link"> scrollHeight,scrollLeft,offsetHeight,offsetLeft</a></li><li><a href="/book/118.html" class="sidebar-link"> 怎样让 forEach 停下来呢；**try catch**</a></li><li><a href="/book/105.html" class="sidebar-link">div拖动的实现</a></li><li><a href="/book/93.html" class="sidebar-link">JavaScript对象之深拷贝和浅拷贝</a></li><li><a href="/book/92.html" class="sidebar-link">base64。js</a></li><li><a href="/book/85.html" class="sidebar-link">你也许不知道的JavaScript高级函数</a></li><li><a href="/book/78.html" class="sidebar-link">ESmodules:Acartoondeep-dive</a></li><li><a href="/book/73.html" class="sidebar-link">setTimeout和setImmediate到底谁先执行，本文让你彻底理解EventLoop</a></li><li><a href="/book/71.html" class="sidebar-link">一种对开发更友好的前端骨架屏自动生成方案</a></li><li><a href="/book/68.html" class="sidebar-link">深入理解ESModules(手绘示例)</a></li><li><a href="/book/48.html" class="sidebar-link">系统学习前端之FormData详解</a></li><li><a href="/book/47.html" class="sidebar-link">使用FormData上传文件</a></li><li><a href="/book/46.html" class="sidebar-link">数组排序方法</a></li><li><a href="/book/43.html" class="sidebar-link">利于FileReader实现二进制数据流转JSON</a></li><li><a href="/book/28.html" class="sidebar-link">reduce过滤数组中重复对象</a></li><li><a href="/book/27.html" class="sidebar-link">常用文件类型对应</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>element-ui</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Qcanvas</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>vue</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/365.html" class="sidebar-link"> WASM 在动画引擎中的设计优化</a></li><li><a href="/book/364.html" class="sidebar-link"> 你管这破玩意叫指针？</a></li><li><a href="/book/362.html" class="sidebar-link"> 图说 WebAssembly</a></li><li><a href="/book/328.html" class="sidebar-link"> 从哲学层面浅谈计算机学习方法论</a></li><li><a href="/book/324.html" class="sidebar-link"> 微信游览器，解决安卓和ios自动播放音乐</a></li><li><a href="/book/323.html" class="sidebar-link"> CSS3 animation属性中的steps功能符深入介绍</a></li><li><a href="/book/322.html" class="sidebar-link"> 前端搞工程化：从零打造性能检测库「源码 + 视频」</a></li><li><a href="/book/321.html" class="sidebar-link"> 还在看那些老掉牙的性能优化文章么？这些最新性能指标了解下</a></li><li><a href="/book/320.html" class="sidebar-link"> Nginx根据User Agent动态配置root目录适配移动端</a></li><li><a href="/book/307.html" class="sidebar-link"> cat文档内容中搜索字符串输出到文件</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>node</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/301.html" class="sidebar-link">从App store下载App的不同版本ipa文件----很多东西也不是越新越好，比如APP——在 iPhone 上尤其如此</a></li><li><a href="/book/294.html" class="sidebar-link">迟子建老师的《一坛猪油》</a></li><li><a href="/book/288.html" class="sidebar-link">文本文档的协同编辑实现</a></li><li><a href="/book/287.html" class="sidebar-link">再见，整洁代码</a></li><li><a href="/book/286.html" class="sidebar-link"> 可以在 Nginx 中运行 JavaScript，厉害了！</a></li><li><a href="/book/284.html" class="sidebar-link"> word中批量调整图片大小</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>electron打包的一些问题</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/274.html" class="sidebar-link"> 文件分片代码</a></li><li><a href="/book/273.html" class="sidebar-link"> 重学 JS：为啥 await 不能用在 forEach 中详解</a></li><li><a href="/book/269.html" class="sidebar-link"> Excel函数之王，Vlookup到底怎么用？</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>mysql</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/248.html" class="sidebar-link"> 《提问的智慧》精读注解版</a></li><li><a href="/book/199.html" class="sidebar-link"> js监听div的resize事件</a></li><li><a href="/book/198.html" class="sidebar-link"> 引入第三方字体体积太大的问题</a></li><li><a href="/book/195.html" class="sidebar-link"> 多行溢出省略号显示（css/js）实现！</a></li><li><a href="/book/190.html" class="sidebar-link">今天带大家一起来看看下，如何实现“划词高亮”功能。</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Css</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>算法</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Canvas</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>工作中解决的疑难问题</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Git</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>nginx</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>小程序</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/135.html" class="sidebar-link"> 深夜，我偷听到程序员要对session下手</a></li><li><a href="/book/132.html" class="sidebar-link"> 读 《深入浅出webpack》</a></li><li><a href="/book/103.html" class="sidebar-link"> 一道被人轻视的前端面试题</a></li><li><a href="/book/101.html" class="sidebar-link">部分前端面试题参考答案</a></li><li><a href="/book/80.html" class="sidebar-link">SVGDeveloper制作矢量地图教程详解</a></li><li><a href="/book/76.html" class="sidebar-link">VisualStudio2010创建的WCF（.dll）服务第一个应用</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="万字扫盲bytebuffer"><a href="#万字扫盲bytebuffer" class="header-anchor">#</a> 万字扫盲ByteBuffer</h1> <h1 id="前言"><a href="#前言" class="header-anchor">#</a> 前言</h1> <p>已知<strong>NIO</strong>中有三大组件：<strong>Channel</strong>，<strong>Buffer</strong>和<strong>Selector</strong>。那么<strong>Buffer</strong>的作用就是提供一个缓冲区，用于用户程序和<strong>Channel</strong>之间进行数据读写，也就是用户程序中可以使用<strong>Buffer</strong>向<strong>Channel</strong>写入数据，也可以使用<strong>Buffer</strong>从<strong>Channel</strong>读取数据。</p> <p><strong>ByteBuffer</strong>是<strong>Buffer</strong>子类，是字节缓冲区，特点如下所示。</p> <ol><li><strong>大小不可变</strong>。一旦创建，无法改变其容量大小，无法扩容或者缩容；</li> <li><strong>读写灵活</strong>。内部通过指针移动来实现灵活读写；</li> <li>支持<strong>堆上</strong>内存分配和<strong>直接</strong>内存分配。</li></ol> <p>本文将对<strong>ByteBuffer</strong>的相关概念，常用<strong>API</strong>以及使用案例进行分析。全文约1万字，知识点脑图如下。</p> <p><img src="https://p3-sign.toutiaoimg.com/tos-cn-i-qvj2lq49k0/45e97791909d4f91ab82942f8fd84fd0~noop.image?_iz=58558&amp;from=article.pc_detail&amp;x-expires=1687572286&amp;x-signature=B4nEzyjPUm5tCY%2Fk5TISy47dzUs%3D" alt=""></p> <h1 id="正文"><a href="#正文" class="header-anchor">#</a> 正文</h1> <h1 id="一-buffer"><a href="#一-buffer" class="header-anchor">#</a> 一. Buffer</h1> <p>在<strong>NIO</strong>中，八大基础数据类型中除了<strong>boolean</strong>外，都有相应的<strong>Buffer</strong>的实现，类图如下所示。</p> <p><img src="https://p3-sign.toutiaoimg.com/tos-cn-i-qvj2lq49k0/2bce4fe84f78458ea1a32f3f10856a43~noop.image?_iz=58558&amp;from=article.pc_detail&amp;x-expires=1687572286&amp;x-signature=mOyWzbkcOzQJys4kotNCb8Sq5HI%3D" alt=""></p> <p><strong>Buffer</strong>类对各种基础数据类型的缓冲区做了顶层抽象，所以要了解<strong>ByteBuffer</strong>，首先应该学习<strong>Buffer</strong>类。</p> <h1 id="_1-buffer的属性"><a href="#_1-buffer的属性" class="header-anchor">#</a> 1. Buffer的属性</h1> <p>所有缓冲区结构都有如下属性。</p> <table><thead><tr><th>属性</th> <th>说明</th></tr></thead> <tbody><tr><td><strong>int position</strong></td> <td>位置索引。代表下一次将要操作的元素的位置，默认初始为0，位置索引最小为0，最大为<strong>limit</strong></td></tr> <tr><td><strong>int limit</strong></td> <td>限制索引。限制索引及之后的索引位置上的元素都不能操作，限制索引最小为0，最大为<strong>capacity</strong></td></tr> <tr><td><strong>int capacity</strong></td> <td>容量。缓冲区的最大元素个数，创建缓冲区时指定，最小为0，不能改变</td></tr></tbody></table> <p>三者之间的大小关系应该是：<strong>0 &lt;= position &lt;= limit &lt;= capacity</strong>，图示如下。</p> <p><img src="https://p3-sign.toutiaoimg.com/tos-cn-i-qvj2lq49k0/15836968e10a4b4f91fe4b7de019baa4~noop.image?_iz=58558&amp;from=article.pc_detail&amp;x-expires=1687572286&amp;x-signature=ZXSx2FfZAEgoiYvlL9GLzAawMzM%3D" alt=""></p> <p>除此之外，还有一个属性叫做<strong>mark</strong>，如下所示。</p> <table><thead><tr><th>属性</th> <th>说明</th></tr></thead> <tbody><tr><td><strong>int mark</strong></td> <td>标记索引。<strong>mark</strong>会标记一个索引，在<strong>Buffer#reset</strong>调用时，将<strong>position</strong>重置为<strong>mark</strong>。<strong>mark</strong>不是必须的，但是当定义<strong>mark</strong>后，其最小为0，最大为<strong>position</strong></td></tr></tbody></table> <p>关于<strong>mark</strong>还有如下两点说明。</p> <ol><li><strong>position</strong>或<strong>limit</strong>一旦小于<strong>mark</strong>则<strong>mark</strong>会被丢弃；</li> <li>没有定义<strong>mark</strong>时如果调用了<strong>Buffer#reset</strong>则会抛出<strong>InvalidMarkException</strong>。</li></ol> <h1 id="_2-buffer的读模式"><a href="#_2-buffer的读模式" class="header-anchor">#</a> 2. Buffer的读模式</h1> <p><strong>Buffer</strong>有两种模式，读模式和写模式，在读模式下，可以读取缓冲区中的数据。那么对于一个缓冲区，要读取数据时，分为两步。</p> <ol><li>拿到<strong>position</strong>位置索引；</li> <li>取<strong>position</strong>位置的数据。</li></ol> <p>那么<strong>Buffer</strong>提供了<strong>nextGetIndex()</strong> 方法和<strong>nextGetIndex(int nb)</strong> 方法来获取<strong>position</strong>，先看一下<strong>nextGetIndex()</strong> 方法的实现。</p> <div class="language- extra-class"><pre class="language-text"><code>final int nextGetIndex() {
+    // limit位置是不可操作的
+    if (position &gt;= limit) {
+        throw new BufferUnderflowException();
+    }
+    // 返回当前position
+    // 然后position后移一个位置
+    return position++;
+}
+复制代码
+</code></pre></div><p><strong>nextGetIndex()</strong> 方法首先校验一下<strong>position</strong>是否大于等于<strong>limit</strong>，因为<strong>limit</strong>及之后的位置都是不可操作的，所以只要满足<strong>position</strong>大于等于<strong>limit</strong>则抛出异常，然后返回当前的<strong>position</strong>（也就是当前可操作的位置），最后<strong>position</strong>后移一位。</p> <p>而<strong>nextGetIndex(int nb)</strong> 方法，则是用于<strong>Buffer</strong>的子类<strong>ByteBuffer</strong>使用，因为<strong>ByteBuffer</strong>的一个元素就是一个字节，而如果想要通过<strong>ByteBuffer</strong>获取一个整形数据，那么此时就需要连续读取四个字节。<strong>nextGetIndex(int nb)</strong> 方法如下所示。</p> <div class="language- extra-class"><pre class="language-text"><code>final int nextGetIndex(int nb) {
+    // 判断一下剩余可操作元素是否够本次获取
+    if (limit - position &lt; nb) {
+        throw new BufferUnderflowException();
+    }
+    // 暂存当前position
+    int p = position;
+    // 然后position后移nb个位置
+    position += nb;
+    // 返回暂存的position
+    return p;
+}
+复制代码
+</code></pre></div><p>拿到<strong>position</strong>后，实际的读取数据，由<strong>Buffer</strong>的子类来实现。</p> <h1 id="_3-buffer的写模式"><a href="#_3-buffer的写模式" class="header-anchor">#</a> 3. Buffer的写模式</h1> <p>有读就有写，在<strong>Buffer</strong>的写模式下，写入数据也是分为两步。</p> <ol><li>拿到<strong>position</strong>位置索引；</li> <li>写入数据到<strong>position</strong>位置。</li></ol> <p>写模式下，<strong>Buffer</strong>同样为获取<strong>position</strong>提供了两个方法，如下所示。</p> <div class="language- extra-class"><pre class="language-text"><code>final int nextPutIndex() {
+    // limit位置是不可操作的
+    if (position &gt;= limit) {
+        throw new BufferOverflowException();
+    }
+    // 返回当前position
+    // 然后position后移一个位置
+    return position++;
+}
+
+final int nextPutIndex(int nb) {
+    // 判断一下剩余可操作元素是否够本次写入
+    if (limit - position &lt; nb) {
+        throw new BufferOverflowException();
+    }
+    // 暂存当前position
+    int p = position;
+    // 然后position后移nb个位置
+    position += nb;
+    // 返回暂存的position
+    return p;
+}
+复制代码
+</code></pre></div><p>同样，拿到<strong>position</strong>后，实际的写入数据，由<strong>Buffer</strong>的子类来实现。</p> <h1 id="_4-buffer读写模式切换"><a href="#_4-buffer读写模式切换" class="header-anchor">#</a> 4. Buffer读写模式切换</h1> <p><strong>Buffer</strong>提供了读模式和写模式，同一时间<strong>Buffer</strong>只能在同一模式下工作，相应的，<strong>Buffer</strong>提供了对应的方法来做读写模式切换。</p> <p>首先是读模式切换到写模式，先看如下示意图。</p> <p><img src="https://p3-sign.toutiaoimg.com/tos-cn-i-qvj2lq49k0/3b30b8cca9eb4832875e342c44d12484~noop.image?_iz=58558&amp;from=article.pc_detail&amp;x-expires=1687572286&amp;x-signature=7EL5AI8tGCZWmfVj9DLYI579zKY%3D" alt=""></p> <p>上图中的情况是缓冲区中的数据已经全部被读完，那么此时如果要切换到写模式，对应的方法是<strong>clear()</strong> 方法，如下所示。</p> <div class="language- extra-class"><pre class="language-text"><code>public final Buffer clear() {
+    // 重置position为0
+    position = 0;
+    // 设置limit为capacity
+    limit = capacity;
+    // 重置mark为-1
+    mark = -1;
+    return this;
+}
+复制代码
+</code></pre></div><p>注意，虽然方法名叫做<strong>clear()</strong>，但是实际缓冲区中的数据并没有被清除，而只是将位置索引<strong>position</strong>，限制索引<strong>limit</strong>进行了重置，同时清除了标记状态（也就是将<strong>mark</strong>设置为-1）。切换到写模式后，缓冲区示意图如下所示。</p> <p><img src="https://p3-sign.toutiaoimg.com/tos-cn-i-qvj2lq49k0/8cff77a5369d4ec9bcdb61ee6648ecb5~noop.image?_iz=58558&amp;from=article.pc_detail&amp;x-expires=1687572286&amp;x-signature=umtxpJM3tqJ2ehPmJKx4IuXNGL4%3D" alt=""></p> <p>然后是写模式切换到读模式，先看如下示意图。</p> <p><img src="https://p3-sign.toutiaoimg.com/tos-cn-i-qvj2lq49k0/4b82c36a633b428ba277697192817c96~noop.image?_iz=58558&amp;from=article.pc_detail&amp;x-expires=1687572286&amp;x-signature=GT7e6o6b6KbRLq4bcdCJIQBPYWY%3D" alt=""></p> <p>数据已经写入完毕了，此时如果要切换到读模式，对应的方法是<strong>flip()</strong>，如下所示。</p> <div class="language- extra-class"><pre class="language-text"><code>public final Buffer flip() {
+    // 因为position位置还没写入数据
+    // 所以将position位置设置为limit
+    limit = position;
+    // 重置position为0
+    position = 0;
+    // 重置mark为-1
+    mark = -1;
+    return this;
+}
+复制代码
+</code></pre></div><p>因为<strong>position</strong>永远代表下一个可操作的位置，那么在写模式下，<strong>position</strong>代表下一个写入的位置，那么其实就还没有数据写入，所以调用<strong>flip()</strong> 方法后，首先将<strong>position</strong>位置设置为<strong>limit</strong>，表示数据最多读取到<strong>limit</strong>的上一个位置，然后重置<strong>position</strong>和<strong>mark</strong>。切换到读模式后，缓冲区示意图如下所示。</p> <p><img src="https://p3-sign.toutiaoimg.com/tos-cn-i-qvj2lq49k0/4bff3d65a5844bf180e7dc6a68af2694~noop.image?_iz=58558&amp;from=article.pc_detail&amp;x-expires=1687572286&amp;x-signature=9mtsYULArmVxs5n2FDtajeLCrLs%3D" alt=""></p> <h1 id="_5-buffer的rewind操作"><a href="#_5-buffer的rewind操作" class="header-anchor">#</a> 5. Buffer的rewind操作</h1> <p>在使用<strong>Buffer</strong>时，可以针对已经操作的区域进行重操作，假设缓冲区示意图如下。</p> <p><img src="https://p3-sign.toutiaoimg.com/tos-cn-i-qvj2lq49k0/e996f05ed4094154b66ed45a95041dc8~noop.image?_iz=58558&amp;from=article.pc_detail&amp;x-expires=1687572286&amp;x-signature=spQjoHtUpgTk2MfQ40dBOO9J6e8%3D" alt=""></p> <p>再看一下<strong>rewind()</strong> 方法的实现，如下所示。</p> <div class="language- extra-class"><pre class="language-text"><code>public final Buffer rewind() {
+    // 重置position为0
+    position = 0;
+    // 清除mark
+    mark = -1;
+    return this;
+}
+复制代码
+</code></pre></div><p>主要就是将位置索引<strong>position</strong>重置为0，这样就能重新操作已经操作过的位置了，同时如果启用了<strong>mark</strong>，那么还会清除<strong>mark</strong>，也就是重置<strong>mark</strong>为-1。<strong>rewind()</strong> 方法调用后的缓冲区示意图如下所示。</p> <p><img src="https://p3-sign.toutiaoimg.com/tos-cn-i-qvj2lq49k0/e2815b7d31824fb7a89cf9010f469771~noop.image?_iz=58558&amp;from=article.pc_detail&amp;x-expires=1687572286&amp;x-signature=F5zWj5GGMZzToo%2BP6oy7ATv4Bt8%3D" alt=""></p> <h1 id="_6-buffer的reset操作"><a href="#_6-buffer的reset操作" class="header-anchor">#</a> 6. Buffer的reset操作</h1> <p>在使用<strong>Buffer</strong>时，可以启用<strong>mark</strong>来标记一个已经操作过的位置，假设缓冲区示意图如下。</p> <p><img src="https://p3-sign.toutiaoimg.com/tos-cn-i-qvj2lq49k0/547ee76bbf284198a0d3dea982471705~noop.image?_iz=58558&amp;from=article.pc_detail&amp;x-expires=1687572286&amp;x-signature=VEEwZzRHepZPQPMF3T9Hj1CK8po%3D" alt=""></p> <p>再看一下<strong>reset()</strong> 方法的实现，如下所示。</p> <div class="language- extra-class"><pre class="language-text"><code>public final Buffer reset() {
+    int m = mark;
+    // 只要启用mark那么mark就不能为负数
+    if (m &lt; 0) {
+        throw new InvalidMarkException();
+    }
+    // 将position重置为mark
+    position = m;
+    return this;
+}
+复制代码
+</code></pre></div><p>在没有启用<strong>mark</strong>时，<strong>mark</strong>为-1，只要启用了<strong>mark</strong>，那么<strong>mark</strong>就不能为负数。在<strong>reset()</strong> 中主要就是将位置索引<strong>position</strong>重新设置到<strong>mark</strong>标记的位置，以实现对<strong>mark</strong>标记的位置及之后的位置进行重新操作。<strong>reset()</strong> 方法调用后的缓冲区示意图如下所示。</p> <p><img src="https://p3-sign.toutiaoimg.com/tos-cn-i-qvj2lq49k0/7f7a7b1548ff47ca8f57b37839ae353b~noop.image?_iz=58558&amp;from=article.pc_detail&amp;x-expires=1687572286&amp;x-signature=3dEs4WvUOlmHT%2FIa79Nhh5m5Y%2F4%3D" alt=""></p> <h1 id="二-bytebuffer"><a href="#二-bytebuffer" class="header-anchor">#</a> 二. ByteBuffer</h1> <p>在上一节主要对<strong>Buffer</strong>进行了一个说明，那么本节会在上一节的基础上，对<strong>ByteBuffer</strong>及其实现进行学习。</p> <h1 id="_1-bytebuffer的属性"><a href="#_1-bytebuffer的属性" class="header-anchor">#</a> 1. ByteBuffer的属性</h1> <p><strong>ByteBuffer</strong>相较于<strong>Buffer</strong>，多了如下三个属性。</p> <table><thead><tr><th>属性</th> <th>说明</th></tr></thead> <tbody><tr><td><strong>byte[] hb</strong></td> <td>字节数组。仅<strong>HeapByteBuffer</strong>会使用到，<strong>HeapByteBuffer</strong>的数据存储在<strong>hb</strong>中</td></tr> <tr><td><strong>int offset</strong></td> <td>偏移量。仅<strong>HeapByteBuffer</strong>会使用到，后面会详细说明</td></tr> <tr><td><strong>isReadOnly</strong></td> <td>是否只读。仅<strong>HeapByteBuffer</strong>会使用到，后面会详细说明</td></tr></tbody></table> <p><strong>NIO</strong>中为<strong>ByteBuffer</strong>分配内存时，可以有两种方式。</p> <ol><li>在堆上分配内存，此时得到<strong>HeapByteBuffer</strong>；</li> <li>在直接内存中分配内存，此时得到<strong>DirectByteBuffer</strong>。</li></ol> <p>类图如下所示。</p> <p><img src="https://p3-sign.toutiaoimg.com/tos-cn-i-qvj2lq49k0/77c7f42dd37a49c3a786e2f748f9fc03~noop.image?_iz=58558&amp;from=article.pc_detail&amp;x-expires=1687572286&amp;x-signature=U9bVLee7CLTR9D7nofYEf2bbeIw%3D" alt=""></p> <p>因为<strong>DirectByteBuffer</strong>是分配在直接内存中，肯定无法像<strong>HeapByteBuffer</strong>一样将数据存储在字节数组，所以<strong>DirectByteBuffer</strong>会通过一个<strong>address</strong>字段来标识数据所在直接内存的开始地址。<strong>address</strong>字段定义在<strong>Buffer</strong>中，如下所示。</p> <div class="language- extra-class"><pre class="language-text"><code>long address;
+复制代码
+</code></pre></div><h1 id="_2-bytebuffer的创建"><a href="#_2-bytebuffer的创建" class="header-anchor">#</a> 2. ByteBuffer的创建</h1> <p><strong>ByteBuffer</strong>提供了如下四个方法用于创建<strong>ByteBuffer</strong>，如下所示。</p> <table><thead><tr><th>方法</th> <th>说明</th></tr></thead> <tbody><tr><td><strong>allocate(int capacity)</strong></td> <td>在堆上分配一个新的字节缓冲区。说明如下：<br>1. 创建出来后，<strong>position</strong>为0，并且<strong>limit</strong>会取值为<strong>capacity</strong>；<br>2. 创建出来的实际为<strong>HeapByteBuffer</strong>，其内部使用一个字节数组<strong>hb</strong>存储元素；<br>3. 初始时<strong>hb</strong>中所有元素为0</td></tr> <tr><td><strong>allocateDirect(int capacity)</strong></td> <td>在直接内存中分配一个新的字节缓冲区。说明如下：<br>1. 创建出来后，<strong>position</strong>为0，并且<strong>limit</strong>会取值为<strong>capacity</strong>；<br>2. 创建出来的实际为<strong>DirectByteBuffer</strong>，是基于操作系统创建的内存区域作为缓冲区；<br>3. 初始时所有元素为0</td></tr> <tr><td><strong>wrap(byte[] array)</strong></td> <td>将字节数组包装到字节缓冲区中。说明如下：<br>1. 创建出来的是<strong>HeapByteBuffer</strong>，其内部的<strong>hb</strong>字节数组就会使用传入的<strong>array</strong>；<br>2. 改变<strong>HeapByteBuffer</strong>会影响<strong>array</strong>，改变<strong>array</strong>会影响<strong>HeapByteBuffer</strong>；<br>3. 得到的<strong>HeapByteBuffer</strong>的<strong>limit</strong>和<strong>capacity</strong>均取值为<strong>array.length</strong>；<br>4. <strong>position</strong>此时都为0</td></tr> <tr><td><strong>wrap(byte[] array, int off, int length)</strong></td> <td>将字节数组包装到字节缓冲区，说明如下。<br>1. 创建出来的是<strong>HeapByteBuffer</strong>，其内部的<strong>hb</strong>字节数组就会使用传入的<strong>array</strong>；<br>2. 改变<strong>HeapByteBuffer</strong>会影响<strong>array</strong>，改变<strong>array</strong>会影响<strong>HeapByteBuffer</strong>；<br>3. <strong>capacity</strong>取值为<strong>array.length</strong>；<br>4. <strong>limit</strong>取值为<strong>off + length</strong>；<br>5. <strong>position</strong>取值为<strong>off</strong></td></tr></tbody></table> <p>下面结合源码，分析一下上述四种创建方式。</p> <p>首先是<strong>allocate(int capacity)</strong>，如下所示。</p> <div class="language- extra-class"><pre class="language-text"><code>public static ByteBuffer allocate(int capacity) {
+    if (capacity &lt; 0) {
+        throw new IllegalArgumentException();
+    }
+    // 直接创建HeapByteBuffer
+    // HeapByteBuffer(int cap, int lim)
+    return new HeapByteBuffer(capacity, capacity);
+}
+复制代码
+</code></pre></div><p>然后是<strong>allocateDirect(int capacity)</strong>，如下所示。</p> <div class="language- extra-class"><pre class="language-text"><code>public static ByteBuffer allocateDirect(int capacity) {
+    return new DirectByteBuffer(capacity);
+}
+
+DirectByteBuffer(int cap) {
+    // MappedByteBuffer(int mark, int pos, int lim, int cap)
+    super(-1, 0, cap, cap);
+    boolean pa = VM.isDirectMemoryPageAligned();
+    int ps = Bits.pageSize();
+    long size = Math.max(1L, (long)cap + (pa ? ps : 0));
+    Bits.reserveMemory(size, cap);
+
+    long base = 0;
+    try {
+        // 分配堆外内存
+        base = unsafe.allocateMemory(size);
+    } catch (OutOfMemoryError x) {
+        Bits.unreserveMemory(size, cap);
+        throw x;
+    }
+    unsafe.setMemory(base, size, (byte) 0);
+    // 计算堆外内存起始地址
+    if (pa &amp;&amp; (base % ps != 0)) {
+        address = base + ps - (base &amp; (ps - 1));
+    } else {
+        address = base;
+    }
+    // 通过虚引用的手段来监视DirectByteBuffer是否被垃圾回收
+    // 从而可以及时的释放堆外内存空间
+    cleaner = Cleaner.create(this, new Deallocator(base, size, cap));
+    att = null;
+}
+复制代码
+</code></pre></div><p>然后是<strong>wrap(byte[] array)</strong>，如下所示。</p> <div class="language- extra-class"><pre class="language-text"><code>public static ByteBuffer wrap(byte[] array) {
+    return wrap(array, 0, array.length);
+}
+复制代码
+</code></pre></div><p>其实<strong>wrap(byte[] array)</strong> 方法就是调用的<strong>wrap(byte[] array, int off, int length)</strong>，下面直接看<strong>wrap(byte[] array, int off, int length)</strong> 方法的实现。</p> <div class="language- extra-class"><pre class="language-text"><code>public static ByteBuffer wrap(byte[] array, int off, int length) {
+    try {
+        return new HeapByteBuffer(array, off, length);
+    } catch (IllegalArgumentException x) {
+        throw new IndexOutOfBoundsException();
+    }
+}
+复制代码
+</code></pre></div><p>这里先简单说明一下上述方法中的<strong>off</strong>和<strong>length</strong>这两个参数的含义。</p> <ol><li><strong>off</strong>就是表示字节数组封装到字节缓冲区后，<strong>position</strong>的位置，所以有<strong>position = off</strong>；</li> <li><strong>length</strong>简单理解就是用于计算<strong>limit</strong>，即<strong>limit = position + length</strong>。其实<strong>length</strong>是理解为字节数组封装到字节缓冲区后，要使用的字节数组的长度。</li></ol> <p>下面给出一张<strong>wrap(byte[] array, int off, int length)</strong> 方法的作用示意图。</p> <p><img src="https://p3-sign.toutiaoimg.com/tos-cn-i-qvj2lq49k0/7a45c355b5c2441e8e4c95639f2b8a54~noop.image?_iz=58558&amp;from=article.pc_detail&amp;x-expires=1687572286&amp;x-signature=qYDpoAraEFkdP1knzgQVfUpE6SA%3D" alt=""></p> <p>最后说明一点，无论是<strong>wrap(byte[] array)</strong> 还是<strong>wrap(byte[] array, int off, int length)</strong> 方法，均构造的是<strong>HeapByteBuffer</strong>。</p> <h1 id="_3-bytebuffer的slice操作"><a href="#_3-bytebuffer的slice操作" class="header-anchor">#</a> 3. ByteBuffer的slice操作</h1> <p>在<strong>ByteBuffer</strong>中定义了一个抽象方法叫做<strong>slice()</strong>，用于在已有的<strong>ByteBuffer</strong>上得到一个新的<strong>ByteBuffer</strong>，两个<strong>ByteBuffer</strong>的<strong>position</strong>，<strong>limit</strong>，<strong>capacity</strong>和<strong>mark</strong>都是独立的，但是底层存储数据的内存区域是一样的，那么相应的，对其中任何一个<strong>ByteBuffer</strong>做更改，会影响到另外一个<strong>ByteBuffer</strong>。</p> <p>下面先看一下<strong>HeapByteBuffer</strong>对<strong>slice()</strong> 方法的实现。</p> <div class="language- extra-class"><pre class="language-text"><code>public ByteBuffer slice() {
+    return new HeapByteBuffer(hb, -1, 0, this.remaining(), this.remaining(), this.position() + offset);
+}
+
+public final int remaining() {
+    return limit - position;
+}
+
+protected HeapByteBuffer(byte[] buf, int mark, int pos, int lim, int cap, int off) {
+    super(mark, pos, lim, cap, buf, off);
+}
+
+ByteBuffer(int mark, int pos, int lim, int cap,
+           byte[] hb, int offset) {
+    super(mark, pos, lim, cap);
+    this.hb = hb;
+    this.offset = offset;
+}
+复制代码
+</code></pre></div><p>新的<strong>HeapByteBuffer</strong>的<strong>mark</strong>重置为了-1，<strong>position</strong>重置为了0，<strong>limit</strong>等于<strong>capacity</strong>等于老的<strong>HeapByteBuffer</strong>的未操作数据的长度（老的<strong>limit - posittion</strong>）。</p> <p>此外，两个<strong>HeapByteBuffer</strong>存储数据的字节数组<strong>hb</strong>是同一个，且新的<strong>HeapByteBuffer</strong>的<strong>offset</strong>等于老的<strong>HeapByteBuffer</strong>的<strong>position</strong>，什么意思呢，先看下面这张图。</p> <p><img src="https://p3-sign.toutiaoimg.com/tos-cn-i-qvj2lq49k0/2a8cf973036942ed8ef7ccd86ddd0983~noop.image?_iz=58558&amp;from=article.pc_detail&amp;x-expires=1687572286&amp;x-signature=zHI%2BMssFgvf2G2YJHz52cOHgU%2FU%3D" alt=""></p> <p>意思就是，在新的<strong>HeapByteBuffer</strong>中，操作<strong>position</strong>位置的元素，实际是在操作<strong>hb[position + offset]</strong> 位置的元素，那么这里也就解释了<strong>ByteBuffer</strong>中<strong>offset</strong>属性的作用，就是表示要操作字节数组时的索引偏移量。</p> <p>有了上面对<strong>HeapByteBuffer</strong>的理解，那么现在再看<strong>DirectByteBuffer</strong>就显得很简单了，<strong>DirectByteBuffer</strong>对<strong>slice()</strong> 方法的实现如下所示。</p> <div class="language- extra-class"><pre class="language-text"><code>public ByteBuffer slice() {
+    int pos = this.position();
+    int lim = this.limit();
+    assert (pos &lt;= lim);
+    int rem = (pos &lt;= lim ? lim - pos : 0);
+    int off = (pos &lt;&lt; 0);
+    assert (off &gt;= 0);
+    return new DirectByteBuffer(this, -1, 0, rem, rem, off);
+}
+
+DirectByteBuffer(DirectBuffer db,
+                 int mark, int pos, int lim, int cap,
+                 int off) {
+    super(mark, pos, lim, cap);
+    address = db.address() + off;
+    cleaner = null;
+    att = db;
+}
+复制代码
+</code></pre></div><p><strong>DirectByteBuffer</strong>对<strong>slice()</strong> 方法的实现和<strong>HeapByteBuffer</strong>差不多，只不过在<strong>HeapByteBuffer</strong>中是对字节数组索引有偏移，而在<strong>DirectByteBuffer</strong>中是对堆外内存地址有偏移，同时偏移量都是老的<strong>ByteBuffer</strong>的<strong>position</strong>的值。</p> <p>最后针对<strong>slice()</strong> 方法，有一点小说明，在<strong>DirectByteBuffer</strong>的<strong>att</strong>中有这么一段注释。</p> <blockquote><p><strong>If this buffer is a view of another buffer then ...</strong></p></blockquote> <p>这里提到了<strong>view</strong>，翻译过来叫做视图，其实调用<strong>ByteBuffer</strong>的<strong>slice()</strong> 方法，可以想象成就是为原字节缓冲区创建了一个视图，这个视图和原字节缓冲区共享同一片内存区域，但是有新的一套<strong>mark</strong>，<strong>position</strong>，<strong>limit</strong>和<strong>capacity</strong>。</p> <h1 id="_4-bytebuffer的asreadonlybuffer操作"><a href="#_4-bytebuffer的asreadonlybuffer操作" class="header-anchor">#</a> 4. ByteBuffer的asReadOnlyBuffer操作</h1> <p><strong>ByteBuffer</strong>定义了一个抽象方法叫做<strong>asReadOnlyBuffer()</strong>，会在当前<strong>ByteBuffer</strong>基础上创建一个新的<strong>ByteBuffer</strong>，创建出来的<strong>ByteBuffer</strong>能看见老<strong>ByteBuffer</strong>的数据（共享同一块内存），但只能读不能写（只读的），同时两个<strong>ByteBuffer</strong>的<strong>position</strong>，<strong>limit</strong>，<strong>capacity</strong>和<strong>mark</strong>是独立的。</p> <p>先看一下<strong>HeapByteBuffer</strong>对<strong>asReadOnlyBuffer()</strong> 方法的实现，如下所示。</p> <div class="language- extra-class"><pre class="language-text"><code>public ByteBuffer asReadOnlyBuffer() {
+    return new HeapByteBufferR(hb,
+            this.markValue(),
+            this.position(),
+            this.limit(),
+            this.capacity(),
+            offset);
+}
+
+protected HeapByteBufferR(byte[] buf,
+                          int mark, int pos, int lim, int cap,
+                          int off) {
+    super(buf, mark, pos, lim, cap, off);
+    this.isReadOnly = true;
+}
+复制代码
+</code></pre></div><p>也就是会<strong>new</strong>一个<strong>HeapByteBufferR</strong>出来，并且会指定其<strong>isReadOnly</strong>字段为<strong>true</strong>，表示只读。<strong>HeapByteBufferR</strong>继承于<strong>HeapByteBuffer</strong>，表示只读<strong>HeapByteBuffer</strong>，<strong>HeapByteBufferR</strong>重写了<strong>HeapByteBuffer</strong>的所有写相关方法，并且在这些写相关方法中抛出<strong>ReadOnlyBufferException</strong>异常，下面是部分写方法的示例。</p> <div class="language- extra-class"><pre class="language-text"><code>public ByteBuffer put(int i, byte x) {
+    throw new ReadOnlyBufferException();
+}
+
+public ByteBuffer put(byte x) {
+    throw new ReadOnlyBufferException();
+}
+复制代码
+</code></pre></div><p>再看一下<strong>DirectByteBuffer</strong>对<strong>asReadOnlyBuffer()</strong> 方法的实现，如下所示。</p> <div class="language- extra-class"><pre class="language-text"><code>public ByteBuffer asReadOnlyBuffer() {
+    return new DirectByteBufferR(this,
+            this.markValue(),
+            this.position(),
+            this.limit(),
+            this.capacity(),
+            0);
+}
+
+DirectByteBufferR(DirectBuffer db,
+                  int mark, int pos, int lim, int cap,
+                  int off) {
+    super(db, mark, pos, lim, cap, off);
+}
+复制代码
+</code></pre></div><p>也是会<strong>new</strong>一个只读的<strong>DirectByteBufferR</strong>，<strong>DirectByteBufferR</strong>继承于<strong>DirectByteBuffer</strong>并重写了所有写相关方法，并且在这些写相关方法中抛出<strong>ReadOnlyBufferException</strong>异常。</p> <h1 id="_5-bytebuffer的写操作"><a href="#_5-bytebuffer的写操作" class="header-anchor">#</a> 5. ByteBuffer的写操作</h1> <p><strong>ByteBuffer</strong>中定义了大量写操作相关的抽象方法，如下图所示。</p> <p><img src="https://p3-sign.toutiaoimg.com/tos-cn-i-qvj2lq49k0/9e4cc933be994fc789544b63d398f2a3~noop.image?_iz=58558&amp;from=article.pc_detail&amp;x-expires=1687572286&amp;x-signature=U4SzGtsHdJeO9001GFvWm%2FCvxRU%3D" alt=""></p> <p>总体可以进行如下归类。</p> <p><img src="https://p3-sign.toutiaoimg.com/tos-cn-i-qvj2lq49k0/032ae3c6c19f406291e81b85cb42c4e2~noop.image?_iz=58558&amp;from=article.pc_detail&amp;x-expires=1687572286&amp;x-signature=ZQ2UxuC1sViZCRm6tieQ49RUK9U%3D" alt=""></p> <p>下面将对上述部分写方法结合源码进行说明。</p> <h1 id="i-put-byte"><a href="#i-put-byte" class="header-anchor">#</a> Ⅰ. put(byte)</h1> <p>首先是最简单的<strong>put(byte)</strong> 方法，作用是往字节缓冲区的<strong>position</strong>位置写入一个字节，先看一下<strong>HeapByteBuffer</strong>对其的实现，如下所示。</p> <div class="language- extra-class"><pre class="language-text"><code>public ByteBuffer put(byte x) {
+    hb[ix(nextPutIndex())] = x;
+    return this;
+}
+
+protected int ix(int i) {
+    return i + offset;
+}
+
+// Buffer#nextPutIndex()
+final int nextPutIndex() {
+    if (position &gt;= limit) {
+        throw new BufferOverflowException();
+    }
+    return position++;
+}
+复制代码
+</code></pre></div><p>再看一下<strong>DirectByteBuffer</strong>对<strong>put(byte)</strong> 方法的实现，如下所示。</p> <div class="language- extra-class"><pre class="language-text"><code>public ByteBuffer put(byte x) {
+    unsafe.putByte(ix(nextPutIndex()), ((x)));
+    return this;
+}
+
+private long ix(int i) {
+    return address + ((long)i &lt;&lt; 0);
+}
+
+// Buffer#nextPutIndex()
+final int nextPutIndex() {
+    if (position &gt;= limit) {
+        throw new BufferOverflowException();
+    }
+    return position++;
+}
+复制代码
+</code></pre></div><p>都是会调用到<strong>Buffer#nextPutIndex()</strong> 方法来拿到当前的<strong>position</strong>，区别是<strong>HeapByteBuffer</strong>是将字节写入到堆上的数组，而<strong>DirectByteBuffer</strong>是写在直接内存中。</p> <h1 id="ii-put-int-byte"><a href="#ii-put-int-byte" class="header-anchor">#</a> Ⅱ. put(int, byte)</h1> <p><strong>put(int, byte)</strong> 方法能够在指定位置写入一个字节，注意该方法写入字节不会改变<strong>position</strong>。</p> <p><strong>HeapByteBuffer</strong>对其实现如下所示。</p> <div class="language- extra-class"><pre class="language-text"><code>public ByteBuffer put(int i, byte x) {
+    hb[ix(checkIndex(i))] = x;
+    return this;
+}
+
+protected int ix(int i) {
+    return i + offset;
+}
+
+// Buffer#checkIndex(int)
+final int checkIndex(int i) {
+    if ((i &lt; 0) || (i &gt;= limit)) {
+        throw new IndexOutOfBoundsException();
+    }
+    return i;
+}
+复制代码
+</code></pre></div><p><strong>DirectByteBuffer</strong>对<strong>put(int, byte)</strong> 方法的实现如下所示。</p> <div class="language- extra-class"><pre class="language-text"><code>public ByteBuffer put(int i, byte x) {
+    unsafe.putByte(ix(checkIndex(i)), ((x)));
+    return this;
+}
+
+private long ix(int i) {
+    return address + ((long) i &lt;&lt; 0);
+}
+
+// Buffer#checkIndex(int)
+final int checkIndex(int i) {
+    if ((i &lt; 0) || (i &gt;= limit)) {
+        throw new IndexOutOfBoundsException();
+    }
+    return i;
+}
+复制代码
+</code></pre></div><h1 id="iii-put-byte-int-int"><a href="#iii-put-byte-int-int" class="header-anchor">#</a> Ⅲ. put(byte[], int, int)</h1> <p><strong>put(byte[], int, int)</strong> 方法是批量的将字节数组中指定的字节写到<strong>ByteBuffer</strong>。</p> <p><strong>put(byte[], int, int)</strong> 方法并不是抽象方法，在<strong>ByteBuffer</strong>中定义了其实现，但同时<strong>HeapByteBuffer</strong>和<strong>DirectByteBuffer</strong>也都对其进行了重写。下面分别看一下其实现。</p> <p><strong>ByteBuffer#put(byte[], int, int)</strong> 实现如下所示。</p> <div class="language- extra-class"><pre class="language-text"><code>public ByteBuffer put(byte[] src, int offset, int length) {
+    checkBounds(offset, length, src.length);
+    if (length &gt; remaining()) {
+        throw new BufferOverflowException();
+    }
+    int end = offset + length;
+    // 从src的offset索引开始依次将后续的length个字节写到ByteBuffer中
+    for (int i = offset; i &lt; end; i++) {
+        this.put(src[i]);
+    }
+    return this;
+}
+复制代码
+</code></pre></div><p><strong>ByteBuffer</strong>对<strong>put(byte[], int, int)</strong> 方法的实现是循环遍历字节数组中每一个需要写入的字节，然后调用<strong>put(byte)</strong> 方法完成写入，其中<strong>offset</strong>表示从字节数组的哪一个字节开始写，<strong>length</strong>表示从<strong>offset</strong>开始往后的多少个字节需要写入。</p> <p>由于<strong>ByteBuffer</strong>对<strong>put(byte[], int, int)</strong> 方法的实现的写入效率不高，所以<strong>HeapByteBuffer</strong>和<strong>DirectByteBuffer</strong>都有自己的实现，先看一下<strong>HeapByteBuffer</strong>对<strong>put(byte[], int, int)</strong> 方法的实现，如下所示。</p> <div class="language- extra-class"><pre class="language-text"><code>public ByteBuffer put(byte[] src, int offset, int length) {
+    checkBounds(offset, length, src.length);
+    if (length &gt; remaining()) {
+        throw new BufferOverflowException();
+    }
+    // 使用了native的拷贝方法来实现更高效的写入
+    System.arraycopy(src, offset, hb, ix(position()), length);
+    position(position() + length);
+    return this;
+}
+复制代码
+</code></pre></div><p>由于<strong>HeapByteBuffer</strong>存储字节是存储到字节数组中，所以直接使用<strong>native</strong>的<strong>arraycopy()</strong> 方法来完成字节数组的拷贝是更为高效的手段。</p> <p>再看一下<strong>DirectByteBuffer</strong>对<strong>put(byte[], int, int)</strong> 方法的实现，如下所示。</p> <div class="language- extra-class"><pre class="language-text"><code>public ByteBuffer put(byte[] src, int offset, int length) {
+    // 写入字节数大于6时使用native方法来批量写入才更高效
+    if (((long) length &lt;&lt; 0) &gt; Bits.JNI_COPY_FROM_ARRAY_THRESHOLD) {
+        checkBounds(offset, length, src.length);
+        int pos = position();
+        int lim = limit();
+        assert (pos &lt;= lim);
+        int rem = (pos &lt;= lim ? lim - pos : 0);
+        if (length &gt; rem) {
+            throw new BufferOverflowException();
+        }
+        // 这里最终会调用到native方法Unsafe#copyMemory来批量写入
+        Bits.copyFromArray(src, arrayBaseOffset,
+                (long) offset &lt;&lt; 0,
+                ix(pos),
+                (long) length &lt;&lt; 0);
+        // 更新position
+        position(pos + length);
+    } else {
+        // 写入字节数小于等于6则遍历每个字节并依次写入会更高效
+        super.put(src, offset, length);
+    }
+    return this;
+}
+复制代码
+</code></pre></div><p>在<strong>DirectByteBuffer</strong>的实现中，并没有直接调用到<strong>native</strong>方法来批量操作直接内存，而是先做了判断：如果本次批量写入的字节数大于**
+JNI_COPY_FROM_ARRAY_THRESHOLD**（默认是<strong>6</strong>），才调用<strong>native</strong>方法<strong>Unsafe#copyMemory</strong>来完成字节在直接内存中的批量写入，否则就还是一个字节一个字节的写入。<strong>DirectByteBuffer</strong>的做法主要还是考虑到<strong>native</strong>方法的调用的一个开销，比如就写入一个字节，那肯定是没有必要调用<strong>native</strong>方法的。</p> <h1 id="iv-put-byte"><a href="#iv-put-byte" class="header-anchor">#</a> Ⅳ. put(byte[])</h1> <p><strong>put(byte[])</strong> 方法的作用是将一个字节数组的内容全部写入到<strong>ByteBuffer</strong>，该方法是一个<strong>final</strong>方法，所以这里看一下<strong>ByteBuffer</strong>中该方法的实现，如下所示。</p> <div class="language- extra-class"><pre class="language-text"><code>public final ByteBuffer put(byte[] src) {
+    return put(src, 0, src.length);
+}
+复制代码
+</code></pre></div><p>其实就是调用到<strong>put(byte[], int, int)</strong> 方法来完成批量写入。</p> <h1 id="v-put-bytebuffer"><a href="#v-put-bytebuffer" class="header-anchor">#</a> Ⅴ. put(ByteBuffer)</h1> <p><strong>put(ByteBuffer)</strong> 方法用于将一个<strong>ByteBuffer</strong>中所有未操作的字节批量写入当前<strong>ByteBuffer</strong>。<strong>ByteBuffer</strong>，<strong>HeapByteBuffer</strong>和<strong>DirectByteBuffer</strong>都有相应的实现，下面分别看一下。</p> <p><strong>ByteBuffer#put(ByteBuffer)</strong> 思路还是一个字节一个字节的写入，实现如下。</p> <div class="language- extra-class"><pre class="language-text"><code>public ByteBuffer put(ByteBuffer src) {
+    if (src == this) {
+        throw new IllegalArgumentException();
+    }
+    if (isReadOnly()) {
+        throw new ReadOnlyBufferException();
+    }
+    // 计算limit - position
+    int n = src.remaining();
+    if (n &gt; remaining()) {
+        throw new BufferOverflowException();
+    }
+    // 一个字节一个字节的写入
+    for (int i = 0; i &lt; n; i++) {
+        put(src.get());
+    }
+    return this;
+}
+复制代码
+</code></pre></div><p><strong>HeapByteBuffer#put(ByteBuffer)</strong> 思路是先判断源<strong>ByteBuffer</strong>的类型，如果源<strong>ByteBuffer</strong>是<strong>HeapByteBuffer</strong>，则调用<strong>native</strong>方法<strong>System#arraycopy</strong>完成批量写入，如果源<strong>ByteBuffer</strong>是在直接内存中分配的，则再判断一下要写入的字节是否大于6，如果大于6就调用<strong>native</strong>方法<strong>Unsafe#copyMemory</strong>完成批量写入，否则就一个字节一个字节的写入。实现如下。</p> <div class="language- extra-class"><pre class="language-text"><code>public ByteBuffer put(ByteBuffer src) {
+    if (src instanceof HeapByteBuffer) {
+        if (src == this) {
+            throw new IllegalArgumentException();
+        }
+        HeapByteBuffer sb = (HeapByteBuffer) src;
+        // 计算源ByteBuffer剩余的字节数
+        int n = sb.remaining();
+        if (n &gt; remaining()) {
+            throw new BufferOverflowException();
+        }
+        // 调用native方法批量写入
+        System.arraycopy(sb.hb, sb.ix(sb.position()),
+                hb, ix(position()), n);
+        // 更新源ByteBuffer的position
+        sb.position(sb.position() + n);
+        // 更新当前ByteBuffer的position
+        position(position() + n);
+    } else if (src.isDirect()) {
+        // 计算源ByteBuffer剩余的字节数
+        int n = src.remaining();
+        if (n &gt; remaining()) {
+            throw new BufferOverflowException();
+        }
+        // 批量写入字节到当前ByteBuffer的hb字节数组中
+        src.get(hb, ix(position()), n);
+        // 更新当前ByteBuffer的position
+        position(position() + n);
+    } else {
+        super.put(src);
+    }
+    return this;
+}
+
+// DirectByteBuffer#get(byte[], int, int)
+public ByteBuffer get(byte[] dst, int offset, int length) {
+    if (((long) length &lt;&lt; 0) &gt; Bits.JNI_COPY_TO_ARRAY_THRESHOLD) {
+        checkBounds(offset, length, dst.length);
+        int pos = position();
+        int lim = limit();
+        assert (pos &lt;= lim);
+        int rem = (pos &lt;= lim ? lim - pos : 0);
+        if (length &gt; rem) {
+            throw new BufferUnderflowException();
+        }
+        Bits.copyToArray(ix(pos), dst, arrayBaseOffset,
+                (long) offset &lt;&lt; 0,
+                (long) length &lt;&lt; 0);
+        // 更新源ByteBuffer的position
+        position(pos + length);
+    } else {
+        super.get(dst, offset, length);
+    }
+    return this;
+}
+复制代码
+</code></pre></div><p><strong>DirectByteBuffer#put(ByteBuffer)</strong> 的思路也是先判断源<strong>ByteBuffer</strong>的类型，如果源<strong>ByteBuffer</strong>是<strong>DirectByteBuffer</strong>，则直接使用<strong>native</strong>方法<strong>Unsafe#copyMemory</strong>完成批量写入，如果源<strong>ByteBuffer</strong>是在堆上分配的，则按照<strong>DirectByteBuffer</strong>的<strong>put(byte[], int, int)</strong> 方法的逻辑完成批量写入。实现如下所示。</p> <div class="language- extra-class"><pre class="language-text"><code>public ByteBuffer put(ByteBuffer src) {
+    if (src instanceof DirectByteBuffer) {
+        if (src == this) {
+            throw new IllegalArgumentException();
+        }
+        DirectByteBuffer sb = (DirectByteBuffer) src;
+        int spos = sb.position();
+        int slim = sb.limit();
+        assert (spos &lt;= slim);
+        // 计算源ByteBuffer剩余的字节数
+        int srem = (spos &lt;= slim ? slim - spos : 0);
+
+        int pos = position();
+        int lim = limit();
+        assert (pos &lt;= lim);
+        int rem = (pos &lt;= lim ? lim - pos : 0);
+
+        if (srem &gt; rem) {
+            throw new BufferOverflowException();
+        }
+        // 调用native方法完成批量写入
+        unsafe.copyMemory(sb.ix(spos), ix(pos), (long) srem &lt;&lt; 0);
+        // 更新源ByteBuffer的position
+        sb.position(spos + srem);
+        // 更新当前ByteBuffer的position
+        position(pos + srem);
+    } else if (src.hb != null) {
+        int spos = src.position();
+        int slim = src.limit();
+        assert (spos &lt;= slim);
+        // 计算源ByteBuffer剩余的字节数
+        int srem = (spos &lt;= slim ? slim - spos : 0);
+        // 调用DirectByteBuffer#put(byte[], int, int)完成批量写入
+        put(src.hb, src.offset + spos, srem);
+        // 更新源ByteBuffer的position
+        src.position(spos + srem);
+    } else {
+        super.put(src);
+    }
+    return this;
+}
+
+// DirectByteBuffer#put(byte[], int, int)
+public ByteBuffer put(byte[] src, int offset, int length) {
+    if (((long) length &lt;&lt; 0) &gt; Bits.JNI_COPY_FROM_ARRAY_THRESHOLD) {
+        checkBounds(offset, length, src.length);
+        int pos = position();
+        int lim = limit();
+        assert (pos &lt;= lim);
+        int rem = (pos &lt;= lim ? lim - pos : 0);
+        if (length &gt; rem) {
+            throw new BufferOverflowException();
+        }
+        Bits.copyFromArray(src, arrayBaseOffset,
+                (long) offset &lt;&lt; 0,
+                ix(pos),
+                (long) length &lt;&lt; 0);
+        // 更新当前ByteBuffer的position
+        position(pos + length);
+    } else {
+        super.put(src, offset, length);
+    }
+    return this;
+}
+复制代码
+</code></pre></div><p>最后有一点需要说明，调用<strong>put(ByteBuffer)</strong> 方法完成批量字节写入后，源<strong>ByteBuffer</strong>和当前<strong>ByteBuffer</strong>的<strong>position</strong>都会被更新。</p> <h1 id="vi-字节序"><a href="#vi-字节序" class="header-anchor">#</a> Ⅵ. 字节序</h1> <p>上述的几种<strong>put()</strong> 方法都是向<strong>ByteBuffer</strong>写入字节，但其实也是可以直接将<strong>char</strong>，<strong>int</strong>等基础数据类型写入<strong>ByteBuffer</strong>，但在分析这些写入基础数据类型到<strong>ByteBuffer</strong>的<strong>put()</strong> 方法以前，有必要对字节序的相关概念进行演示和说明。</p> <p>已知在<strong>Java</strong>中一个<strong>int</strong>是四个字节，而一个字节是8位，那么就以数字<strong>23333</strong>为例，示意如下。</p> <p><img src="https://p26-sign.toutiaoimg.com/tos-cn-i-qvj2lq49k0/710184b19a124d4b916862645f0b17aa~noop.image?_iz=58558&amp;from=article.pc_detail&amp;x-expires=1687572286&amp;x-signature=3hwzV%2FKASUD3HMiEKWvY7rQplR8%3D" alt=""></p> <p>那么上述的一个<strong>int</strong>数据，存储在内存中时，如果高位字节存储在内存的低地址，低位字节存储在内存的高地址，这种就称为<strong>大端字节序（Big Endian）</strong>，示意图如下所示。</p> <p><img src="https://p3-sign.toutiaoimg.com/tos-cn-i-qvj2lq49k0/904e7ab2273a44199d0d32895bf73f45~noop.image?_iz=58558&amp;from=article.pc_detail&amp;x-expires=1687572286&amp;x-signature=8Lqp0PNGIgIA1DCTrMDRRdJjanQ%3D" alt=""></p> <p>反之如果低位字节存储在内存的低地址，高位字节存储在内存的高地址，这种就称为<strong>小端字节序（Little Endian）</strong>，示意图如下所示。</p> <p><img src="https://p3-sign.toutiaoimg.com/tos-cn-i-qvj2lq49k0/05bd492e98664e90b0eb8fee84fc198d~noop.image?_iz=58558&amp;from=article.pc_detail&amp;x-expires=1687572286&amp;x-signature=BxpROV5eQvtU%2FxWAePk7mCfwtJQ%3D" alt=""></p> <p>上述其实是<strong>主机字节序</strong>，表示计算机内存中字节的存储顺序。在<strong>Java</strong>中，数据的存储默认是按照<strong>大端字节序</strong>来存储的。</p> <p>然后还有一种叫做<strong>网络字节序</strong>，表示网络传输中字节的传输顺序，分类如下。</p> <ol><li><strong>大端字节序（Big Endian）</strong>。从二进制数据的高位开始传输；</li> <li><strong>小端字节序（Little Endian）</strong>。从二进制数据的低位开始传输。</li></ol> <p>在网络传输中，默认按照<strong>大端字节序</strong>来传输。</p> <h1 id="vii-putint-int"><a href="#vii-putint-int" class="header-anchor">#</a> Ⅶ. putInt(int)</h1> <p><strong>putInt(int)</strong> 方法是<strong>ByteBuffer</strong>定义的用于直接写入一个<strong>int</strong>的抽象方法，先看<strong>HeapByteBuffer</strong>的实现，如下所示。</p> <div class="language- extra-class"><pre class="language-text"><code>public ByteBuffer putInt(int x) {
+    // 通过nextPutIndex(4)方法拿到当前position，并让position加4
+    // 然后调用Bits#putInt完成写入，其中bigEndian默认是true
+    Bits.putInt(this, ix(nextPutIndex(4)), x, bigEndian);
+    return this;
+}
+
+// Bits#putInt
+static void putInt(ByteBuffer bb, int bi, int x, boolean bigEndian) {
+    if (bigEndian) {
+        putIntB(bb, bi, x);
+    } else {
+        putIntL(bb, bi, x);
+    }
+}
+
+// Bits#putIntB
+static void putIntB(ByteBuffer bb, int bi, int x) {
+    // 通过Bits#int3方法拿到x的第3字节（最高位字节）
+    // 然后写入到hb字节数组的索引为bi的位置
+    bb._put(bi    , int3(x));
+    // 通过Bits#int2方法拿到x的第2字节（次高位字节）
+    // 然后写入到hb字节数组的索引为bi+1的位置
+    bb._put(bi + 1, int2(x));
+    // 通过Bits#int1方法拿到x的第1字节（次低位字节）
+    // 然后写入到hb字节数组的索引为bi+2的位置
+    bb._put(bi + 2, int1(x));
+    // 通过Bits#int0方法拿到x的第0字节（最低位字节）
+    // 然后写入到hb字节数组的索引为bi+3的位置
+    bb._put(bi + 3, int0(x));
+}
+
+// Bits#int3
+private static byte int3(int x) {
+    return (byte) (x &gt;&gt; 24);
+}
+
+// HeapByteBuffer#_put
+void _put(int i, byte b) {
+    hb[i] = b;
+}
+复制代码
+</code></pre></div><p><strong>HeapByteBuffer</strong>实现的<strong>putInt(int)</strong> 方法中，会依次将<strong>int</strong>的高位到低位写入到<strong>hb</strong>字节数组的低索引到高索引，而在堆中，内存地址是由低到高的，也就是随着数组索引的增加，内存地址也会逐渐增高，所以上述的就是按照大端字节序的方式来直接写入一个<strong>int</strong>。</p> <p>再看一下<strong>DirectByteBuffer</strong>对<strong>putInt(int)</strong> 方法的实现，如下所示。</p> <div class="language- extra-class"><pre class="language-text"><code>public ByteBuffer putInt(int x) {
+    // 通过nextPutIndex(4)方法拿到当前position，并让position加4
+    // 通过ix()方法拿到实际要写入的内存地址
+    putInt(ix(nextPutIndex((1 &lt;&lt; 2))), x);
+    return this;
+}
+
+// DirectByteBuffer#putInt(long, int)
+private ByteBuffer putInt(long a, int x) {
+    if (unaligned) {
+        int y = (x);
+        unsafe.putInt(a, (nativeByteOrder ? y : Bits.swap(y)));
+    } else {
+        // 调用Bits#putInt完成写入，其中bigEndian默认是true
+        Bits.putInt(a, x, bigEndian);
+    }
+    return this;
+}
+
+// Bits#putInt
+static void putInt(long a, int x, boolean bigEndian) {
+    if (bigEndian) {
+        putIntB(a, x);
+    } else {
+        putIntL(a, x);
+    }
+}
+
+// Bits#putIntB
+static void putIntB(long a, int x) {
+    // 通过Bits#int3方法拿到x的第3字节（最高位字节）
+    // 然后写入到直接内存地址为a的位置
+    _put(a    , int3(x));
+    // 通过Bits#int2方法拿到x的第2字节（次高位字节）
+    // 然后写入到直接内存地址为a+1的位置
+    _put(a + 1, int2(x));
+    // 通过Bits#int1方法拿到x的第1字节（次低位字节）
+    // 然后写入到直接内存地址为a+2的位置
+    _put(a + 2, int1(x));
+    // 通过Bits#int0方法拿到x的第0字节（最低位字节）
+    // 然后写入到直接内存地址为a+3的位置
+    _put(a + 3, int0(x));
+}
+
+// Bits#int3
+private static byte int3(int x) {
+    return (byte) (x &gt;&gt; 24);
+}
+
+// Bits#_put
+private static void _put(long a, byte b) {
+    unsafe.putByte(a, b);
+}
+复制代码
+</code></pre></div><p>在<strong>DirectByteBuffer</strong>的实现中，会依次将<strong>int</strong>的高位到低位写入到直接内存的低地址到高地址，整体也是一个大端字节序的写入方式。</p> <h1 id="viii-putint-int-int"><a href="#viii-putint-int-int" class="header-anchor">#</a> Ⅷ. putInt(int, int)</h1> <p><strong>putInt(int, int)</strong> 方法可以在指定位置写入<strong>int</strong>，同时也不会更改<strong>position</strong>。<strong>putInt(int, int)</strong> 方法实现原理和<strong>putInt(int)</strong> 一样，故这里不再赘述。</p> <p>其它的写入非字节的方法，本质和写入<strong>int</strong>一致，故也不再赘述。</p> <h1 id="_6-bytebuffer的读操作"><a href="#_6-bytebuffer的读操作" class="header-anchor">#</a> 6. ByteBuffer的读操作</h1> <p><strong>ByteBuffer</strong>中定义了大量读操作相关的抽象方法，如下图所示。</p> <p><img src="https://p3-sign.toutiaoimg.com/tos-cn-i-qvj2lq49k0/c40682f330e14d3a8d50b95f803e50ba~noop.image?_iz=58558&amp;from=article.pc_detail&amp;x-expires=1687572286&amp;x-signature=gdMdMnCzGPuleI2L3HDTpEjGNUY%3D" alt=""></p> <p>总体可以进行如下归类。</p> <p><img src="https://p3-sign.toutiaoimg.com/tos-cn-i-qvj2lq49k0/15f65a9d87714f02ab1a09e0d79ff424~noop.image?_iz=58558&amp;from=article.pc_detail&amp;x-expires=1687572286&amp;x-signature=cR5O0ysZJmoXksoLe3fY4sA4gj8%3D" alt=""></p> <p>下面将对上述部分读方法结合源码进行说明。</p> <h1 id="i-get"><a href="#i-get" class="header-anchor">#</a> Ⅰ. get()</h1> <p><strong>get()</strong> 方法用于读取一个字节，<strong>HeapByteBuffer</strong>的实现如下所示。</p> <div class="language- extra-class"><pre class="language-text"><code>public byte get() {
+    return hb[ix(nextGetIndex())];
+}
+复制代码
+</code></pre></div><p>上述方法是读取字节数组中<strong>position</strong>索引位置的字节，然后<strong>position</strong>加1。再看一下<strong>DirectByteBuffer</strong>对<strong>get()</strong> 方法的实现，如下所示。</p> <div class="language- extra-class"><pre class="language-text"><code>public byte get() {
+    return ((unsafe.getByte(ix(nextGetIndex()))));
+}
+复制代码
+</code></pre></div><p>上述方法是基于<strong>native</strong>方法拿到<strong>address + position</strong>位置的字节然后<strong>position</strong>加1。</p> <h1 id="ii-get-int"><a href="#ii-get-int" class="header-anchor">#</a> Ⅱ. get(int)</h1> <p><strong>get(int)</strong> 方法用于读取指定位置的字节，<strong>HeapByteBuffer</strong>的实现如下所示。</p> <div class="language- extra-class"><pre class="language-text"><code>public byte get(int i) {
+    return hb[ix(checkIndex(i))];
+}
+复制代码
+</code></pre></div><p>上述方法会读取字节数组中指定索引位置的字节，注意<strong>position</strong>不会改变。再看一下<strong>DirectByteBuffer</strong>对<strong>get(int)</strong> 方法的实现，如下所示。</p> <div class="language- extra-class"><pre class="language-text"><code>public byte get(int i) {
+    return ((unsafe.getByte(ix(checkIndex(i)))));
+}
+复制代码
+</code></pre></div><p>上述方法是基于<strong>native</strong>方法拿到指定位置的字节，同样，<strong>position</strong>不会改变。</p> <h1 id="iii-get-byte-int-int"><a href="#iii-get-byte-int-int" class="header-anchor">#</a> Ⅲ. get(byte[], int, int)</h1> <p><strong>get(byte[], int, int)</strong> 方法用于将当前<strong>ByteBuffer</strong>从<strong>position</strong>位置开始往后的若干字节写入到目标字节数组的指定位置。<strong>ByteBuffer</strong>，<strong>HeapByteBuffer</strong>和<strong>DirectByteBuffer</strong>都有相应的实现，下面分别看一下。</p> <p><strong>ByteBuffer</strong>对<strong>get(byte[], int, int)</strong> 方法的实现中是一个字节一个字节的读取并写入，如下所示。</p> <div class="language- extra-class"><pre class="language-text"><code>public ByteBuffer get(byte[] dst, int offset, int length) {
+    checkBounds(offset, length, dst.length);
+    if (length &gt; remaining()) {
+        throw new BufferUnderflowException();
+    }
+    int end = offset + length;
+    // 写入目标数组的开始位置是offset
+    // 共写入length个字节
+    for (int i = offset; i &lt; end; i++) {
+        dst[i] = get();
+    }
+    return this;
+}
+复制代码
+</code></pre></div><p><strong>HeapByteBuffer</strong>对<strong>get(byte[], int, int)</strong> 方法的实现中，是调用<strong>System#arraycopy</strong>本地方法来进行批量拷贝写入，效率比一个字节一个字节的读取并写入更高，且最后会更新当前<strong>HeapByteBuffer</strong>的<strong>position</strong>。</p> <div class="language- extra-class"><pre class="language-text"><code>public ByteBuffer get(byte[] dst, int offset, int length) {
+    checkBounds(offset, length, dst.length);
+    if (length &gt; remaining()) {
+        throw new BufferUnderflowException();
+    }
+    // 调用native方法来批量写入字节到dst字节数组
+    System.arraycopy(hb, ix(position()), dst, offset, length);
+    // 更新当前HeapByteBuffer的position
+    position(position() + length);
+    return this;
+}
+复制代码
+</code></pre></div><p><strong>DirectByteBuffer</strong>对<strong>get(byte[], int, int)</strong> 方法的实现中，会先判断需要读取并写入到目标字节数组中的字节数是否大于6，大于6时会调用<strong>native</strong>方法来批量写入，否则就一个字节一个字节的读取并写入，最终还会更新当前<strong>DirectByteBuffer</strong>的<strong>position</strong>。</p> <div class="language- extra-class"><pre class="language-text"><code>public ByteBuffer get(byte[] dst, int offset, int length) {
+    if (((long) length &lt;&lt; 0) &gt; Bits.JNI_COPY_TO_ARRAY_THRESHOLD) {
+        // 批量写入的字节数大于6个
+        checkBounds(offset, length, dst.length);
+        int pos = position();
+        int lim = limit();
+        assert (pos &lt;= lim);
+        int rem = (pos &lt;= lim ? lim - pos : 0);
+        if (length &gt; rem) {
+            throw new BufferUnderflowException();
+        }
+        // 最终调用到Unsafe#copyMemory方法完成批量拷贝写入
+        Bits.copyToArray(ix(pos), dst, arrayBaseOffset,
+                (long) offset &lt;&lt; 0,
+                (long) length &lt;&lt; 0);
+        // 更新当前DirectByteBuffer的position
+        position(pos + length);
+    } else {
+        // 批量写入的字节数小于等于6个
+        // 则一个字节一个字节的读取并写入
+        super.get(dst, offset, length);
+    }
+    return this;
+}
+复制代码
+</code></pre></div><h1 id="iv-get-byte"><a href="#iv-get-byte" class="header-anchor">#</a> Ⅳ. get(byte[])</h1> <p><strong>get(byte[])</strong> 方法会从当前<strong>ByteBuffer</strong>的<strong>position</strong>位置开始，读取目标字节数组长度个字节，然后依次写入到目标字节数组。<strong>get(byte[])</strong> 方法由<strong>ByteBuffer</strong>实现，如下所示。</p> <div class="language- extra-class"><pre class="language-text"><code>public ByteBuffer get(byte[] dst) {
+    return get(dst, 0, dst.length);
+}
+复制代码
+</code></pre></div><p>那么本质还是依赖<strong>get(byte[], int, int)</strong> 方法，只不过将<strong>offset</strong>指定为了0（表示从<strong>dst</strong>字节数组的索引为0的位置开始写入），将<strong>length</strong>指定为了<strong>dst.length</strong>（表示要写满<strong>dst</strong>字节数组）。</p> <h1 id="v-getint"><a href="#v-getint" class="header-anchor">#</a> Ⅴ. getInt()</h1> <p><strong>getInt()</strong> 方法表示从<strong>ByteBuffer</strong>中读取一个<strong>int</strong>值，先看一下<strong>HeapByteBuffer</strong>的实现，如下所示。</p> <div class="language- extra-class"><pre class="language-text"><code>public int getInt() {
+    // 通过nextGetIndex(4)拿到当前position，然后position加4
+    // 默认bigEndian为true，表示以大端字节序的方式读取int
+    return Bits.getInt(this, ix(nextGetIndex(4)), bigEndian);
+}
+
+// Bits#getInt
+static int getInt(ByteBuffer bb, int bi, boolean bigEndian) {
+    return bigEndian ? getIntB(bb, bi) : getIntL(bb, bi) ;
+}
+
+// Bits#getIntB
+static int getIntB(ByteBuffer bb, int bi) {
+    // 依次拿到低索引到高索引的字节
+    // 这些字节依次对应int值的高位到低位
+    // 最终调用makeInt()方法拼接成int值
+    return makeInt(bb._get(bi),
+            bb._get(bi + 1),
+            bb._get(bi + 2),
+            bb._get(bi + 3));
+}
+
+// Bits#makeInt
+static private int makeInt(byte b3, byte b2, byte b1, byte b0) {
+    return (((b3) &lt;&lt; 24) |
+            ((b2 &amp; 0xff) &lt;&lt; 16) |
+            ((b1 &amp; 0xff) &lt;&lt; 8) |
+            ((b0 &amp; 0xff)));
+}
+
+// HeapByteBuffer#_get
+byte _get(int i) {
+    return hb[i];
+}
+复制代码
+</code></pre></div><p>上述方法的实现中，首先获取到当前<strong>HeapByteBuffer</strong>的<strong>position</strong>，然后从<strong>position</strong>位置开始依次读取四个字节，因为默认情况下是大端字节序（也就是写和读都是按照大端字节序的方式），所以读取到的字节应该依次对应<strong>int</strong>值的高位到低位，所以最终会在<strong>Bits#makeInt</strong>方法中将四个字节通过错位或的方式得到<strong>int</strong>值。</p> <p>再看一下<strong>DirectByteBuffer</strong>对<strong>getInt()</strong> 方法的实现，如下所示。</p> <div class="language- extra-class"><pre class="language-text"><code>public int getInt() {
+    // 通过nextGetIndex(4)拿到当前position，然后position加4
+    // 通过ix()方法拿到操作的起始地址是address + position
+    return getInt(ix(nextGetIndex((1 &lt;&lt; 2))));
+}
+
+// DirectByteBuffer#getInt(long)
+private int getInt(long a) {
+    if (unaligned) {
+        int x = unsafe.getInt(a);
+        return (nativeByteOrder ? x : Bits.swap(x));
+    }
+    // 默认bigEndian为true，表示默认大端字节序
+    return Bits.getInt(a, bigEndian);
+}
+
+// Bits#getInt
+static int getInt(long a, boolean bigEndian) {
+    return bigEndian ? getIntB(a) : getIntL(a) ;
+}
+
+// Bits#getIntB
+static int getIntB(long a) {
+    // 从低地址拿到int值的高位
+    // 从高地址拿到int值的低位
+    // 然后拼接得到最终的int值
+    return makeInt(_get(a),
+            _get(a + 1),
+            _get(a + 2),
+            _get(a + 3));
+}
+
+// Bits#_get
+private static byte _get(long a) {
+    return unsafe.getByte(a);
+}
+
+// Bits#makeInt
+static private int makeInt(byte b3, byte b2, byte b1, byte b0) {
+    return (((b3) &lt;&lt; 24) |
+            ((b2 &amp; 0xff) &lt;&lt; 16) |
+            ((b1 &amp; 0xff) &lt;&lt; 8) |
+            ((b0 &amp; 0xff)));
+}
+复制代码
+</code></pre></div><p><strong>DirectByteBuffer</strong>对<strong>getInt()</strong> 方法的整体实现思路和<strong>HeapByteBuffer</strong>是一致的，在默认大端字节序的情况下，从低地址拿到<strong>int</strong>值的高位字节，从高地址拿到<strong>int</strong>值的低位字节，最后通过错位或的方式得到最终的<strong>int</strong>值。请注意，操作完成后，<strong>position</strong>都会加4，这是因为一个<strong>int</strong>占四个字节，也就是相当于读取了4个字节。</p> <h1 id="vi-getint-int"><a href="#vi-getint-int" class="header-anchor">#</a> Ⅵ. getInt(int)</h1> <p><strong>getInt(int)</strong> 方法能够从指定位置读取一个<strong>int</strong>值，实现思路和<strong>getInt()</strong> 方法完全一致，故这里不再赘述，但需要注意的是，<strong>getInt(int)</strong> 方法读取一个<strong>int</strong>值后，不会改变<strong>position</strong>。</p> <p>其它的非字节的读取，本质和<strong>int</strong>值的读取一样，故也不再赘述。</p> <h1 id="_7-bytebuffer的使用示例"><a href="#_7-bytebuffer的使用示例" class="header-anchor">#</a> 7. ByteBuffer的使用示例</h1> <p>在<strong>Log4j2</strong>日志框架中，最终在将日志进行输出时，对日志内容的处理就有使用到<strong>ByteBuffer</strong>，下面一起来简单的看一下。（无需关注<strong>Log4j2</strong>的实现细节）</p> <p>在将日志内容进行标准输出时，最终是通过<strong>OutputStreamManager</strong>完成将日志内容输出，它里面有一个字段就是<strong>HeapByteBuffer</strong>，用于存储日志内容的字节数据。下面先看一下**
+org.apache.logging.log4j.core.layout.TextEncoderHelper#writeEncodedText<strong>方法，这里面会有</strong>OutputStreamManager<strong>的</strong>ByteBuffer**如何被写入的相关逻辑。</p> <div class="language- extra-class"><pre class="language-text"><code>private static void writeEncodedText(final CharsetEncoder charsetEncoder, final CharBuffer charBuf,
+        final ByteBuffer byteBuf, final ByteBufferDestination destination, CoderResult result) {
+  
+    ......
+  
+    if (byteBuf != destination.getByteBuffer()) {
+        // 这里的byteBuf存储了处理后的日志内容
+        // 调用flip()方法来进入读模式
+        byteBuf.flip();
+        // 这里的destination就是OutputStreamManager
+        // 这里会将byteBuf的内容写到OutputStreamManager的ByteBuffer中
+        destination.writeBytes(byteBuf);
+        // 切换为写模式，也就是position置0，重置limit等于capacity等
+        byteBuf.clear();
+    }
+}
+
+// OutputStreamManager#writeBytes
+public void writeBytes(final ByteBuffer data) {
+    if (data.remaining() == 0) {
+        return;
+    }
+    synchronized (this) {
+        ByteBufferDestinationHelper.writeToUnsynchronized(data, this);
+    }
+}
+
+// ByteBufferDestinationHelper#writeToUnsynchronized
+public static void writeToUnsynchronized(final ByteBuffer source, final ByteBufferDestination destination) {
+    // 拿到OutputStreamManager中的HeapByteBuffer
+    // 这里称OutputStreamManager中的HeapByteBuffer为目标ByteBuffer
+    ByteBuffer destBuff = destination.getByteBuffer();
+    // 如果源ByteBuffer剩余可读字节多于目标ByteBuffer剩余可写字节
+    // 则循环的写满目标ByteBuffer再读取完目标ByteBuffer
+    // 最终就是需要将源ByteBuffer的字节全部由目标ByteBuffer消费掉
+    while (source.remaining() &gt; destBuff.remaining()) {
+        final int originalLimit = source.limit();
+        // 先将源ByteBuffer的limit设置为当前position + 目标ByetBuffer剩余可写字节数
+        source.limit(Math.min(source.limit(), source.position() + destBuff.remaining()));
+        // 将源ByteBuffer当前position到limit的字节写到目标ByteBuffer中
+        destBuff.put(source);
+        // 恢复源ByteBuffer的limit
+        source.limit(originalLimit);
+        // 目标ByteBuffer先将已有的字节全部标准输出
+        // 然后返回一个写模式的目标ByteBuffer
+        destBuff = destination.drain(destBuff);
+    }
+  
+    // 到这里说明源ByteBuffer剩余可读字节小于等于目标ByteBuffer剩余可写字节
+    // 则将源ByteBuffer剩余可读字节全部写到目标ByteBuffer中
+    // 后续会在其它地方将这部分内容全部标准输出
+    destBuff.put(source);
+}
+
+// OutputStreamManager#drain
+public ByteBuffer drain(final ByteBuffer buf) {
+    flushBuffer(buf);
+    return buf;
+}
+
+// OutputStreamManager#flushBuffer
+protected synchronized void flushBuffer(final ByteBuffer buf) {
+    // 目标ByteBuffer切换为读模式
+    ((Buffer) buf).flip();
+    try {
+        if (buf.remaining() &gt; 0) {
+            // 拿到HeapByteBuffer中的字节数组
+            // 最终调用到PrintStream来标准输出字节数组中的字节内容
+            writeToDestination(buf.array(), buf.arrayOffset() + buf.position(), buf.remaining());
+        }
+    } finally {
+        // 目标ByteBuffer切换回写模式
+        buf.clear();
+    }
+}
+复制代码
+</code></pre></div><p>相信如果阅读完本文，那么上述<strong>Log4j2</strong>中对于<strong>ByteBuffer</strong>的使用，肯定都是能看明白的，虽然<strong>Log4j2</strong>中有大量的基于<strong>ByteBuffer</strong>的使用，但是最终的标准输出还是基于<strong>Java</strong>的传统<strong>IO</strong>来输出的，那么为什么中间还要用<strong>ByteBuffer</strong>来多处理一下呢，其实也就是因为<strong>ByteBuffer</strong>在读写字节时会考虑性能问题，会使用到性能更高的<strong>native</strong>方法来批量的操作字节数据，因此以快著称的<strong>Log4j2</strong>选择了<strong>NIO</strong>中的<strong>ByteBuffer</strong>。</p> <h1 id="_8-bytebuffer的缺点"><a href="#_8-bytebuffer的缺点" class="header-anchor">#</a> 8. ByteBuffer的缺点</h1> <p>如果要讨论<strong>ByteBuffer</strong>的缺点，其实可以结合第7小节的使用示例来一并讨论。</p> <p>首先就是<strong>读写模式的切换</strong>。在第7小节示例中，会发现存在多处调用<strong>flip()</strong> 方法来切换到读模式，调用<strong>clear()</strong> 方法来切换到写模式，这种模式的切换，既麻烦，还容易出错。</p> <p>然后就是<strong>无法扩容</strong>。在第7小节示例中，有一个细节就是因为<strong>ByteBuffer</strong>容量太小了，无法一次写完所有字节数据，所以就只能循环的写满读取然后再写满这样子来操作，如果能扩容就不用这么麻烦了。</p> <p>最后就是<strong>线程不安全</strong>。<strong>ByteBuffer</strong>自身并没有提供对线程安全的保护，要实现线程安全，需要使用者自己通过其它的并发语义来实现。</p> <h1 id="总结"><a href="#总结" class="header-anchor">#</a> 总结</h1> <p>本文对<strong>ByteBuffer</strong>的分析可以参照下图。</p> <p><img src="https://p26-sign.toutiaoimg.com/tos-cn-i-qvj2lq49k0/7c7b0ea9e6ce4355b14154d82d9e7173~noop.image?_iz=58558&amp;from=article.pc_detail&amp;x-expires=1687572286&amp;x-signature=BDJTCcf2vl%2Fj%2BgxlHvHbVCrRr4w%3D" alt=""></p> <p>为啥<strong>NIO</strong>中偏分析<strong>ByteBuffer</strong>呢，因为<strong>Netty</strong>中的缓存是<strong>ByteBuf</strong>，其对<strong>ByteBuffer</strong>做了改良.</p> <p>文章来源：https://www.toutiao.com/article/7217621755463631372/?log_from=4216f0af143da_1686967401390</p> <!----></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/book/360.html" class="prev">
+         速记：一个http请求的全过程是怎样的？
+      </a></span> <span class="next"><a href="/book/338.html">
+         JS异步编程——WebWorker多线程机制
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><section class="side-anchor"><ul style="display:none;"></ul></section></div></div>
+    <script src="/book/assets/js/app.c8cf2c2d.js" defer></script><script src="/book/assets/js/3.0d5fb1e8.js" defer></script><script src="/book/assets/js/137.2c19d3fa.js" defer></script><script src="/book/assets/js/4.4c5f7830.js" defer></script>
+  </body>
+</html>
