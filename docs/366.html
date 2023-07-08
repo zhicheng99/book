@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>JavaScript 内存泄漏 | 日常收集</title>
+    <meta name="generator" content="VuePress 1.9.9">
+    
+    <meta name="description" content="Just playing around">
+    
+    <link rel="preload" href="/book/assets/css/0.styles.d473fa6d.css" as="style"><link rel="preload" href="/book/assets/js/app.0696d4f5.js" as="script"><link rel="preload" href="/book/assets/js/3.0d5fb1e8.js" as="script"><link rel="preload" href="/book/assets/js/145.9c1dee4d.js" as="script"><link rel="preload" href="/book/assets/js/4.4c5f7830.js" as="script"><link rel="prefetch" href="/book/assets/js/10.03e42995.js"><link rel="prefetch" href="/book/assets/js/100.6437bccb.js"><link rel="prefetch" href="/book/assets/js/101.5440e694.js"><link rel="prefetch" href="/book/assets/js/102.b45b6473.js"><link rel="prefetch" href="/book/assets/js/103.c804beac.js"><link rel="prefetch" href="/book/assets/js/104.cc97244d.js"><link rel="prefetch" href="/book/assets/js/105.f8b2f090.js"><link rel="prefetch" href="/book/assets/js/106.064c03bc.js"><link rel="prefetch" href="/book/assets/js/107.a7c0255b.js"><link rel="prefetch" href="/book/assets/js/108.3aae0552.js"><link rel="prefetch" href="/book/assets/js/109.a4726c7a.js"><link rel="prefetch" href="/book/assets/js/11.5e1abf35.js"><link rel="prefetch" href="/book/assets/js/110.a40e4289.js"><link rel="prefetch" href="/book/assets/js/111.0597a0e7.js"><link rel="prefetch" href="/book/assets/js/112.ce3a97c2.js"><link rel="prefetch" href="/book/assets/js/113.4e6463dc.js"><link rel="prefetch" href="/book/assets/js/114.2d69d169.js"><link rel="prefetch" href="/book/assets/js/115.b560ece3.js"><link rel="prefetch" href="/book/assets/js/116.cc70191a.js"><link rel="prefetch" href="/book/assets/js/117.74b93b48.js"><link rel="prefetch" href="/book/assets/js/118.79b24a4d.js"><link rel="prefetch" href="/book/assets/js/119.7a82943c.js"><link rel="prefetch" href="/book/assets/js/12.270dbc10.js"><link rel="prefetch" href="/book/assets/js/120.9a90a67d.js"><link rel="prefetch" href="/book/assets/js/121.68edf433.js"><link rel="prefetch" href="/book/assets/js/122.60e9d0a0.js"><link rel="prefetch" href="/book/assets/js/123.b84bca3e.js"><link rel="prefetch" href="/book/assets/js/124.51293e62.js"><link rel="prefetch" href="/book/assets/js/125.f3e37562.js"><link rel="prefetch" href="/book/assets/js/126.5d06ad3c.js"><link rel="prefetch" href="/book/assets/js/127.1cb1ab03.js"><link rel="prefetch" href="/book/assets/js/128.f6bbaf5e.js"><link rel="prefetch" href="/book/assets/js/129.09d92397.js"><link rel="prefetch" href="/book/assets/js/13.3fbcfd74.js"><link rel="prefetch" href="/book/assets/js/130.d9e17f5c.js"><link rel="prefetch" href="/book/assets/js/131.682bdab7.js"><link rel="prefetch" href="/book/assets/js/132.7fd10d6d.js"><link rel="prefetch" href="/book/assets/js/133.1a253cb2.js"><link rel="prefetch" href="/book/assets/js/134.fd4dd490.js"><link rel="prefetch" href="/book/assets/js/135.d85128a2.js"><link rel="prefetch" href="/book/assets/js/136.5bbded3d.js"><link rel="prefetch" href="/book/assets/js/137.6e1584f0.js"><link rel="prefetch" href="/book/assets/js/138.9c610e7f.js"><link rel="prefetch" href="/book/assets/js/139.645ca383.js"><link rel="prefetch" href="/book/assets/js/14.fb5572f7.js"><link rel="prefetch" href="/book/assets/js/140.1db34a16.js"><link rel="prefetch" href="/book/assets/js/141.81990059.js"><link rel="prefetch" href="/book/assets/js/142.5f3579b5.js"><link rel="prefetch" href="/book/assets/js/143.33e74d9b.js"><link rel="prefetch" href="/book/assets/js/144.f4ed1d1c.js"><link rel="prefetch" href="/book/assets/js/146.ba36c583.js"><link rel="prefetch" href="/book/assets/js/147.e9e1a431.js"><link rel="prefetch" href="/book/assets/js/148.39acdd36.js"><link rel="prefetch" href="/book/assets/js/149.09b703e3.js"><link rel="prefetch" href="/book/assets/js/15.281fe50b.js"><link rel="prefetch" href="/book/assets/js/150.2ef3bf54.js"><link rel="prefetch" href="/book/assets/js/151.804003c5.js"><link rel="prefetch" href="/book/assets/js/152.cc757d2b.js"><link rel="prefetch" href="/book/assets/js/153.2e94efc7.js"><link rel="prefetch" href="/book/assets/js/154.3bbfd086.js"><link rel="prefetch" href="/book/assets/js/155.f1dd066c.js"><link rel="prefetch" href="/book/assets/js/156.6482b79a.js"><link rel="prefetch" href="/book/assets/js/157.f09c8c5f.js"><link rel="prefetch" href="/book/assets/js/158.a5e27aba.js"><link rel="prefetch" href="/book/assets/js/159.7172f22f.js"><link rel="prefetch" href="/book/assets/js/16.f9b2b5d2.js"><link rel="prefetch" href="/book/assets/js/160.57cfaef5.js"><link rel="prefetch" href="/book/assets/js/161.0ad173b2.js"><link rel="prefetch" href="/book/assets/js/162.60491336.js"><link rel="prefetch" href="/book/assets/js/163.292d87b0.js"><link rel="prefetch" href="/book/assets/js/164.7762520a.js"><link rel="prefetch" href="/book/assets/js/165.3dc59cbe.js"><link rel="prefetch" href="/book/assets/js/166.383c8936.js"><link rel="prefetch" href="/book/assets/js/167.d318add3.js"><link rel="prefetch" href="/book/assets/js/168.513e122a.js"><link rel="prefetch" href="/book/assets/js/169.992b8fda.js"><link rel="prefetch" href="/book/assets/js/17.82ef28fc.js"><link rel="prefetch" href="/book/assets/js/170.313370ad.js"><link rel="prefetch" href="/book/assets/js/171.1e0e5ea4.js"><link rel="prefetch" href="/book/assets/js/18.340eda39.js"><link rel="prefetch" href="/book/assets/js/19.323db867.js"><link rel="prefetch" href="/book/assets/js/20.cfa0aec5.js"><link rel="prefetch" href="/book/assets/js/21.6229732b.js"><link rel="prefetch" href="/book/assets/js/22.74c8abb0.js"><link rel="prefetch" href="/book/assets/js/23.fb025ad5.js"><link rel="prefetch" href="/book/assets/js/24.36f14df7.js"><link rel="prefetch" href="/book/assets/js/25.b4f46437.js"><link rel="prefetch" href="/book/assets/js/26.dc431926.js"><link rel="prefetch" href="/book/assets/js/27.237a8e5f.js"><link rel="prefetch" href="/book/assets/js/28.486b1dcf.js"><link rel="prefetch" href="/book/assets/js/29.75efb59d.js"><link rel="prefetch" href="/book/assets/js/30.72ff699c.js"><link rel="prefetch" href="/book/assets/js/31.754e7b8b.js"><link rel="prefetch" href="/book/assets/js/32.52c8742c.js"><link rel="prefetch" href="/book/assets/js/33.88bd77cb.js"><link rel="prefetch" href="/book/assets/js/34.cad36311.js"><link rel="prefetch" href="/book/assets/js/35.c1f910a3.js"><link rel="prefetch" href="/book/assets/js/36.3ca8d8ad.js"><link rel="prefetch" href="/book/assets/js/37.f96e5b12.js"><link rel="prefetch" href="/book/assets/js/38.a4ae405f.js"><link rel="prefetch" href="/book/assets/js/39.0bd213ce.js"><link rel="prefetch" href="/book/assets/js/40.e57f0567.js"><link rel="prefetch" href="/book/assets/js/41.9e49e0cf.js"><link rel="prefetch" href="/book/assets/js/42.03fbcb0f.js"><link rel="prefetch" href="/book/assets/js/43.0fde20bf.js"><link rel="prefetch" href="/book/assets/js/44.cf692c2b.js"><link rel="prefetch" href="/book/assets/js/45.4eaae730.js"><link rel="prefetch" href="/book/assets/js/46.d5a2e804.js"><link rel="prefetch" href="/book/assets/js/47.efefb847.js"><link rel="prefetch" href="/book/assets/js/48.a86022f3.js"><link rel="prefetch" href="/book/assets/js/49.14a7906c.js"><link rel="prefetch" href="/book/assets/js/5.d31c3ab2.js"><link rel="prefetch" href="/book/assets/js/50.4eb0fd93.js"><link rel="prefetch" href="/book/assets/js/51.90d6027f.js"><link rel="prefetch" href="/book/assets/js/52.853c6004.js"><link rel="prefetch" href="/book/assets/js/53.e42cc193.js"><link rel="prefetch" href="/book/assets/js/54.4524c464.js"><link rel="prefetch" href="/book/assets/js/55.2db723ed.js"><link rel="prefetch" href="/book/assets/js/56.04ed9302.js"><link rel="prefetch" href="/book/assets/js/57.71654557.js"><link rel="prefetch" href="/book/assets/js/58.ae55aef1.js"><link rel="prefetch" href="/book/assets/js/59.cfdbe0e1.js"><link rel="prefetch" href="/book/assets/js/6.961a656a.js"><link rel="prefetch" href="/book/assets/js/60.457f17ec.js"><link rel="prefetch" href="/book/assets/js/61.0907f36e.js"><link rel="prefetch" href="/book/assets/js/62.d5b76991.js"><link rel="prefetch" href="/book/assets/js/63.e23f1c3f.js"><link rel="prefetch" href="/book/assets/js/64.3324737d.js"><link rel="prefetch" href="/book/assets/js/65.7bc7b5d9.js"><link rel="prefetch" href="/book/assets/js/66.40cde789.js"><link rel="prefetch" href="/book/assets/js/67.f4de38b9.js"><link rel="prefetch" href="/book/assets/js/68.31baedbe.js"><link rel="prefetch" href="/book/assets/js/69.cbcad7b9.js"><link rel="prefetch" href="/book/assets/js/7.e5eadd5e.js"><link rel="prefetch" href="/book/assets/js/70.b30aef75.js"><link rel="prefetch" href="/book/assets/js/71.0398ac26.js"><link rel="prefetch" href="/book/assets/js/72.2e571244.js"><link rel="prefetch" href="/book/assets/js/73.60a988d9.js"><link rel="prefetch" href="/book/assets/js/74.22068dc5.js"><link rel="prefetch" href="/book/assets/js/75.ce02c3b7.js"><link rel="prefetch" href="/book/assets/js/76.1607821a.js"><link rel="prefetch" href="/book/assets/js/77.3633943a.js"><link rel="prefetch" href="/book/assets/js/78.d30f63dd.js"><link rel="prefetch" href="/book/assets/js/79.9aa087af.js"><link rel="prefetch" href="/book/assets/js/8.3201113b.js"><link rel="prefetch" href="/book/assets/js/80.7784e3a4.js"><link rel="prefetch" href="/book/assets/js/81.3d3a35b2.js"><link rel="prefetch" href="/book/assets/js/82.efd0e809.js"><link rel="prefetch" href="/book/assets/js/83.83712b60.js"><link rel="prefetch" href="/book/assets/js/84.cd8b8c35.js"><link rel="prefetch" href="/book/assets/js/85.0a731197.js"><link rel="prefetch" href="/book/assets/js/86.cbc5b2a2.js"><link rel="prefetch" href="/book/assets/js/87.0b431d7f.js"><link rel="prefetch" href="/book/assets/js/88.caff621e.js"><link rel="prefetch" href="/book/assets/js/89.b002b35e.js"><link rel="prefetch" href="/book/assets/js/9.5cf4899a.js"><link rel="prefetch" href="/book/assets/js/90.a0198f04.js"><link rel="prefetch" href="/book/assets/js/91.2ae2a5e7.js"><link rel="prefetch" href="/book/assets/js/92.02880ae1.js"><link rel="prefetch" href="/book/assets/js/93.afd1d9c1.js"><link rel="prefetch" href="/book/assets/js/94.a6d57b47.js"><link rel="prefetch" href="/book/assets/js/95.09aff2b7.js"><link rel="prefetch" href="/book/assets/js/96.8e27b2bf.js"><link rel="prefetch" href="/book/assets/js/97.066a002e.js"><link rel="prefetch" href="/book/assets/js/98.38cf0aaa.js"><link rel="prefetch" href="/book/assets/js/99.3c666611.js"><link rel="prefetch" href="/book/assets/js/vendors~docsearch.c8693219.js">
+    <link rel="stylesheet" href="/book/assets/css/0.styles.d473fa6d.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/book/" class="home-link router-link-active"><!----> <span class="site-name">日常收集</span></a> <div class="links"><form id="search-form" role="search" class="algolia-search-wrapper search-box"><input id="algolia-search-input" class="search-query"></form> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>dom的事件</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>Javascript</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/book/366.html" aria-current="page" class="active sidebar-link"> JavaScript 内存泄漏</a></li><li><a href="/book/363.html" class="sidebar-link"> 让 JavaScript 在 WebAssembly 上加速运行！</a></li><li><a href="/book/361.html" class="sidebar-link"> 《程序员数学：位运算》——如何使用二进制计算乘法？</a></li><li><a href="/book/360.html" class="sidebar-link"> 速记：一个http请求的全过程是怎样的？</a></li><li><a href="/book/359.html" class="sidebar-link"> 万字扫盲ByteBuffer</a></li><li><a href="/book/338.html" class="sidebar-link"> JS异步编程——WebWorker多线程机制</a></li><li><a href="/book/337.html" class="sidebar-link">js</a></li><li><a href="/book/336.html" class="sidebar-link"> [核心概念] 一文说透JS中的原型和继承(上)</a></li><li><a href="/book/335.html" class="sidebar-link"> [关联概念] 一文说透 JS 中的变量提升</a></li><li><a href="/book/334.html" class="sidebar-link"> [核心概念] 一文说透浏览器环境下的JS运行机制</a></li><li><a href="/book/333.html" class="sidebar-link"> [核心概念] 一文说透JS中的函数柯里化(Currying)</a></li><li><a href="/book/332.html" class="sidebar-link"> [核心概念] 一文说透 JS 中 this 的基本概念</a></li><li><a href="/book/331.html" class="sidebar-link"> [核心概念] 一文说透 JS 的作用域（scope）</a></li><li><a href="/book/330.html" class="sidebar-link"> [核心概念] 一文说透 JS 中的闭包（closure）</a></li><li><a href="/book/329.html" class="sidebar-link"> [核心概念] 一文说透 JS 中的执行上下文</a></li><li><a href="/book/268.html" class="sidebar-link"> 「硬核JS」你真的了解垃圾回收机制吗</a></li><li><a href="/book/262.html" class="sidebar-link"> 「硬核JS」你的程序中可能存在内存泄漏</a></li><li><a href="/book/229.html" class="sidebar-link"> 聊聊JS的二进制家族：Blob、ArrayBuffer和Buffer</a></li><li><a href="/book/226.html" class="sidebar-link"> `Object.defineProperty()详解`</a></li><li><a href="/book/180.html" class="sidebar-link">yield是什么</a></li><li><a href="/book/175.html" class="sidebar-link">HTTP请求中，几种常见的Content-Type类型</a></li><li><a href="/book/172.html" class="sidebar-link"> js 给元素添加、删除父标签</a></li><li><a href="/book/171.html" class="sidebar-link"> 多个promise实现</a></li><li><a href="/book/131.html" class="sidebar-link"> Object.defineProperty和Object.defineProperties()</a></li><li><a href="/book/126.html" class="sidebar-link"> scrollHeight,scrollLeft,offsetHeight,offsetLeft</a></li><li><a href="/book/118.html" class="sidebar-link"> 怎样让 forEach 停下来呢；**try catch**</a></li><li><a href="/book/105.html" class="sidebar-link">div拖动的实现</a></li><li><a href="/book/93.html" class="sidebar-link">JavaScript对象之深拷贝和浅拷贝</a></li><li><a href="/book/92.html" class="sidebar-link">base64。js</a></li><li><a href="/book/85.html" class="sidebar-link">你也许不知道的JavaScript高级函数</a></li><li><a href="/book/78.html" class="sidebar-link">ESmodules:Acartoondeep-dive</a></li><li><a href="/book/73.html" class="sidebar-link">setTimeout和setImmediate到底谁先执行，本文让你彻底理解EventLoop</a></li><li><a href="/book/71.html" class="sidebar-link">一种对开发更友好的前端骨架屏自动生成方案</a></li><li><a href="/book/68.html" class="sidebar-link">深入理解ESModules(手绘示例)</a></li><li><a href="/book/48.html" class="sidebar-link">系统学习前端之FormData详解</a></li><li><a href="/book/47.html" class="sidebar-link">使用FormData上传文件</a></li><li><a href="/book/46.html" class="sidebar-link">数组排序方法</a></li><li><a href="/book/43.html" class="sidebar-link">利于FileReader实现二进制数据流转JSON</a></li><li><a href="/book/28.html" class="sidebar-link">reduce过滤数组中重复对象</a></li><li><a href="/book/27.html" class="sidebar-link">常用文件类型对应</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>element-ui</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Qcanvas</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>vue</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/365.html" class="sidebar-link"> WASM 在动画引擎中的设计优化</a></li><li><a href="/book/364.html" class="sidebar-link"> 你管这破玩意叫指针？</a></li><li><a href="/book/362.html" class="sidebar-link"> 图说 WebAssembly</a></li><li><a href="/book/328.html" class="sidebar-link"> 从哲学层面浅谈计算机学习方法论</a></li><li><a href="/book/324.html" class="sidebar-link"> 微信游览器，解决安卓和ios自动播放音乐</a></li><li><a href="/book/323.html" class="sidebar-link"> CSS3 animation属性中的steps功能符深入介绍</a></li><li><a href="/book/322.html" class="sidebar-link"> 前端搞工程化：从零打造性能检测库「源码 + 视频」</a></li><li><a href="/book/321.html" class="sidebar-link"> 还在看那些老掉牙的性能优化文章么？这些最新性能指标了解下</a></li><li><a href="/book/320.html" class="sidebar-link"> Nginx根据User Agent动态配置root目录适配移动端</a></li><li><a href="/book/307.html" class="sidebar-link"> cat文档内容中搜索字符串输出到文件</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>node</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/301.html" class="sidebar-link">从App store下载App的不同版本ipa文件----很多东西也不是越新越好，比如APP——在 iPhone 上尤其如此</a></li><li><a href="/book/294.html" class="sidebar-link">迟子建老师的《一坛猪油》</a></li><li><a href="/book/288.html" class="sidebar-link">文本文档的协同编辑实现</a></li><li><a href="/book/287.html" class="sidebar-link">再见，整洁代码</a></li><li><a href="/book/286.html" class="sidebar-link"> 可以在 Nginx 中运行 JavaScript，厉害了！</a></li><li><a href="/book/284.html" class="sidebar-link"> word中批量调整图片大小</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>electron打包的一些问题</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/274.html" class="sidebar-link"> 文件分片代码</a></li><li><a href="/book/273.html" class="sidebar-link"> 重学 JS：为啥 await 不能用在 forEach 中详解</a></li><li><a href="/book/269.html" class="sidebar-link"> Excel函数之王，Vlookup到底怎么用？</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>mysql</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/248.html" class="sidebar-link"> 《提问的智慧》精读注解版</a></li><li><a href="/book/199.html" class="sidebar-link"> js监听div的resize事件</a></li><li><a href="/book/198.html" class="sidebar-link"> 引入第三方字体体积太大的问题</a></li><li><a href="/book/195.html" class="sidebar-link"> 多行溢出省略号显示（css/js）实现！</a></li><li><a href="/book/190.html" class="sidebar-link">今天带大家一起来看看下，如何实现“划词高亮”功能。</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Css</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>算法</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Canvas</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>工作中解决的疑难问题</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Git</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>nginx</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>小程序</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/book/135.html" class="sidebar-link"> 深夜，我偷听到程序员要对session下手</a></li><li><a href="/book/132.html" class="sidebar-link"> 读 《深入浅出webpack》</a></li><li><a href="/book/103.html" class="sidebar-link"> 一道被人轻视的前端面试题</a></li><li><a href="/book/101.html" class="sidebar-link">部分前端面试题参考答案</a></li><li><a href="/book/80.html" class="sidebar-link">SVGDeveloper制作矢量地图教程详解</a></li><li><a href="/book/76.html" class="sidebar-link">VisualStudio2010创建的WCF（.dll）服务第一个应用</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="javascript-内存泄漏"><a href="#javascript-内存泄漏" class="header-anchor">#</a> JavaScript 内存泄漏</h1> <h2 id="今天小编为大家带来的是社区作者-记得要微笑-的文章-让我们一起来学习如何避免-javascript-中的内存泄漏。"><a href="#今天小编为大家带来的是社区作者-记得要微笑-的文章-让我们一起来学习如何避免-javascript-中的内存泄漏。" class="header-anchor">#</a> 今天小编为大家带来的是社区作者 <strong>记得要微笑</strong>** **的文章，让我们一起来学习如何避免 JavaScript 中的内存泄漏。</h2> <hr> <p>像 C 语言这样的底层语言一般都有底层的内存管理接口，比如 malloc() free()。相反，JavaScript 是在创建变量（对象，字符串等）时自动进行了分配内存，并且在不使用它们时“自动”释放。释放的过程称为垃圾回收。这个“自动”是混乱的根源，并让 JavaScript（和其他高级语言）开发者错误的感觉他们可以不关心内存管理。</p> <p><strong>什么是内存泄漏？</strong></p> <p>简而言之，内存泄漏是 JavaScript 引擎无法回收的已分配内存。当您在应用程序中创建对象和变量时，JavaScript 引擎会分配内存，当您不再需要这些对象时，它会非常聪明地清除内存。内存泄漏是由于逻辑缺陷引起的，它们会导致应用程序性能不佳。</p> <p>在深入探讨不同类型的内存泄漏之前，让我们先了解一下JavaScript 中的内存管理和垃圾回收。</p> <p><strong>内存生命周期</strong></p> <p>在任何编程语言中，内存生命周期都包含三个步骤：</p> <ul><li>内存分配：操作系统在执行过程中根据需要为程序分配内存</li> <li>使用内存：您的程序使用以前分配的内存，您的程序可以对内存执行 read 和操作 write</li> <li>释放内存：任务完成后，分配的内存将被释放并变为空闲。在 JavaScript 等高级语言中，内存释放由垃圾收集器处理</li></ul> <p>如果您了解 JavaScript 中的内存分配和释放是如何发生的，那么解决应用程序中的内存泄漏就非常容易。</p> <p><strong>内存分配</strong></p> <p>JavaScript 有两种用于内存分配的存储选项。一个是栈，一个是堆。所有基本类型，如 number、Boolean 和 undefined 都将存储在堆栈中。堆是对象、数组和函数等引用类型存储的地方。</p> <h4 id="静态分配和动态分配"><a href="#静态分配和动态分配" class="header-anchor">#</a> <strong>静态分配和动态分配</strong></h4> <p>**
+**</p> <p>编译代码时，编译器可以检查原始数据类型，并提前计算它们所需内存。然后将所需的数量分配给调用堆栈中的程序。这些变量分配的空间称为堆栈空间（stack space），因为函数被调用，它们的内存被添加到现有内存（存储器）的顶部。它们终止时，它们将以 LIFO（后进先出）顺序被移除。</p> <p>引用类型变量需要多少内存无法在编译时确定，需要在运行时根据实际使用情况分配内存，此内存是从堆空间（heap space） 分配的。</p> <table><thead><tr><th>**Static **<strong>allocation<br></strong></th> <th>**Dynamic **<strong>allocation</strong></th></tr></thead> <tbody><tr><td>编译时内存大小确定</td> <td>编译时内存大小不确定</td></tr> <tr><td>编译阶段执行</td> <td>运行时执行</td></tr> <tr><td>分配给栈（stack space）</td> <td>分配给堆（heap stack）</td></tr> <tr><td>FILO</td> <td>没有特定的顺序</td></tr></tbody></table> <h4 id=""><a href="#" class="header-anchor">#</a> **</h4> <p>**</p> <h4 id="栈"><a href="#栈" class="header-anchor">#</a> <strong>栈</strong></h4> <p>**
+**</p> <p>Stack 遵循 LIFO 方法分配内存。所有基本类型，如 number、Boolean 和 undefined 都可以存储在栈中：</p> <p><img src="Public/upload/20230708/16887873530.png" alt="图片"></p> <h4 id="-2"><a href="#-2" class="header-anchor">#</a></h4> <h4 id="堆"><a href="#堆" class="header-anchor">#</a> <strong>堆</strong></h4> <p>**
+**</p> <p>对象、数组和函数等引用类型存储在堆中。引用类型的大小无法在编译时确定，因此内存是根据对象的使用情况分配的。对象的引用存储在栈中，实际对象存储在堆中：</p> <p><img src="Public/upload/20230708/16887873816.png" alt="图片"></p> <p>在上图中，otherStudent 变量是通过复制 student 变量创建的。在这种情况下，otherStudent 是在堆栈上创建的，但它指向堆上的 student 引用。</p> <p>我们已经看到，内存周期中内存分配的主要挑战是何时释放分配的内存并使其可用于其他资源。在这种情况下，垃圾回收就派上用场了。</p> <p><strong>垃圾回收器</strong></p> <p>应用程序内存泄漏的主要原因是不需要的引用造成的。而垃圾回收器的作用是找到程序不再使用的内存并将其释放回操作系统以供进一步分配。</p> <p>要知道什么是不需要的引用，首先，我们需要了解垃圾回收器是如何识别一块内存是不可用的。垃圾回收器主要使用两种算法来查找不需要的引用和无法访问的代码，那就是引用计数和标记清除。</p> <h4 id="引用计数"><a href="#引用计数" class="header-anchor">#</a> <strong>引用计数</strong></h4> <p>**
+**</p> <p>引用计数算法查找没有引用的对象。如果不存在指向对象的引用，则可以释放该对象。</p> <p>让我们通过下面的示例更好地理解这一点。共有三个变量，student, otherStudent，它是 student 的副本，以及 sports，它从 student 对象中获取 sports数组：</p> <div class="language- extra-class"><pre class="language-text"><code>let student = {
+    name: 'Joe',
+    age: 15,
+    sports: ['soccer', 'chess']
+}
+let otherStudent = student;
+const sports = student.sports;
+student = null;
+otherStudent = null;
+</code></pre></div><p><img src="Public/upload/20230708/16887874726.png" alt="图片"></p> <p>在上面的代码片段中，我们将 student 和 otherStudent 变量分配给空值，告诉我们这些对象没有对它的引用。在堆中为它们分配的内存（红色）可以轻松释放，因为它是零引用。</p> <p>另一方面，我们在堆中还有另一块内存，它不能被释放，因为它有对象sports引用。</p> <p>当两个对象都引用自己时，引用计数算法就有问题了。简单来说，如果存在循环引用，则该算法无法识别空闲对象。</p> <p>在下面的示例中，person 和 employee 变量相互引用：</p> <div class="language- extra-class"><pre class="language-text"><code>let person = {
+    name: 'Joe'
+};
+let employee = {
+    id: 123
+};
+person.employee = employee;
+employee.person = person;
+person = null;
+employee = null;
+</code></pre></div><p><img src="Public/upload/20230708/16887874905.png" alt="图片"></p> <p>创建这些对象后 null，它们将失去堆栈上的引用，但对象仍然留在堆上，因为它们具有循环引用。引用计数算法无法释放这些对象，因为它们具有引用。循环引用问题可以使用标记清除算法来解决。</p> <h4 id="标记清除"><a href="#标记清除" class="header-anchor">#</a> <strong>标记清除</strong></h4> <p>**
+**</p> <p>mark-and-sweep 算法将不需要的对象定义为“不可到达”的对象。如果对象不可到达，则算法认为该对象是不必要的：</p> <p><img src="Public/upload/20230708/16887875047.png" alt="图片"></p> <p>标记清除算法遵循两个步骤。首先，在 JavaScript 中，根是全局对象。垃圾收集器周期性地从根开始，查找从根引用的所有对象。它会标记所有可达的对象 active。然后，垃圾回收器会释放所有未标记为 active 的对象的内存，将内存返回给操作系统。</p> <p><strong>内存泄漏的类型</strong></p> <p>我们可以通过了解在 JavaScript 中如何创建不需要的引用来防止内存泄漏，以下情况会导致不需要的引用。</p> <h4 id="未声明或意外的全局变量"><a href="#未声明或意外的全局变量" class="header-anchor">#</a> <strong>未声明或意外的全局变量</strong></h4> <p>**
+**</p> <p>JavaScript 允许的方式之一是它处理未声明变量的方式。对未声明变量的引用会在全局对象中创建一个新变量。如果您创建一个没有任何引用的变量，它的根将是全局对象。</p> <p>正如我们刚刚在标记清除算法中看到的，直接指向根的引用总是 active，垃圾回收器无法清除它们，从而导致内存泄漏：</p> <div class="language- extra-class"><pre class="language-text"><code>function foo(){
+    this.message = 'I am accidental variable';
+}
+foo();
+</code></pre></div><p>作为解决方案，尝试在使用后使这些变量无效，或者启用 JavaScript 的严格模式（use strict）以防止意外的全局变量。</p> <h5 id="use-strict"><a href="#use-strict" class="header-anchor">#</a> <strong>use strict</strong></h5> <p>**
+**</p> <p>严格模式可以消除 Javascript 语法的一些不合理、不严谨之处，减少一些怪异行为，比如以下示例：</p> <div class="language- extra-class"><pre class="language-text"><code>&quot;use strict&quot;;
+x = 3.14;       // 报错 (x 未定义
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>&quot;use strict&quot;;
+myFunction();
+
+function myFunction() {
+    y = 3.14;   // 报错 (y 未定义)
+}
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>x = 3.14;       // 不报错
+myFunction();
+
+function myFunction() {
+   &quot;use strict&quot;;
+    y = 3.14;   // 报错 (y 未定义)
+}
+</code></pre></div><h4 id="-3"><a href="#-3" class="header-anchor">#</a></h4> <h4 id="闭包"><a href="#闭包" class="header-anchor">#</a> <strong>闭包</strong></h4> <p>**
+**</p> <p>闭包（closure）是一个函数以及其捆绑的周边环境状态（lexical environment，词法环境）的引用的组合。换而言之，闭包让开发者可以从内部函数访问外部函数的作用域。在 JavaScript 中，闭包会随着函数的创建而被同时创建。</p> <p>闭包的作用主要是实现函数式编程中的柯里化、模块化、私有变量等特性。柯里化是将一个接受多个参数的函数转换为接受单个参数的函数序列，这是通过把参数格式化成一个数组或对象并返回一个新闭包实现的。模块化是通过利用闭包的私有变量特性，把暴露给外部的接口和私有变量封装在一个函数作用域内，防止外部作用域污染、变量重复定义等问题。</p> <p>尽管闭包有诸多优点，但同时也存在内存泄漏的问题。闭包会在函数执行完毕之后仍然持有对外部变量的引用，从而导致这些变量无法被垃圾回收。这种情况通常发生在循环中定义的函数或者事件绑定等场景中。为避免内存泄漏，我们需要手动解除对外部变量的引用，方式包括解除事件绑定、使用局部变量替代全局变量等技巧。</p> <p>下面通过代码例子来进一步说明闭包的应用和内存泄漏问题：</p> <div class="language- extra-class"><pre class="language-text"><code>// 例子1：柯里化
+function add(x) {
+  return function(y) {
+    return x + y;
+  };
+}
+
+const add5 = add(5);
+console.log(add5(3)); // 8
+
+// 例子2：模块化
+const counter = (function() {
+  let value = 0;
+
+  return {
+    increment() {
+      value++;
+      console.log(value);
+    },
+
+    decrement() {
+      value--;
+      console.log(value);
+    }
+  };
+})();
+
+counter.increment(); // 1
+counter.increment(); // 2
+counter.decrement(); // 1
+
+// 例子3：内存泄漏
+for (var i = 1; i &lt;= 3; i++) {
+  (function(j) {
+    document.getElementById('button' + j).addEventListener('click', function() {
+      console.log('Button ' + j + ' clicked.');
+    });
+  })(i);
+}
+</code></pre></div><p>以上代码展示了柯里化和模块化两种闭包的应用场景，同时也包括了一个事件绑定场景下的内存泄漏问题。我们在使用闭包时需要格外注意内存泄漏的风险，以确保程序性能和稳定性。</p> <h4 id="计时器"><a href="#计时器" class="header-anchor">#</a> <strong>计时器</strong></h4> <p>**
+**</p> <p>setTimeout 和 setInterval 是 JavaScript 中可用的两个计时事件。该 setTimeout 函数在给定时间过去后执行，而在 setInterval 给定时间间隔内重复执行，这些计时器是内存泄漏的最常见原因。</p> <p>如果在代码中设置循环计时器，计时器回调函数会一直保持对 numbers 对象的引用，直到计时器停止：</p> <div class="language- extra-class"><pre class="language-text"><code>function generateRandomNumbers(){
+    const numbers = []; // huge increasing array
+    return function(){
+        numbers.push(Math.random());
+    }
+}
+setInterval((generateRandomNumbers(), 2000));
+</code></pre></div><p>要解决此问题，最佳实践就是在不需要计时器的时候清除它：</p> <div class="language- extra-class"><pre class="language-text"><code>const timer = setInterval(generateRandomNumbers(), 2000); // save the timer
+// on any event like button click or mouse over etc
+clearInterval(timer); // stop the timer
+</code></pre></div><p><strong>Out of DOM reference</strong></p> <p>**
+**</p> <p>Out of DOM reference 表示已从 DOM 中删除但在内存中仍然可用的节点。垃圾回收器无法释放这些 DOM 对象，让我们通过下面的示例来理解这一点：</p> <div class="language- extra-class"><pre class="language-text"><code>let parent = document.getElementById(&quot;#parent&quot;);
+let child = document.getElementById(&quot;#child&quot;);
+parent.addEventListener(&quot;click&quot;, function(){
+    child.remove(); // removed from the DOM but not from the object memory
+});
+</code></pre></div><p>在上面的代码中，在单击父元素时从 DOM 中删除了子元素，但是子变量仍然持有内存，因为事件侦听器始终保持对 child 变量的饮用。为此，垃圾回收器无法释放 child，会继续消耗内存。</p> <p>一旦不再需要事件侦听器，应该立即注销它们：</p> <div class="language- extra-class"><pre class="language-text"><code>function removeChild(){
+    child.remove();
+}
+parent.addEventListener(&quot;click&quot;, removeChild);
+// after completing required action
+parent.removeEventListener(&quot;click&quot;, removeChild);
+</code></pre></div><p><strong><strong>实际案例</strong></strong></p> <p>在实际项目开发中，稍有不慎，代码可能就会导致内存溢出的情况，借一些实际案例，讲一讲我是如何分析内存溢出的。</p> <h4 id="死循环-局部变量导致内存溢出"><a href="#死循环-局部变量导致内存溢出" class="header-anchor">#</a> <strong>死循环，局部变量导致内存溢出</strong></h4> <p>**
+**</p> <p>当有些循环没有充分考虑到边界条件时，很容易陷入死循环，比如下面示例：</p> <div class="language- extra-class"><pre class="language-text"><code>const getParentClassName = (element, fatherClassName) =&gt; {
+  const classNames = [];
+  let currentElement = element;
+
+  if (fatherClassName) {
+    while (
+      !(currentElement?.className || &quot;&quot;).includes(fatherClassName) &amp;&amp;
+      currentElement !== document.body
+    ) {
+      classNames.push(currentElement?.className || &quot;&quot;);
+      currentElement = currentElement?.parentElement;
+    }
+  } else {
+    while (currentElement !== document.body) {
+      classNames.push(currentElement?.className || &quot;&quot;);
+      currentElement = currentElement?.parentElement;
+    }
+  }
+
+  return classNames;
+};
+
+getParentClassName(null);
+</code></pre></div><p>这段代码功能是收集两个元素间的类名，当参数 element=null 时，就陷入了死循环，每次遍历都会向 classNames 数组追加新值，最终导致内存溢出。</p> <p>那这种情况要如何分析定位呢？不妨先使用 Performance 可视化检测内存泄漏，如下：</p> <p><img src="Public/upload/20230708/16887875453.png" alt="图片"></p> <p>从图中可以看出，getParentClassName 函数无限次的被调用，执行期间 JS Heap 内存占用一直攀升，内存得不到释放，但具体是哪些变量内存占用很高，无法释放回收呢？</p> <p>可以采集内存快照分析内存分配情况。因为页面崩溃，会采集不到快照，因此代码块中加上如下控制：</p> <div class="language- extra-class"><pre class="language-text"><code>let count = 0;
+const getParentClassName = (element, fatherClassName) =&gt; {
+  const classNames = [];
+  let currentElement = element;
+
+  if (fatherClassName) {
+    while (
+      !(currentElement?.className || &quot;&quot;).includes(fatherClassName) &amp;&amp;
+      currentElement !== document.body
+    ) {
+      classNames.push(currentElement?.className || &quot;&quot;);
+      currentElement = currentElement?.parentElement;
+    }
+  } else {
+    while (currentElement !== document.body) {
+      classNames.push(currentElement?.className || &quot;&quot;);
+      currentElement = currentElement?.parentElement;
+      count++;
+      if (count &gt; 10000000) break;
+    }
+  }
+
+  return classNames;
+};
+
+getParentClassName(null);
+</code></pre></div><p><img src="Public/upload/20230708/16887875632.png" alt="图片"></p> <p>分别在代码第 30 行和第 36 行设置断点，代码执行到第 36 行，选择“Heap snapshot”，点击“take snapshot”，生成第一个 snapshot。</p> <p>继续调试，代码运行到第30行，点击“take snapshot”，生成第二个 snapshot，记录两个断点执行过程的内存分配。</p> <p><img src="Public/upload/20230708/16887875788.png" alt="图片"></p> <p><img src="Public/upload/20230708/16887875882.png" alt="图片"></p> <p>我们可以看到这么一些堆照信息：</p> <ul><li>Constructor 表示使用此构造函数创建的所有对象。</li> <li>Distance 使用最短的节点路径显示到根的距离。</li> <li>Shallow size 对象自身占用内存的大小。通常只有数组和字符串的 shallow size 比较大。以字节为单位。</li> <li>Retained size 对象本身连同其无法从 GC Root 到达的相关对象一起删除后释放的内存大小。因此，如果 Shallow Size ~= Retained Size，说明基本没怎么泄漏。而如果 Retained Size &gt; Shallow Size，就需要多加注意了。以字节为单位</li></ul> <p>排查一下 Retained Size 值偏大的对象，很明显发现内存溢出是由变量 classNames 导致的。</p> <p><img src="Public/upload/20230708/16887876023.png" alt="图片"></p> <p>上述是按照 Summary 模式查看快照，还有其他一些模式：</p> <p><img src="Public/upload/20230708/16887876141.png" alt="图片"></p> <ul><li><p>Summary view 摘要视图，显示按构造函数名称分组的对象。使用它根据按构造函数名称分组的类型来搜索对象（及其内存使用）。它对于追踪 DOM 泄漏特别有帮助。</p></li> <li><p>Comparison view 比较视图，显示两个快照之间的差异。使用它来比较操作前后的两个（或多个）内存快照。检查释放内存和引用计数中的增量可让您确认内存泄漏的存在和原因。</p> <p><img src="Public/upload/20230708/16887876277.png" alt="图片"></p></li> <li><p>Containment view 包含视图，允许查看堆内容。它提供了一个更好的对象结构视图，帮助分析在全局命名空间（窗口）中引用的对象，以找出它们周围的原因。使用它来分析闭包并深入了解您的对象。</p> <p><img src="Public/upload/20230708/16887876405.png" alt="图片"></p></li> <li><p>Statistics view 统计视图，显示内存大小使用统计（扇形图）</p> <p><img src="Public/upload/20230708/16887876516.png" alt="图片"></p></li></ul> <p>另外，我们还可以启用“Allocation instrumentation on timeline”模式，获取时间线内存分配情况：</p> <p><img src="Public/upload/20230708/16887876638.png" alt="图片"></p> <h4 id="mobx-将属性转换成可观察-导致内存溢出"><a href="#mobx-将属性转换成可观察-导致内存溢出" class="header-anchor">#</a> Mobx 将属性转换成可观察，导致内存溢出</h4> <p><img src="Public/upload/20230708/16887876752.png" alt="图片"></p> <p>有一个穿梭框组件在使用过程中产生内存溢出，不清楚就其是什么原因引起的，先使用 Performance 可视化检测内存泄漏，如下：</p> <p><img src="Public/upload/20230708/16887876877.png" alt="图片"></p> <p>可以看出内存占用飞速增长，我们再放大看看具体是哪些脚本执行导致的：</p> <p><img src="Public/upload/20230708/16887876985.png" alt="图片"></p> <p><img src="Public/upload/20230708/16887877099.png" alt="图片"></p> <p>具体观察可以发现，有重复可疑的代码片段之行过程中导致内存占用的增长。为了方便定位具体是哪些变量内存溢出，我们找一个重复执行比较频繁的函数做如下改造：</p> <div class="language- extra-class"><pre class="language-text"><code>var defineObservablePropertyExeCount = 0;
+function defineObservableProperty(target, propName, newValue, enhancer) {
+    defineObservablePropertyExeCount += 1;
+    if (defineObservablePropertyExeCount &gt; 1000000) {
+        return null;
+    }
+    var adm = asObservableObject(target);
+    assertPropertyConfigurable(target, propName);
+    if (hasInterceptors(adm)) {
+        var change = interceptChange(adm, {
+            object: target,
+            name: propName,
+            type: &quot;add&quot;,
+            newValue: newValue
+        });
+        if (!change)
+            return;
+        newValue = change.newValue;
+    }
+    var observable = (adm.values[propName] = new ObservableValue(newValue, enhancer, adm.name + &quot;.&quot; + propName, false));
+    newValue = observable.value; // observableValue might have changed it
+    Object.defineProperty(target, propName, generateObservablePropConfig(propName));
+    if (adm.keys)
+        adm.keys.push(propName);
+    notifyPropertyAddition(adm, target, propName, newValue);
+}
+</code></pre></div><p><img src="Public/upload/20230708/16887877267.png" alt="图片"></p> <p>加上一个执行次数的控制，在此处打上断点，然后等代码执行到此处，点击“take snapshot”录制就可以得到下面内存分配情况：</p> <p><img src="Public/upload/20230708/16887877376.png" alt="图片"></p> <p>从图中可以发现，ObservableValue 类型和ObservableObjectAdministration 类型对象占用内存很高，基本可以断定由它们引发内存泄漏的。</p> <p><img src="Public/upload/20230708/16887877506.png" alt="图片"></p> <p><img src="Public/upload/20230708/16887877644.png" alt="图片"></p> <p>点击查看每一个 ObservableValue 类型对象，发现都是 next 和 nextBrother 对象，在项目全局搜索这两个关键字，基本都是指向 IFlatTree 树状结构：</p> <p><img src="Public/upload/20230708/16887877786.png" alt="图片"></p> <div class="language- extra-class"><pre class="language-text"><code>export interface IFlatTree extends ITree {
+    parent?: IFlatTree;
+    level?: number;
+    next?: IFlatTree;
+    nextBrother?: IFlatTree;
+    show?: boolean;
+}
+</code></pre></div><p>这个树状数据是由穿梭框组件 onchange 回调函数抛出的，然后代码将其存入Mobx 状态管理仓库中</p> <p><img src="Public/upload/20230708/16887877939.png" alt="图片"></p> <p><img src="Public/upload/20230708/16887878046.png" alt="图片"></p> <p>Mobx 会对存入的变量深度遍历，每个属性都进行 Observable 封装</p> <p><img src="Public/upload/20230708/16887878170.png" alt="图片"></p> <p>但是，这个树状结构有37层，每个节点对象的每个属性都要 Observable 封装，执行过程中产生内存消耗足以导致内存溢出</p> <p><img src="Public/upload/20230708/16887878300.png" alt="图片"></p> <p>进一步分析发现，next 和 nextBrother 节点对象并不会在实际业务逻辑中使用到，而且也不会改动，所以我们可以只将树状数据的单层进行 Observable 封装，不对其深度遍历。</p> <p><img src="Public/upload/20230708/16887878482.png" alt="图片"></p> <p>根据上面处理后，想着在 onchange 回调打印 values，发现 console.log 打印也可能会导致内存溢出，打印的变量不会被垃圾回收器回收。原因可以参考此文章：千万别让 console.log 上生产！用 Performance 和 Memory 告诉你为什么（https://juejin.cn/post/7185128318235541563）</p> <p><strong>参考</strong></p> <h3 id="-4"><a href="#-4" class="header-anchor">#</a></h3> <ul><li><p>内存管理</p> <p>（https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Memory_management）</p></li> <li><p>如何避免 JavaScript 中的内存泄漏</p> <p>（https://blog.logrocket.com/escape-memory-leaks-javascript/）</p></li> <li><p>调试 JavaScript 内存泄漏</p> <p>（https://www.debugbear.com/blog/debugging-javascript-memory-leaks）</p></li> <li><p>使用 Chrome 查找 JavaScript 内存泄漏（https://stackoverflow.com/questions/19621074/finding-javascript-memory-leaks-with-chrome）</p></li> <li><p>修复内存问题</p> <p>（https://developer.chrome.com/docs/devtools/memory-problems/）</p></li> <li><p>什么是闭包？闭包的作用? 闭包会导致内存泄漏吗？（https://www.zhihu.com/question/601215553）</p></li> <li><p>JavaScript的工作原理：内存管理+如何处理4个常见的内存泄漏（https://cloud.tencent.com/developer/article/1869444）</p></li> <li><p>使用 Chrome Devtools 分析内存问题（https://fe.okki.com/post/62cbfea7136f570343d89416/）</p></li> <li><p>手把手教你排查Javascript内存泄漏</p> <p>（https://zhuanlan.zhihu.com/p/322356761）</p></li></ul> <p>点击左下角阅读原文，到 <strong>SegmentFault 思否社区</strong> 和文章作者展开更多互动和交流，“<strong>公众号后台</strong>“回复“ <strong>入群 <strong>”即可加入我们的</strong>技术交流群</strong>，收获更多的技术文章~</p> <p><strong>- END -</strong></p> <p><strong>往期推荐</strong></p> <p><img src="https://mmbiz.qpic.cn/sz_mmbiz_jpg/aVp1YC8UV0cPdplzLTmxRjLzNK8zcXfh8ib7QQSRa9z3cnpqgEGe3PMGQlvIZ3yqkWkvBY4mK2y2PVOrht37Rsg/640?wx_fmt=jpeg&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <p>社区精选｜【webpack 系列】从核心概念到上手配置</p> <p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/0icXZFonEWX7AbzENdECXNobR9hWcjAGUzJ75ia1DTNpNncsNAnbHibhkDhlEPQhKmjSe9oibVficDHdKtFaIsYapsg/640?wx_fmt=jpeg&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <p>社区精选｜如何理解 CSS step 函数中的 jump-* 关键词？</p> <p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/0icXZFonEWX7AbzENdECXNobR9hWcjAGUnqTnMId8bb8qR4kpTo3emqiar9iacnj8bv4prwg7R1AfsTNd7Knfmfpw/640?wx_fmt=jpeg&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <p>社区精选｜Spring Boot 启动注解分析</p> <p>文章来源：https://mp.weixin.qq.com/s/1lyWTueTH7Et3DfAmFQRxg</p> <!----></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/book/194.html" class="prev">
+        DOM 事件流（event flow ）存在三个阶段：**事件捕获阶段、处于目标阶段、事件冒泡阶段。**
+      </a></span> <span class="next"><a href="/book/363.html">
+         让 JavaScript 在 WebAssembly 上加速运行！
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><section class="side-anchor"><ul style="display:none;"></ul></section></div></div>
+    <script src="/book/assets/js/app.0696d4f5.js" defer></script><script src="/book/assets/js/3.0d5fb1e8.js" defer></script><script src="/book/assets/js/145.9c1dee4d.js" defer></script><script src="/book/assets/js/4.4c5f7830.js" defer></script>
+  </body>
+</html>
